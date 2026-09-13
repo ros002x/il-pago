@@ -1,0 +1,440 @@
+{
+  "garden-evening": {
+    "width": 1152,
+    "height": 768,
+    "variants": [
+      {
+        "src": "assets/garden-evening-640.webp",
+        "width": 640,
+        "bytes": 124240
+      },
+      {
+        "src": "assets/garden-evening-1152.webp",
+        "width": 1152,
+        "bytes": 358166
+      }
+    ]
+  },
+  "garden-table": {
+    "width": 1152,
+    "height": 768,
+    "variants": [
+      {
+        "src": "assets/garden-table-640.webp",
+        "width": 640,
+        "bytes": 112608
+      },
+      {
+        "src": "assets/garden-table-1152.webp",
+        "width": 1152,
+        "bytes": 318924
+      }
+    ]
+  },
+  "restaurant-table": {
+    "width": 1152,
+    "height": 768,
+    "variants": [
+      {
+        "src": "assets/restaurant-table-640.webp",
+        "width": 640,
+        "bytes": 53084
+      },
+      {
+        "src": "assets/restaurant-table-1152.webp",
+        "width": 1152,
+        "bytes": 125904
+      }
+    ]
+  },
+  "room-garden": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/room-garden-640.webp",
+        "width": 640,
+        "bytes": 28552
+      },
+      {
+        "src": "assets/room-garden-1280.webp",
+        "width": 1280,
+        "bytes": 85226
+      },
+      {
+        "src": "assets/room-garden-1920.webp",
+        "width": 1920,
+        "bytes": 158974
+      }
+    ]
+  },
+  "veranda": {
+    "width": 1366,
+    "height": 911,
+    "variants": [
+      {
+        "src": "assets/veranda-640.webp",
+        "width": 640,
+        "bytes": 55712
+      },
+      {
+        "src": "assets/veranda-1280.webp",
+        "width": 1280,
+        "bytes": 176490
+      },
+      {
+        "src": "assets/veranda.jpg",
+        "width": 1366,
+        "bytes": 206538
+      }
+    ]
+  },
+  "matera": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/matera-640.webp",
+        "width": 640,
+        "bytes": 68416
+      },
+      {
+        "src": "assets/matera-1280.webp",
+        "width": 1280,
+        "bytes": 209060
+      },
+      {
+        "src": "assets/matera.jpg",
+        "width": 1920,
+        "bytes": 338048
+      }
+    ]
+  },
+  "orchard": {
+    "width": 1366,
+    "height": 911,
+    "variants": [
+      {
+        "src": "assets/orchard-640.webp",
+        "width": 640,
+        "bytes": 73796
+      },
+      {
+        "src": "assets/orchard-1280.webp",
+        "width": 1280,
+        "bytes": 205656
+      },
+      {
+        "src": "assets/orchard.jpg",
+        "width": 1366,
+        "bytes": 232492
+      }
+    ]
+  },
+  "preserves": {
+    "width": 1366,
+    "height": 911,
+    "variants": [
+      {
+        "src": "assets/preserves-640.webp",
+        "width": 640,
+        "bytes": 85050
+      },
+      {
+        "src": "assets/preserves-1280.webp",
+        "width": 1280,
+        "bytes": 268478
+      },
+      {
+        "src": "assets/preserves.jpg",
+        "width": 1366,
+        "bytes": 305362
+      }
+    ]
+  },
+  "seedlings": {
+    "width": 1152,
+    "height": 768,
+    "variants": [
+      {
+        "src": "assets/seedlings-640.webp",
+        "width": 640,
+        "bytes": 74128
+      },
+      {
+        "src": "assets/seedlings-1152.webp",
+        "width": 1152,
+        "bytes": 203364
+      }
+    ]
+  },
+  "horses": {
+    "width": 1152,
+    "height": 768,
+    "variants": [
+      {
+        "src": "assets/horses-640.webp",
+        "width": 640,
+        "bytes": 84926
+      },
+      {
+        "src": "assets/horses-1152.webp",
+        "width": 1152,
+        "bytes": 218036
+      }
+    ]
+  },
+  "bees": {
+    "width": 1366,
+    "height": 911,
+    "variants": [
+      {
+        "src": "assets/bees-640.webp",
+        "width": 640,
+        "bytes": 32480
+      },
+      {
+        "src": "assets/bees-1280.webp",
+        "width": 1280,
+        "bytes": 77334
+      },
+      {
+        "src": "assets/bees-1366.webp",
+        "width": 1366,
+        "bytes": 86706
+      }
+    ]
+  },
+  "restaurant-room": {
+    "width": 1366,
+    "height": 911,
+    "variants": [
+      {
+        "src": "assets/restaurant-room-640.webp",
+        "width": 640,
+        "bytes": 51458
+      },
+      {
+        "src": "assets/restaurant-room-1280.webp",
+        "width": 1280,
+        "bytes": 142168
+      },
+      {
+        "src": "assets/restaurant-room-1366.webp",
+        "width": 1366,
+        "bytes": 164658
+      }
+    ]
+  },
+  "courtyard": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/courtyard-640.webp",
+        "width": 640,
+        "bytes": 77346
+      },
+      {
+        "src": "assets/courtyard-1280.webp",
+        "width": 1280,
+        "bytes": 264014
+      },
+      {
+        "src": "assets/courtyard.jpg",
+        "width": 1920,
+        "bytes": 451574
+      }
+    ]
+  },
+  "courtyard-night": {
+    "width": 1737,
+    "height": 905,
+    "variants": [
+      {
+        "src": "assets/courtyard-night-640.webp",
+        "width": 640,
+        "bytes": 50434
+      },
+      {
+        "src": "assets/courtyard-night-1280.webp",
+        "width": 1280,
+        "bytes": 170582
+      },
+      {
+        "src": "assets/courtyard-night-1737.webp",
+        "width": 1737,
+        "bytes": 292418
+      }
+    ]
+  },
+  "farm": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/farm-640.webp",
+        "width": 640,
+        "bytes": 56838
+      },
+      {
+        "src": "assets/farm-1280.webp",
+        "width": 1280,
+        "bytes": 159928
+      },
+      {
+        "src": "assets/farm.jpg",
+        "width": 1920,
+        "bytes": 259246
+      }
+    ]
+  },
+  "products": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/products-640.webp",
+        "width": 640,
+        "bytes": 35382
+      },
+      {
+        "src": "assets/products-1280.webp",
+        "width": 1280,
+        "bytes": 87828
+      },
+      {
+        "src": "assets/products.jpg",
+        "width": 1920,
+        "bytes": 138218
+      }
+    ]
+  },
+  "coast": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/coast-640.webp",
+        "width": 640,
+        "bytes": 28476
+      },
+      {
+        "src": "assets/coast-1280.webp",
+        "width": 1280,
+        "bytes": 104658
+      },
+      {
+        "src": "assets/coast-1920.webp",
+        "width": 1920,
+        "bytes": 217922
+      }
+    ]
+  },
+  "exterior": {
+    "width": 1366,
+    "height": 911,
+    "variants": [
+      {
+        "src": "assets/exterior-640.webp",
+        "width": 640,
+        "bytes": 78586
+      },
+      {
+        "src": "assets/exterior-1280.webp",
+        "width": 1280,
+        "bytes": 234528
+      },
+      {
+        "src": "assets/exterior.jpg",
+        "width": 1366,
+        "bytes": 229678
+      }
+    ]
+  },
+  "room-1": {
+    "width": 800,
+    "height": 600,
+    "variants": [
+      {
+        "src": "assets/room-1-640.webp",
+        "width": 640,
+        "bytes": 37566
+      },
+      {
+        "src": "assets/room-1-800.webp",
+        "width": 800,
+        "bytes": 55246
+      }
+    ]
+  },
+  "room-2": {
+    "width": 800,
+    "height": 600,
+    "variants": [
+      {
+        "src": "assets/room-2-640.webp",
+        "width": 640,
+        "bytes": 63172
+      },
+      {
+        "src": "assets/room-2-800.webp",
+        "width": 800,
+        "bytes": 106922
+      }
+    ]
+  },
+  "room-3": {
+    "width": 800,
+    "height": 600,
+    "variants": [
+      {
+        "src": "assets/room-3-640.webp",
+        "width": 640,
+        "bytes": 42672
+      },
+      {
+        "src": "assets/room-3-800.webp",
+        "width": 800,
+        "bytes": 74482
+      }
+    ]
+  },
+  "olive-foreground": {
+    "width": 1254,
+    "height": 1254,
+    "variants": [
+      {
+        "src": "assets/olive-foreground-640.webp",
+        "width": 640,
+        "bytes": 127376
+      },
+      {
+        "src": "assets/olive-foreground-1254.webp",
+        "width": 1254,
+        "bytes": 356552
+      }
+    ]
+  },
+  "cloud-veil": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "assets/cloud-veil-640.webp",
+        "width": 640,
+        "bytes": 54656
+      },
+      {
+        "src": "assets/cloud-veil-1280.webp",
+        "width": 1280,
+        "bytes": 193138
+      },
+      {
+        "src": "assets/cloud-veil-1536.webp",
+        "width": 1536,
+        "bytes": 302732
+      }
+    ]
+  }
+}
