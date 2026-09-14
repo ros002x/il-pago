@@ -1,0 +1,49 @@
+/* The same foreground crosses both scenes. Its sticky viewport adds no scroll distance. */
+.nature-journey{position:relative;isolation:isolate}
+.garden-canopy{display:none;pointer-events:none}
+.premium-ready .garden-canopy{display:block;position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:8;overflow:clip;pointer-events:none}
+.garden-plant{position:absolute;pointer-events:none;max-width:none}
+.canopy-rise{width:49vw;left:-17vw;bottom:-36vw;z-index:2;transform-origin:15% 90%}
+.canopy-hanging{width:66vw;left:-22vw;top:-22vw;z-index:1;transform-origin:6% 5%}
+.canopy-hanging img{transform:scaleX(-1)}
+.canopy-close{width:42vw;right:-26vw;bottom:-35vw;z-index:3;transform-origin:85% 95%}
+.canopy-close img{transform:scaleX(-1);filter:blur(1px)}
+.atmosphere-skin{width:100%;pointer-events:none;transform-origin:inherit}
+.atmosphere-skin>img{display:block;width:100%;height:auto;max-width:none;pointer-events:none}
+.canopy-rise .atmosphere-skin{transform-origin:15% 94%}
+.canopy-hanging .atmosphere-skin{transform-origin:4% 4%}
+.canopy-close .atmosphere-skin{transform-origin:88% 96%}
+.premium-ready .garden-canopy .experience-navigation{display:none;z-index:9;pointer-events:auto;background:var(--paper);padding:4px 12px;margin-inline:-12px}
+.premium-ready.in-gallery .garden-canopy .experience-navigation{display:flex}
+.in-canopy .brand-seal{background:var(--paper);border-radius:50%;color:var(--ink)}
+
+/* Intact alpha silhouettes, different optical scales, a clear opening onto the real coast. */
+.coast-cloud{position:absolute;pointer-events:none;max-width:none;z-index:3;transform-origin:center}
+.coast-cloud .atmosphere-skin{transform-origin:center}
+.cloud-back{width:150vw;left:-18vw;top:-49vw;z-index:3;transform-origin:52% 30%}
+.cloud-middle{width:110vw;left:-36vw;top:-58vw;z-index:4;transform-origin:38% 50%}
+.cloud-one{width:160vw;left:-61vw;bottom:-80vw;z-index:6;transform-origin:22% 64%}
+.cloud-two{width:150vw;right:-65vw;top:-47vw;z-index:5;transform-origin:78% 28%}
+.cloud-two img{transform:scaleX(-1)}
+.coast-bloom{width:46vw;right:-21vw;bottom:-32vw;z-index:8;transform-origin:90% 95%}
+.coast-bloom img{transform:scaleX(-1)}
+.coast-bloom .atmosphere-skin{transform-origin:90% 95%}
+.coast-sky{background:linear-gradient(#9ebdcc,#c0d5da 68%,#e4e7df)}
+.coast-stage .territory-copy,.coast-stage .territory-distances{z-index:7}
+.coast-sea .territory-shade{background:linear-gradient(#0e304f80,#103c4235 48%,#102f3a90)}
+body:not(.premium-ready) .coast-cloud,body:not(.premium-ready) .coast-bloom{display:none}
+
+@media(pointer:coarse),(max-width:760px){.atmosphere-optional{display:none!important}.canopy-close img{filter:none}}
+@media(max-width:760px){
+ .canopy-rise{width:85vw;left:-43vw;bottom:-45vw}
+ .canopy-hanging{width:108vw;left:-51vw;top:-29vw}
+ .cloud-middle{width:220vw;left:-103vw;top:-68vw}
+ .cloud-one{width:265vw;left:-117vw;bottom:-105vw}
+}
+@media(max-height:560px) and (min-width:600px){
+ .canopy-rise{width:40vw;left:-19vw;bottom:-31vw}
+ .canopy-hanging{width:53vw;left:-24vw;top:-24vw}
+ .cloud-middle{top:-46vw}
+ .cloud-one{bottom:-83vw}
+}
+@media(prefers-reduced-motion:reduce){.garden-canopy,.coast-cloud,.coast-bloom{display:none!important}.atmosphere-skin{transform:none!important}}

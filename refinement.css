@@ -58,9 +58,6 @@ dialog.is-closing:not(.side-dialog){opacity:0;transition:opacity .3s}
 .passage-invitation>p{font:clamp(70px,8.5vw,156px)/.95 var(--serif);letter-spacing:-.06em;max-width:none}
 .passage-invitation .script{display:block;font-size:1.1em;text-align:right;margin-top:22px;padding-right:7%;letter-spacing:-.04em}
 .passage-title{font-size:clamp(65px,7.6vw,140px);z-index:4;line-height:1.08}
-.passage-leaf{position:absolute;pointer-events:none;z-index:5;max-width:none;height:auto;object-fit:contain}
-.leaf-near{width:43vw;left:-10vw;bottom:-20vw;transform:rotate(10deg)}
-.leaf-far{width:27vw;right:-11vw;top:28%;transform:rotate(185deg);filter:brightness(.75)}
 .passage-foot{z-index:6;max-width:none;white-space:nowrap}
 body:not(.premium-ready) .passage-invitation{display:none}
 body:not(.premium-ready) .passage-label,body:not(.premium-ready) .passage-foot{color:var(--hero-text)}
@@ -76,14 +73,11 @@ body:not(.premium-ready) .passage-label,body:not(.premium-ready) .passage-foot{c
 .coast-land-copy{position:absolute;z-index:2;top:35%;left:var(--pad);right:var(--pad);text-align:center}
 .coast-land-copy p{font:clamp(80px,9vw,170px)/.96 var(--serif);letter-spacing:-.055em;margin:32px auto 0}
 .coast-land-copy p .script{font-size:1.16em}
-.coast-cloud{position:absolute;z-index:3;pointer-events:none;max-width:none;object-fit:contain}
-.cloud-one{width:140%;height:110%;left:-25%;bottom:-25%}
-.cloud-two{width:120%;height:95%;right:-30%;bottom:-10%;transform:scaleX(-1)}
 .coast-stage .territory-copy{position:absolute;inset:0;z-index:4;justify-content:center;padding:0 22px 100px}
 .coast-stage .territory-copy h2{font-size:clamp(90px,10.8vw,205px);line-height:.94;margin:30px 0}
 .territory-copy>.text-link{margin-top:24px;font-size:10px}
 .coast-stage .territory-distances{z-index:4;bottom:40px}
-body:not(.premium-ready) .coast-land,body:not(.premium-ready) .coast-cloud{display:none}
+body:not(.premium-ready) .coast-land{display:none}
 .premium-ready .site-footer{position:relative}
 
 /* Inner pages have their own quiet reading rhythm. */
@@ -185,30 +179,19 @@ body:not(.premium-ready) .coast-land,body:not(.premium-ready) .coast-cloud{displ
  .menu-home{margin:16px 0 25px;font-size:7px}.menu-group{padding:12px 0 16px}.menu-primary,.menu-dialog nav>.menu-contact{font-size:37px;gap:15px}.menu-sub{gap:6px 17px;margin-top:9px;margin-left:30px}.menu-sub a{font-size:10px;min-height:26px}.menu-dialog .menu-bottom{margin-top:25px;gap:15px}.menu-dialog .menu-bottom .script{font-size:35px}.menu-dialog .menu-bottom>a{font-size:7px}.menu-dialog .dialog-top>.micro{font-size:8px}
  .contact-panel{padding-top:35px}.contact-panel h2,.contact-panel h1{font-size:clamp(57px,15.5vw,88px);margin:25px 0 32px}.contact-panel-grid{grid-template-columns:1fr;gap:27px;margin-top:30px}.contact-panel-grid .contact-phone{font-size:29px}.contact-panel-grid>div:last-child{padding-top:22px}.contact-actions{gap:15px}.contact-actions .text-link{font-size:10px;line-height:1.9}.contact-panel>p{font-size:12px}
  .footer-links{gap:14px 22px;font-size:9px;padding:23px 0}.story-more{grid-column:1;margin:20px 0 0;align-self:start;font-size:9px}.story-copy .family-photo{grid-column:2;grid-row:3 / 5}.rooms-more{font-size:10px}
- .passage-stage{min-height:640px}.passage-label{top:125px;left:25px;right:25px;font-size:7px}.passage-invitation{top:24%;left:25px;width:86%}.passage-invitation>.micro{font-size:7px;margin-bottom:20px}.passage-invitation>p{font-size:clamp(67px,18.5vw,97px)}.passage-invitation .script{text-align:left;padding-left:16%;margin-top:7px;font-size:1.06em}.passage-title{font-size:clamp(59px,16vw,88px);line-height:1.05;width:92%}.leaf-near{width:78vw;left:-28vw;bottom:-27vw}.leaf-far{width:50vw;right:-27vw;top:48%}.passage-foot{bottom:22px;font-size:7px}.passage-frame>img{object-position:49% center}
+ .passage-stage{min-height:640px}.passage-label{top:125px;left:25px;right:25px;font-size:7px}.passage-invitation{top:24%;left:25px;width:86%}.passage-invitation>.micro{font-size:7px;margin-bottom:20px}.passage-invitation>p{font-size:clamp(67px,18.5vw,97px)}.passage-invitation .script{text-align:left;padding-left:16%;margin-top:7px;font-size:1.06em}.passage-title{font-size:clamp(59px,16vw,88px);line-height:1.05;width:92%}.passage-foot{bottom:22px;font-size:7px}.passage-frame>img{object-position:49% center}
  .premium-ready .experience-card:nth-child(2)>.card-button{grid-template-columns:1fr}.premium-ready .experience-card:nth-child(2) .experience-photo{width:100%}.premium-ready .experience-card:nth-child(3)>a{min-height:350px}
- .coast-stage{min-height:700px}.coast-land-copy{top:32%;left:24px;right:24px}.coast-land-copy p{font-size:clamp(64px,18vw,100px);line-height:1.06}.coast-land-copy .micro{font-size:7px}.cloud-one{width:210%;height:100%;left:-65%;bottom:-10%}.cloud-two{width:190%;height:90%;right:-90%;bottom:-5%}.coast-stage .territory-copy{padding:0 20px 95px}.coast-stage .territory-copy>.micro{font-size:7px;max-width:32ch}.coast-stage .territory-copy h2{font-size:clamp(90px,27vw,132px);margin:28px 0}.coast-stage .territory-distances{bottom:30px;left:25px;right:25px}.coast-stage .territory-copy>.text-link{font-size:9px;margin-top:21px}
+ .coast-stage{min-height:700px}.coast-land-copy{top:32%;left:24px;right:24px}.coast-land-copy p{font-size:clamp(64px,18vw,100px);line-height:1.06}.coast-land-copy .micro{font-size:7px}.coast-stage .territory-copy{padding:0 20px 95px}.coast-stage .territory-copy>.micro{font-size:7px;max-width:32ch}.coast-stage .territory-copy h2{font-size:clamp(90px,27vw,132px);margin:28px 0}.coast-stage .territory-distances{bottom:30px;left:25px;right:25px}.coast-stage .territory-copy>.text-link{font-size:9px;margin-top:21px}
  .editorial-page .site-header{padding:15px 20px;align-items:center}.editorial-page .brand-seal{width:55px;height:55px}.editorial-page .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:13px;padding-top:0}.editorial-page .header-book{font-size:12px}.editorial-page .header-small{font-size:8px}
  .detail-hero{display:flex;flex-direction:column;align-items:stretch;gap:38px;padding:123px var(--pad) 60px;min-height:0}.breadcrumb{font-size:7px;margin-bottom:34px}.detail-eyebrow{font-size:7px;margin-bottom:20px}.detail-hero h1{font-size:clamp(55px,14.4vw,88px);line-height:1.02}.detail-hero h1 em{font-size:1.16em}.detail-hero-copy>p{font-size:12px;margin-top:29px;max-width:39ch}.detail-hero-copy>.text-link{margin-top:14px;font-size:9px}.detail-hero>figure{height:53svh;min-height:360px;max-height:570px;width:100%;margin:0}.detail-hero-note{font-size:6px;bottom:25px;left:var(--pad);right:auto}
  .chapter-nav{top:85px;padding:12px var(--pad);gap:26px}.chapter-nav a{font-size:9px;min-height:28px}.detail-content{padding-top:0;padding-bottom:15px}.detail-section{grid-template-columns:1fr;padding:65px 0;gap:27px;scroll-margin-top:165px}.detail-section-heading>.micro{font-size:7px;margin-bottom:22px}.detail-section h2{font-size:clamp(43px,12.3vw,67px);line-height:1.1}.detail-section-body{padding-top:0}.detail-section-body>p{font-size:12px;line-height:1.95;max-width:48ch}.detail-section-body>.text-link{font-size:10px}.detail-figure{height:50svh;min-height:340px;max-height:550px;margin-top:5px}.detail-figure figcaption{font-size:8px;bottom:14px;left:18px;right:18px}.detail-section summary{font-size:25px;padding:24px 0}.detail-section details{scroll-margin-top:165px}.service-list{gap:0 20px}.service-list li{font-size:11px}.fact-list strong{font-size:12px}.fact-list span{font-size:11px}.source-link{font-size:9px}.detail-room-gallery{gap:17px}.detail-room-gallery figure:last-child{padding-top:45px}.detail-room-gallery img{aspect-ratio:.8}.detail-room-gallery figure:last-child img{aspect-ratio:.85}.detail-room-gallery figcaption{font-size:8px}.practical-grid{gap:12px 20px}.practical-grid strong{font-size:26px}.product-list .product-name{font-size:23px}.product-list details summary{grid-template-columns:16px 1fr auto 12px;gap:10px}.product-price{font-size:9px;max-width:66px}.product-list details>div{padding-left:26px}.product-name small{font-size:8px}.product-filters{gap:7px 22px}.next-chapter{padding-top:40px;padding-bottom:40px;gap:20px}.next-chapter>span:not(.micro){font-size:34px}.next-chapter>svg{width:35px;height:35px}.simple-content{padding-top:110px;padding-bottom:60px}.privacy-copy p{font-size:12px}.simple-content>.display{font-size:clamp(49px,13vw,75px)}
 }
 @media(max-height:780px) and (min-width:761px){.menu-group{padding:10px 0 12px}.menu-home{margin:14px 0 15px}.menu-primary,.menu-dialog nav>.menu-contact{font-size:34px}.menu-dialog .menu-bottom{margin-top:20px}.contact-panel{padding-top:20px}.contact-panel h2{font-size:65px}.contact-panel-grid{margin-top:30px}.detail-hero{padding-top:135px}.detail-hero>figure{min-height:400px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.side-dialog[open],.side-dialog.is-closing[open],.menu-dialog[open] .menu-group{animation:none}.passage-leaf{display:none}.detail-figure img{transform:none!important}.brand-seal text{animation:none}.passage-title{opacity:1}.coast-land,.coast-cloud{display:none!important}}
-
-/* Independent atmosphere inside scroll-controlled depth planes. */
-.atmosphere-skin{width:100%;transform-origin:14% 88%;pointer-events:none}
-.atmosphere-skin>img{display:block;width:100%;height:auto;max-width:none;pointer-events:none}
-.coast-cloud .atmosphere-skin{height:100%;transform-origin:center}
-.coast-cloud .atmosphere-skin>img{width:100%;height:100%;object-fit:cover;mask-image:linear-gradient(transparent,#000 19%,#000 73%,transparent);-webkit-mask-image:linear-gradient(transparent,#000 19%,#000 73%,transparent)}
-.cloud-back{width:160%;height:100%;left:-30%;bottom:-10%;z-index:3;opacity:0}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.side-dialog[open],.side-dialog.is-closing[open],.menu-dialog[open] .menu-group{animation:none}.detail-figure img{transform:none!important}.brand-seal text{animation:none}.passage-title{opacity:1}.coast-land{display:none!important}}
 .coast-sky{position:absolute;inset:0;z-index:1;background:linear-gradient(#aac4cc,#d0dcd7 63%,#e7e8df)}
 body:not(.premium-ready) .coast-sky{display:none}
 .contact-socials{display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:30px;padding-top:15px;border-top:1px solid var(--line);font-size:10px}
 .contact-socials a{min-height:44px;display:inline-flex;align-items:center}
-.journey-leaf{display:none;position:absolute;z-index:4;pointer-events:none}
-.premium-ready .journey-leaf{display:block}
-.journey-near{width:34vw;left:-17vw;bottom:-18vw;transform:rotate(12deg)}
-.journey-far{width:24vw;right:-14vw;top:20%;transform:rotate(176deg);opacity:.7;filter:brightness(.85)}
 .premium-ready .experience-navigation{z-index:5}
 .detail-hero-copy,.table-section>*{min-width:0}
 .table-section{overflow:clip}
@@ -232,14 +215,10 @@ body:not(.premium-ready) .coast-sky{display:none}
 @media(pointer:coarse){
  .menu-sub a,.contact-panel-grid a,.chapter-nav a,.experience-stops button,.footer-links a{min-height:44px;display:inline-flex;align-items:center}
  .menu-sub{gap:0 18px;margin-top:0}.menu-group{padding-bottom:9px}
- .leaf-far,.journey-far,.cloud-back{display:none!important}
  .side-dialog::backdrop{backdrop-filter:none;-webkit-backdrop-filter:none}
  .detail-figure img{transform:none!important}
 }
 @media(max-width:760px){
- .journey-near{width:54vw;left:-40vw;bottom:7%;opacity:.75}
- .journey-far,.leaf-far,.cloud-back{display:none!important}
- .leaf-near{width:72vw;left:-29vw;bottom:-26vw}
  .site-header .header-right,.has-scrolled .header-right,.editorial-page .header-right{gap:0}
  .header-small{margin-top:0}
  .premium-ready .hero,.passage-stage,.premium-ready .experiences,.coast-stage{min-height:min(640px,100svh)}
@@ -256,8 +235,7 @@ body:not(.premium-ready) .coast-sky{display:none}
  .passage-label{top:85px;font-size:7px}.passage-invitation{top:39%}.passage-invitation>p{font-size:8vw}.passage-invitation>.micro{margin-bottom:14px}.passage-invitation .script{margin-top:10px}.passage-title{font-size:9vw}.passage-foot{font-size:7px}
  .premium-ready .experiences{padding-top:76px;padding-bottom:45px}.premium-ready .experiences>.section-top{display:none}.premium-ready .experiences-heading{margin:0 0 18px}.premium-ready .experiences-heading h2{font-size:35px}.premium-ready .experiences-heading>p{display:none}
  .premium-ready .experience-card>a,.premium-ready .experience-card:nth-child(2)>.card-button{grid-template-columns:1.2fr 1fr;gap:7%}.premium-ready .experience-photo,.premium-ready .experience-card:nth-child(2) .experience-photo{height:calc(100svh - 177px);min-height:0;width:100%;order:0}.premium-ready .experience-copy{padding:0!important}.premium-ready .experience-copy .card-meta{margin-bottom:9px;font-size:7px}.premium-ready .experience-copy h3{font-size:4.8vw;margin-bottom:10px}.premium-ready .experience-copy p{font-size:10px;line-height:1.6}.premium-ready .experience-copy:after{margin-top:12px;font-size:8px}.premium-ready .experience-card:nth-child(3)>a{height:calc(100svh - 177px);min-height:0}.premium-ready .experience-card:nth-child(3) .experience-copy{width:75%}.premium-ready .experience-card:nth-child(3) .experience-copy .card-meta{display:none}
- .coast-land-copy{top:28%}.coast-land-copy p{font-size:9vw;margin-top:16px}.coast-stage .territory-copy{padding:60px 0 55px}.coast-stage .territory-copy h2{font-size:10vw;margin:10px 0}.coast-stage .territory-copy>p{display:none}.coast-stage .territory-copy>.text-link{margin-top:10px}.coast-stage .territory-distances{bottom:17px}.coast-stage .distance{font-size:27px}.coast-stage .territory-distances .micro{font-size:7px}
- .journey-near{width:30vw;left:-17vw;bottom:-12vw}.journey-progress{display:none!important}
+ .coast-land-copy{top:28%}.coast-land-copy p{font-size:9vw;margin-top:16px}.coast-stage .territory-copy{padding:60px 0 55px}.coast-stage .territory-copy h2{font-size:10vw;margin:10px 0}.coast-stage .territory-copy>p{display:none}.coast-stage .territory-copy>.text-link{margin-top:10px}.coast-stage .territory-distances{bottom:17px}.coast-stage .distance{font-size:27px}.coast-stage .territory-distances .micro{font-size:7px}.journey-progress{display:none!important}
  .detail-hero{padding-top:110px}.detail-hero>figure{min-height:300px}
 }
-@media(prefers-reduced-motion:reduce){.journey-leaf{display:none!important}.atmosphere-skin{transform:none!important}}
+@media(prefers-reduced-motion:reduce){}

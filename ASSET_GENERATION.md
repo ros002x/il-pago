@@ -1,5 +1,7 @@
 # Asset atmosferici generati
 
+Aggiornamento 14 settembre 2026: gli asset di questa prima versione sono conservati come archivio. La homepage ora usa le bougainvillee e i cumuli descritti in [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md), con i relativi prompt completi.
+
 Strumento usato: imagegen integrato. Nessuna fotografia di camere, giardino o geografia è stata generata per sostituire la documentazione reale.
 
 ## Ulivo

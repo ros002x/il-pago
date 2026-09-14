@@ -3,12 +3,12 @@
   'use strict';
   const preference = matchMedia('(prefers-reduced-motion: reduce)');
   const light = matchMedia('(pointer: coarse), (max-width: 760px)');
-  const scenes = [...document.querySelectorAll('.passage-stage,.experiences,.coast-stage')].map(scene => ({
+  const scenes = [...document.querySelectorAll('[data-atmosphere-scene]')].map(scene => ({
     scene, visible: false, time: 0,
     layers: [...scene.querySelectorAll('[data-atmosphere]')].map((element, index) => ({
       element, cloud: element.dataset.atmosphere === 'cloud', depth: Number(element.dataset.depth),
-      phase: index * 2.37 + (scene.matches('.experiences') ? 1.7 : .4),
-      optional: !!element.closest('.cloud-back,.journey-far,.leaf-far')
+      phase: index * 2.37 + (scene.matches('.garden-canopy') ? 1.7 : .4),
+      optional: !!element.closest('.atmosphere-optional')
     }))
   }));
   let frame = 0, previous = 0, stopped = false;
@@ -32,12 +32,15 @@
           const y = d * (.7 * Math.sin(t * .063 + phase) + .25 * Math.sin(t * .103));
           const scale = 1.04 + d * .018 * Math.sin(t * .029 + phase);
           element.style.transform = `translate3d(${x}%,${y}%,0) scale(${scale})`;
+          element.style.opacity = .98 + .02 * Math.sin(t * .041 + phase);
         } else {
           // The woody base stays at the edge; the free tips respond to a small, irregular breeze.
-          const wind = Math.sin(t * (.42 + depth * .06) + phase) + .24 * Math.sin(t * .79 + phase * 1.8);
-          const x = d * 1.4 * Math.sin(t * .27 + phase);
-          const y = d * .75 * Math.sin(t * .38 + phase * 1.3);
-          element.style.transform = `translate3d(${x}px,${y}px,0) rotate(${d * 1.15 * wind}deg)`;
+          const wind = Math.sin(t * (.21 + depth * .043) + phase) + .26 * Math.sin(t * .57 + phase * 1.8);
+          const x = d * 4.2 * Math.sin(t * .19 + phase);
+          const y = d * 2.1 * Math.sin(t * .31 + phase * 1.3);
+          const scale = 1.012 + d * .008 * Math.sin(t * .17 + phase * .7);
+          const bend = d * .38 * Math.sin(t * .23 + phase * 1.4);
+          element.style.transform = `translate3d(${x}px,${y}px,0) rotate(${d * .9 * wind}deg) skewX(${bend}deg) scale(${scale})`;
         }
       }
     }
@@ -50,7 +53,7 @@
     scenes.forEach(scene => scene.layers.forEach(({element,optional}) => {
       const running = allowed() && scene.visible && !(light.matches && optional);
       element.style.willChange = running ? 'transform' : 'auto';
-      if (preference.matches) element.style.removeProperty('transform');
+      if (preference.matches) { element.style.removeProperty('transform'); element.style.removeProperty('opacity'); }
     }));
     if (allowed() && scenes.some(scene => scene.visible)) frame = requestAnimationFrame(paint);
   };

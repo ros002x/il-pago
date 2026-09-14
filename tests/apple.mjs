@@ -38,7 +38,7 @@ for(const engine of ['webkit','chrome']){
    if(engine==='webkit'&&[375,820,1180,844].includes(width))await page.screenshot({path:`${output}/${engine}-${width}-${id}.png`});
   }
   if(width===390||width===820){
-   for(const [id,selector]of [['entrance-scene','.leaf-near .atmosphere-skin'],['experience-scene','.journey-near .atmosphere-skin'],['coast-scene','.cloud-one .atmosphere-skin']]){
+   for(const [id,selector]of [['entrance-scene','.canopy-rise .atmosphere-skin'],['experience-scene','.canopy-rise .atmosphere-skin'],['coast-scene','.cloud-one .atmosphere-skin']]){
     await move(id,.42);const before=await page.locator(selector).evaluate(e=>e.style.transform);const p0=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);await page.waitForTimeout(2400);const after=await page.locator(selector).evaluate(e=>e.style.transform);const p1=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);
     check(before!==after&&p0===p1,label+' autonomous '+id,{before,after});
    }

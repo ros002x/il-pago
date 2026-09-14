@@ -436,5 +436,84 @@
         "bytes": 302732
       }
     ]
+  },
+  "bougainvillea-rise": {
+    "width": 1024,
+    "height": 1536,
+    "variants": [
+      {
+        "src": "assets/bougainvillea-rise-640.webp",
+        "width": 640,
+        "bytes": 305944
+      },
+      {
+        "src": "assets/bougainvillea-rise-1024.webp",
+        "width": 1024,
+        "bytes": 685100
+      }
+    ]
+  },
+  "bougainvillea-hanging": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "assets/bougainvillea-hanging-640.webp",
+        "width": 640,
+        "bytes": 109472
+      },
+      {
+        "src": "assets/bougainvillea-hanging-1024.webp",
+        "width": 1024,
+        "bytes": 250502
+      },
+      {
+        "src": "assets/bougainvillea-hanging-1536.webp",
+        "width": 1536,
+        "bytes": 504434
+      }
+    ]
+  },
+  "cloud-volume": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "assets/cloud-volume-640.webp",
+        "width": 640,
+        "bytes": 54872
+      },
+      {
+        "src": "assets/cloud-volume-1024.webp",
+        "width": 1024,
+        "bytes": 121480
+      },
+      {
+        "src": "assets/cloud-volume-1536.webp",
+        "width": 1536,
+        "bytes": 243574
+      }
+    ]
+  },
+  "cloud-ribbon": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "assets/cloud-ribbon-640.webp",
+        "width": 640,
+        "bytes": 45248
+      },
+      {
+        "src": "assets/cloud-ribbon-1024.webp",
+        "width": 1024,
+        "bytes": 98618
+      },
+      {
+        "src": "assets/cloud-ribbon-1536.webp",
+        "width": 1536,
+        "bytes": 198460
+      }
+    ]
   }
 }

@@ -36,6 +36,7 @@
     progressLine.style.transform = innerWidth > 760 ? `scaleY(${ratio})` : `scaleX(${ratio})`;
     body.classList.toggle('has-scrolled', y > 120);
     body.classList.toggle('in-gallery', !!galleryScene && y >= galleryScene.start - 120 && y <= galleryScene.end + 120);
+    body.classList.toggle('in-canopy', !!passageScene && !!galleryScene && y >= passageScene.start - 80 && y <= galleryScene.end + 80);
     let dark = y < (heroScene?.end ?? hero.offsetHeight) && (!heroScene || heroScene.progress < .57);
     if (passageScene?.isActive && passageScene.progress > .56) dark = true;
     if (coastScene?.isActive) dark = true;
@@ -208,8 +209,6 @@
         .fromTo('.passage-frame>img', { scale: 1.12, yPercent: 3 }, { scale: 1, yPercent: 0, duration: .9 }, .05)
         .to('.passage-invitation', { autoAlpha: 0, y: -35, duration: .2 }, .24)
         .to('.passage-label', { autoAlpha: 0, duration: .18 }, .23)
-        .fromTo('.leaf-near', { xPercent: 0, yPercent: 10 }, { xPercent: -24, yPercent: -13, rotation: -6, duration: 1 }, 0)
-        .fromTo('.leaf-far', { xPercent: 0, yPercent: 4 }, { xPercent: 19, yPercent: -18, duration: 1 }, 0)
         .to('.passage-shade', { opacity: 1, duration: .25 }, .58)
         .to(passageTitle, { autoAlpha: 1, y: 0, duration: .2 }, .77)
         .to('.passage-foot', { color: '#fff9e8', duration: .2 }, .6)
@@ -249,14 +248,20 @@
         onToggle: activeLayer(track)
       } });
       galleryScene = horizontal.scrollTrigger;
-      // These plants remain in the viewport while all three compositions travel behind them.
+      // One sticky canopy crosses the garden, the unpinned handover and all three chapters.
+      // Its outer transforms describe camera travel; the inner skins keep their own wind clock.
       gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-        trigger: experienceSection, start: 'top top', end: () => `+=${distance() * (mobile ? 1.4 : 1)}`,
-        scrub, invalidateOnRefresh: true
+        id: 'canopy-travel', trigger: '.nature-journey', start: () => passageScene.start, end: () => galleryScene.end,
+        scrub, invalidateOnRefresh: true, refreshPriority: -1
       } })
-        .fromTo('.journey-near', { xPercent: 0, yPercent: 8 }, { xPercent: -12, yPercent: -10, duration: 1 }, 0)
-        .fromTo('.journey-far', { xPercent: 12, yPercent: 0 }, { xPercent: -7, yPercent: 12, duration: 1 }, 0)
-        .to('.journey-leaf', { opacity: .35, duration: .3 }, .7);
+        .fromTo('.canopy-rise', { xPercent: 0, yPercent: 0, scale: 1 }, { xPercent: -9, yPercent: 4, scale: 1.13, duration: .3 }, 0)
+        .to('.canopy-rise', { xPercent: 2, yPercent: -3, scale: 1.03, duration: .23, ease: 'sine.inOut' }, .3)
+        .to('.canopy-rise', { xPercent: -39, yPercent: 9, scale: 1.27, duration: .47, ease: 'sine.in' }, .53)
+        .fromTo('.canopy-hanging', { xPercent: 0, yPercent: 0, scale: 1 }, { xPercent: 6, yPercent: -5, scale: 1.1, duration: .3 }, 0)
+        .to('.canopy-hanging', { xPercent: -2, yPercent: 2, scale: .96, duration: .25, ease: 'sine.inOut' }, .3)
+        .to('.canopy-hanging', { xPercent: 6, yPercent: -43, scale: 1.24, duration: .45, ease: 'sine.in' }, .55)
+        .fromTo('.canopy-close', { xPercent: 7, yPercent: 12, scale: 1.06 }, { xPercent: -4, yPercent: -5, scale: 1.3, duration: .34 }, 0)
+        .to('.canopy-close', { xPercent: 57, yPercent: 35, scale: 1.5, duration: .23 }, .3);
       cards.forEach(card => {
         gsap.fromTo(card.querySelector('.experience-photo img'), { xPercent: -9 }, { xPercent: 0, ease: 'none', scrollTrigger: {
           trigger: card, containerAnimation: horizontal, start: 'left right', end: 'right left', scrub: true
@@ -264,26 +269,31 @@
       });
       setActiveExperience(0);
 
-      // Final full-bleed landscape opens the composition, then reveals the footer.
+      // Move into the cloud bank, then past its front edge. The distant plane lingers in the sky.
       const coast = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
         id: 'coast-scene', trigger: '.territory', pin: '.coast-stage', pinType: 'transform', start: 'top top', end: () => `+=${innerHeight * (mobile ? 1.5 : 1.9)}`, scrub, anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate: scheduleChrome
       } });
-      coast.fromTo('.coast-land>img', { scale: 1.08, yPercent: 0 }, { scale: 1.2, yPercent: 17, duration: .62 }, 0)
-        .to('.coast-land-copy', { autoAlpha: 0, y: -65, duration: .25 }, .13)
-        .fromTo('.cloud-back', { yPercent: 8, opacity: 0 }, { yPercent: -10, opacity: .72, duration: .42 }, .12)
-        .fromTo('.cloud-one', { xPercent: -45, yPercent: 45, opacity: 0 }, { xPercent: 5, yPercent: -10, opacity: .96, duration: .32 }, .2)
-        .fromTo('.cloud-two', { xPercent: 45, yPercent: 30, opacity: 0 }, { xPercent: -5, yPercent: -4, opacity: .9, duration: .35 }, .24)
-        .to('.coast-land', { autoAlpha: 0, duration: .2 }, .34)
-        .fromTo('.coast-sea', { autoAlpha: 0 }, { autoAlpha: 1, duration: .22 }, .58)
-        .to('.coast-sky', { autoAlpha: 0, duration: .3 }, .58)
-        .fromTo('.coast-sea>img', { scale: 1.15, yPercent: -6 }, { scale: 1, yPercent: 0, duration: .7 }, .36)
-        .to('.cloud-one', { xPercent: 48, yPercent: -30, opacity: 0, duration: .45 }, .56)
-        .to('.cloud-two', { xPercent: -40, yPercent: -20, opacity: 0, duration: .42 }, .6)
-        .to('.cloud-back', { yPercent: -18, opacity: 0, duration: .4 }, .55)
-        .fromTo('.territory-copy', { autoAlpha: 0, y: 65 }, { autoAlpha: 1, y: 0, duration: .25 }, .77)
-        .fromTo('.territory-distances', { autoAlpha: 0, y: 35 }, { autoAlpha: 1, y: 0, duration: .24 }, .85)
-        .to({ hold: 0 }, { hold: 1, duration: .2 }, 1.1);
+      coast.fromTo('.coast-land>img', { scale: 1.04, yPercent: 0 }, { scale: 1.22, yPercent: 16, duration: .56 }, 0)
+        .fromTo('.coast-bloom', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1 }, { xPercent: 45, yPercent: 22, scale: 1.4, opacity: 0, duration: .4, ease: 'sine.in' }, 0)
+        .to('.coast-land-copy', { autoAlpha: 0, y: -55, duration: .19 }, .1)
+        .fromTo('.cloud-back', { yPercent: 12, scale: .94, opacity: 0 }, { yPercent: 5, scale: 1.03, opacity: .72, duration: .36 }, .12)
+        .fromTo('.cloud-middle', { yPercent: -14, xPercent: 9, scale: .83, opacity: 0 }, { yPercent: 20, xPercent: 3, scale: 1.1, opacity: .96, duration: .36, ease: 'sine.inOut' }, .1)
+        .fromTo('.cloud-one', { xPercent: 5, yPercent: 16, scale: .76, opacity: 0 }, { xPercent: 1, yPercent: -33, scale: 1.22, opacity: 1, duration: .37, ease: 'sine.inOut' }, .13)
+        .fromTo('.cloud-two', { xPercent: 8, yPercent: -16, scale: .8, opacity: 0 }, { xPercent: -8, yPercent: 20, scale: 1.1, opacity: .96, duration: .34 }, .17)
+        .to('.coast-land', { autoAlpha: 0, duration: .17 }, .34)
+        .fromTo('.coast-sea', { autoAlpha: 0 }, { autoAlpha: 1, duration: .2 }, .48)
+        .to('.coast-sky', { autoAlpha: 0, duration: .27 }, .52)
+        .fromTo('.coast-sea>img', { scale: 1.16, yPercent: -5 }, { scale: 1, yPercent: 0, duration: .63 }, .4)
+        .to('.cloud-one', { xPercent: -20, yPercent: mobile ? 24 : 28, scale: mobile ? 2 : 2.35, duration: .55, ease: 'sine.in' }, .5)
+        .to('.cloud-one', { opacity: 0, duration: .14 }, .91)
+        .to('.cloud-two', { xPercent: 20, yPercent: -40, scale: 1.75, duration: .5, ease: 'sine.in' }, .51)
+        .to('.cloud-two', { opacity: 0, duration: .12 }, .89)
+        .to('.cloud-middle', { xPercent: -7, yPercent: -13, scale: 1.16, opacity: .68, duration: .51 }, .46)
+        .to('.cloud-back', { yPercent: -5, xPercent: 2, opacity: .44, duration: .5 }, .48)
+        .fromTo('.territory-copy', { autoAlpha: 0, y: 55 }, { autoAlpha: 1, y: 0, duration: .23 }, .79)
+        .fromTo('.territory-distances', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .2 }, .87)
+        .to({ hold: 0 }, { hold: 1, duration: .18 }, 1.1);
       coastScene = coast.scrollTrigger;
       gsap.fromTo('.footer-wordmark', { y: 55 }, { y: 0, ease: 'none', scrollTrigger: {
         id: 'final-scene', trigger: '.site-footer', start: 'top bottom', end: 'bottom bottom', scrub: .4
@@ -308,7 +318,7 @@
         hero.after(welcome);
         welcome.classList.remove('is-present');
         titles.forEach(title => title.restore());
-        body.classList.remove('premium-ready', 'in-gallery');
+        body.classList.remove('premium-ready', 'in-gallery', 'in-canopy');
         activeExperience = -1;
         requestAnimationFrame(refreshChrome);
       };

@@ -1,6 +1,6 @@
 # Verifiche della consegna
 
-13 settembre 2026. Progetto statico avviato sia nel workspace sia dal proprio server autonomo. I comandi riproducibili sono nel README; i report completi e gli screenshot locali sono in `artifacts/` e non vengono pubblicati su GitHub.
+Aggiornamento del 14 settembre 2026: foreground e atmosfera ricostruiti e verificati. Progetto statico avviato sia nel workspace sia dal proprio server autonomo. I comandi riproducibili sono nel README; i report completi e gli screenshot locali sono in `artifacts/` e non vengono pubblicati su GitHub.
 
 ## Funzioni e contenuti
 
@@ -16,6 +16,19 @@
 
 `tools/check.mjs`: sintassi JavaScript e riferimenti locali agli asset verificati.
 
+## Nuova scenografia — 14 settembre 2026
+
+`tests/depth.mjs`: **136 controlli superati**, zero errori rilevati. Chrome 1440×900 e 390×844; WebKit 820×1180 e 844×390. Cinque momenti per ciascuna delle tre scene, con screenshot completi e tavole di confronto in `artifacts/depth/`.
+
+- Un solo foreground persistente e allineato alla viewport dall'ingresso a tutti i capitoli.
+- Nessun overflow nelle fasi iniziali, intermedie o finali.
+- Quattro piani di nuvole desktop e due touch, movimento e opacità che cambiano a scroll fermo, nessuna rotazione.
+- Atmosfera sospesa nei dialoghi e cleanup del movimento ridotto.
+
+La prima sequenza è stata seguita da un secondo passaggio: chioma superiore specchiata e spostata per lasciare leggibili i comandi, navigazione dei capitoli sopra le piante, uscita del primo piano vicino e apertura maggiore del cielo dietro il titolo finale. I master originali sono stati verificati per trasparenza e bordi su fondi chiaro e azzurro. Dettagli e prompt: [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md).
+
+Totale delle suite funzionali, Apple e scenografiche: **1154 controlli superati**. Le prove di stabilità ripetute dopo queste modifiche mantengono gli stessi valori locali indicati sotto.
+
 ## Formati Apple e WebKit
 
 `tests/apple.mjs`: **338 controlli superati**, zero errori rilevati.
@@ -24,7 +37,7 @@ WebKit 26.0 / Playwright 1.58.2 su Windows: 375×667, 390×844, 430×932, 768×1
 
 Controllati touch, assenza di Lenis sui dispositivi touch, pannelli nella viewport, target di tocco, sblocco dello sfondo, testo effettivamente renderizzato senza tagli, orientamento portrait/landscape e ricostruzione dei pin. `viewport-fit=cover`, safe area e altezza dinamica dei dialoghi sono implementati. Le scene usano altezze stabili per non inseguire continuamente le barre del browser.
 
-Verificato a scroll fermo che ulivi e nuvole cambino trasformazione mentre il progresso ScrollTrigger rimane identico. La preferenza di movimento ridotto attivata durante la visita rimuove le animazioni autonome e i pin; riattivarla ricostruisce ogni scena una sola volta.
+Verificato a scroll fermo che arbusti fucsia e nuvole cambino trasformazione mentre il progresso ScrollTrigger rimane identico. La preferenza di movimento ridotto attivata durante la visita rimuove le animazioni autonome e i pin; riattivarla ricostruisce ogni scena una sola volta.
 
 Limite: questi sono test di motore e viewport, non test su dispositivi Apple fisici. Notch/Dynamic Island, elasticità dello scroll e barre della vera app Safari richiedono ancora una prova hardware. Il campionamento di requestAnimationFrame nel report non viene presentato come FPS di iPhone/iPad.
 
@@ -48,7 +61,7 @@ Il controllo di stabilità ha individuato spostamenti segnalati ai confini dei p
 | Livelli fotografici e vegetazione | Alpha reali, foreground condiviso tra tre scene, `atmosphere.js` |
 | Storytelling orizzontale | Pin guidato dallo scroll verticale, indici e accesso da tastiera |
 | Transizione campagna/costa | Campagna → cielo/nuvole → mare locale, distanza esplicita |
-| Nuvole vive e ulivi asincroni | Movimento indipendente, fasi diverse, deriva lenta; nessuna rotazione delle nuvole |
+| Nuvole vive e arbusti fucsia asincroni | Movimento indipendente, fasi diverse, deriva lenta; nessuna rotazione delle nuvole |
 | Ristorante e camere | Tavola autentica e migliore camera come prima immagine; audit fotografico |
 | Completezza informativa | Otto approfondimenti, catalogo, proposte e fonti in `CONTENT_AUDIT.md` |
 | Mobile, iPhone e iPad | Layout e livelli adattati, test Chrome/WebKit, limite hardware esplicito |

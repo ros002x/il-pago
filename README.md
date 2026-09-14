@@ -20,6 +20,7 @@ Aprire **http://127.0.0.1:4173/**. Per un’altra porta: `node tools/serve.mjs 4
 - `tools/build.mjs`: genera gli undici documenti HTML, menu, footer e dialoghi condivisi.
 - `style.css` e `motion.css`: impianto del progetto precedente.
 - `refinement.css`: nuove composizioni, pagine interne e adattamenti responsive.
+- `scenography.css`: bougainvillea continua fra le scene e profondità atmosferica della homepage.
 - `script.js`: tema, menu, contatti, galleria camere e richieste WhatsApp.
 - `motion.js`: scene e scroll; `atmosphere.js`: brezza autonoma; `editorial.js`: pagine interne.
 - `assets/images.json`: fonti locali e varianti responsive delle immagini.
@@ -28,7 +29,7 @@ Dopo aver modificato i contenuti eseguire `npm run build` oppure `node tools/bui
 
 ## Esperienza
 
-La hero introduce il benvenuto; il giardino illuminato passa dall’arco al pieno schermo. Lo scroll verticale conduce attraverso fattoria, raccolto e territorio, mentre gli ulivi rimangono davanti alle scene. Dopo storia, cucina e camere, la campagna lascia spazio all’atmosfera e alla costa ionica. Il mare compare una sola volta nella homepage, con distanza dalla struttura.
+La hero introduce il benvenuto; il giardino illuminato passa dall’arco al pieno schermo. Gli stessi arbusti fucsia attraversano il giardino e il racconto orizzontale di fattoria, raccolto e territorio, mossi da brezza autonoma e parallasse. Dopo storia, cucina e camere, la camera attraversa più strati di nuvole e apre la vista sulla costa ionica. Il mare compare una sola volta nella homepage, con distanza dalla struttura.
 
 Il menu entra da destra; Contatti apre un pannello. Tastiera, Escape, click esterno, focus e blocco dello sfondo sono gestiti. Il modulo prepara il testo per WhatsApp: l’invio avviene nell’app con un’azione dell’utente. Le prenotazioni effettive si effettuano tramite il motore ufficiale TeamSystem. Nessun database, analytics o tracker; il solo tema si conserva in localStorage.
 
@@ -41,6 +42,7 @@ npm ci
 npm run check
 npm test
 npm run test:apple
+npm run test:depth
 ~~~
 
 Tenere attivo il server locale. I test usano Chrome installato e WebKit Playwright; quest’ultimo si installa con `npx playwright install webkit`. Per testare un indirizzo diverso, impostare `PAGO_TEST_URL` con slash finale. I report e gli screenshot vengono scritti in `artifacts/`, esclusa da Git.
@@ -49,12 +51,13 @@ I controlli comprendono collegamenti, asset, console, contenuti, overflow, dialo
 
 ## Consegna e fonti
 
-Per pubblicare copiare gli undici `*.html`, i tre CSS, i quattro JS applicativi e `assets/` nella radice dell’hosting. Non pubblicare cache, ricerca, backup o `node_modules`. Nessun asset ERA fa parte di questo progetto. Il riferimento [ERA Residence](https://www.era-residence.com/) è stato usato per composizione e movimento; le informazioni e le fotografie provengono da [Il Pago](https://www.ilpago.eu/).
+Per pubblicare copiare gli undici `*.html`, i quattro CSS, i quattro JS applicativi e `assets/` nella radice dell’hosting. Non pubblicare cache, ricerca, backup o `node_modules`. Nessun asset ERA fa parte di questo progetto. Il riferimento [ERA Residence](https://www.era-residence.com/) è stato usato per composizione e movimento; le informazioni e le fotografie provengono da [Il Pago](https://www.ilpago.eu/).
 
 - [CONTENT_AUDIT.md](CONTENT_AUDIT.md): confronto, architettura, fonti e limiti della ricerca.
 - [IMAGE_AUDIT.md](IMAGE_AUDIT.md): fotografie, provenienza e selezione.
 - [IMAGE_AI_TODO.md](IMAGE_AI_TODO.md): miglioramenti fotografici conservativi possibili.
 - [ASSET_GENERATION.md](ASSET_GENERATION.md): asset atmosferici e prompt eseguiti.
+- [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md): nuovi asset, prompt, composizione e secondo passaggio di rifinitura.
 - `assets/licenses/`: licenze dei font, GSAP e Lenis, preservate.
 
-I recapiti, il motore di prenotazione e i link social sono quelli pubblicati dalla struttura. Le foto delle camere restano documentarie; la variante notturna preesistente e i due ritagli atmosferici sono elaborazioni visive, senza inventare servizi o geografia.
+I recapiti, il motore di prenotazione e i link social sono quelli pubblicati dalla struttura. Le foto delle camere restano documentarie; la variante notturna preesistente e i ritagli scenografici sono elaborazioni visive, senza inventare servizi o geografia.

@@ -20,13 +20,16 @@ Verifica del 13 settembre 2026. Le immagini della struttura e del territorio pro
 | `seedlings.jpg` | [gallery/27.jpg](https://www.ilpago.eu/images/gallery/27.jpg) | Piantine del laboratorio, approfondimento fattoria. |
 | `horses.jpg` | [gallery/26.jpg](https://www.ilpago.eu/images/gallery/26.jpg) | Attività a cavallo dalla galleria della struttura. |
 | `coast.jpg` | [home/slide6.jpg](https://www.ilpago.eu/images/home/slide6.jpg) | Un’unica rivelazione del mare nella homepage; distanza esplicita, nessuna falsa vista dalla masseria. |
-| `olive-foreground.png` | Generazione atmosferica originale | Ulivo mediterraneo con alpha, due profondità desktop e una sui dispositivi touch. |
-| `cloud-veil.png` | Generazione atmosferica originale | Tre piani desktop, due touch; bordi sfumati e movimento autonomo senza rotazione. |
+| `olive-foreground.png`, `cloud-veil.png` | Prima generazione originale, archiviata | Sostituiti nella homepage dal 14 settembre; nessuna richiesta dalle nuove scene. |
+| `bougainvillea-rise.png`, `bougainvillea-hanging.png` | Generazioni originali imagegen | Arbusti realistici con alpha, tre profondità desktop e due touch; continuità tra giardino e capitoli. |
+| `cloud-volume.png`, `cloud-ribbon.png` | Generazioni originali imagegen | Quattro piani desktop, due touch; attraversamento, deriva indipendente e nessuna rotazione. |
 | `courtyard-night.png` | Elaborazione già presente della hero | Conservata come atmosfera notturna, non spacciata per un nuovo scatto documentario. |
 
 Le varianti WebP hanno larghezze 640, 1280 e, ove disponibile, larghezza originale. Quando il JPEG originale è più leggero del WebP massimo, il manifest usa il JPEG: questa selezione risparmia 546.550 byte sui relativi file massimi senza ulteriore compressione. Le immagini trasparenti pubblicate usano WebP alpha; i PNG master non vengono richiesti dalle scene.
 
 I precaricamenti corrispondono al `sizes` dell’immagine effettiva. La hero e il mare tengono conto del crop alto su telefono; le immagini secondarie sono lazy. Dimensioni intrinseche dichiarate, `object-fit` senza deformazioni, nessuna catena di immagini 4K.
+
+I quattro asset scenografici del 14 settembre aggiungono varianti 640/1024 px e, per i master orizzontali, 1536 px. Alpha controllato numericamente e su fondi chiaro e azzurro. Prompt, percorsi e note in [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md).
 
 Non selezionati per le nuove scene: `garden.jpg` (vecchia porta), `pasta.jpg` (preparazione non gradita), `bees.jpg` e `restaurant-room.jpg` (alternative meno adatte alla composizione). Rimangono disponibili come archivio locale, senza caricamenti inutili nella pagina.
 
