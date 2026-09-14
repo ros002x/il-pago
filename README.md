@@ -64,3 +64,5 @@ Per pubblicare copiare gli undici `*.html`, i quattro CSS, i quattro JS applicat
 - `assets/licenses/`: licenze dei font, GSAP e Lenis, preservate.
 
 I recapiti, il motore di prenotazione e i link social sono quelli pubblicati dalla struttura. Le foto delle camere restano documentarie; la variante notturna preesistente e i ritagli scenografici sono elaborazioni visive, senza inventare servizi o geografia.
+
+La revisione finale di vegetazione, fotografie, didascalie e ripristino del punto di lettura è descritta in [FINAL_REVIEW.md](FINAL_REVIEW.md). `npm run test:refinement` verifica anche movimento interno, refresh a metà scena, galleria aggiornata e recupero in caso di perdita del contesto GPU. Per rigenerare le varianti delle undici nuove fotografie: `node tools/prepare-photos.mjs`, poi `npm run build`.

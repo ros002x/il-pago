@@ -1,37 +1,40 @@
-# Selezione delle immagini
+# Fotografie e delivery — revisione del 14 settembre 2026
 
-Verifica del 13 settembre 2026. Le immagini della struttura e del territorio provengono dal sito ufficiale. Gli originali restano in `assets`; `assets/images.json` associa i nomi editoriali alle varianti servite. Le riprese principali compaiono una sola volta nella homepage. Un’immagine può tornare nella pagina dedicata al suo argomento.
+Ricerca ripresa dai risultati già raccolti: sito ufficiale, file originali delle gallerie e **47 immagini pubbliche del motore di prenotazione ufficiale Il Pago**. La ricerca non ha effettuato prenotazioni. Nessuna fotografia stock o generativa è stata usata per rappresentare la struttura.
 
-| Asset | Provenienza ufficiale | Scelta e impiego |
-| --- | --- | --- |
-| `courtyard.jpg` | [home/slide4.jpg](https://www.ilpago.eu/images/home/slide4.jpg) | Hero approvata conservata; crop mobile centrato sul giardino. |
-| `garden-evening.jpg` | [gallery/24.jpg](https://www.ilpago.eu/images/gallery/24.jpg) | Giardino con luci: sostituisce la vecchia porta, arco che si apre a fullscreen. Limite 1152×768 documentato. |
-| `farm.jpg` | [home/slide5.jpg](https://www.ilpago.eu/images/home/slide5.jpg) | Bambino e asinelli conservati; primo momento del racconto orizzontale. |
-| `products.jpg` | [prodotti-tipici/slide1.jpg](https://www.ilpago.eu/images/prodotti-tipici/slide1.jpg) | Raccolta delle arance; secondo momento, alternanza della composizione. |
-| `matera.jpg` | [home/slide3.jpg](https://www.ilpago.eu/images/home/slide3.jpg) | Panorama dei Sassi nella terza scena, apertura verso il territorio senza ripetere il mare. |
-| `exterior.jpg` | [gallery/1.jpg](https://www.ilpago.eu/images/gallery/1.jpg) | Foto della famiglia, non una generica veduta esterna; didascalia corretta. |
-| `veranda.jpg` | [gallery/14.jpg](https://www.ilpago.eu/images/gallery/14.jpg) | Ospitalità e giardino, proporzioni dei mobili conservate. |
-| `restaurant-table.jpg` | [gallery/29.jpg](https://www.ilpago.eu/images/gallery/29.jpg) | Tavola autentica in sala: sostituisce la foto del braccio/impasto. |
-| `garden-table.jpg` | [gallery/22.jpg](https://www.ilpago.eu/images/gallery/22.jpg) | Tavola all’aperto negli approfondimenti di ristorante e ricette. |
-| `room-garden.jpg` | [home/slide2.jpg](https://www.ilpago.eu/images/home/slide2.jpg) | Scatto più ampio e definito, prima immagine delle camere. |
-| `room-1.jpg`, `room-2.jpg`, `room-3.jpg` | [nuova1](https://www.ilpago.eu/images/agriturismo/nuova1.jpg), [nuova2](https://www.ilpago.eu/images/agriturismo/nuova2.jpg), [nuova3](https://www.ilpago.eu/images/agriturismo/nuova3.jpg) | Ingresso, stanza e bagno autentici; uso secondario, limiti fotografici documentati. |
-| `orchard.jpg` | [gallery/9.jpg](https://www.ilpago.eu/images/gallery/9.jpg) | Coltivazioni nell'approfondimento Il Pago / Azienda agricola; “Lascia vagare lo sguardo” accompagna la foto, senza interrompere il passaggio al mare. |
-| `preserves.jpg` | [gallery/5.jpg](https://www.ilpago.eu/images/gallery/5.jpg) | Dispensa, etichette originali preservate. |
-| `seedlings.jpg` | [gallery/27.jpg](https://www.ilpago.eu/images/gallery/27.jpg) | Piantine del laboratorio, approfondimento fattoria. |
-| `horses.jpg` | [gallery/26.jpg](https://www.ilpago.eu/images/gallery/26.jpg) | Attività a cavallo dalla galleria della struttura. |
-| `coast.jpg` | [home/slide6.jpg](https://www.ilpago.eu/images/home/slide6.jpg) | Un’unica rivelazione del mare nella homepage; distanza esplicita, nessuna falsa vista dalla masseria. |
-| `olive-foreground.png`, `cloud-veil.png` | Prima generazione originale, archiviata | Sostituiti nella homepage dal 14 settembre; nessuna richiesta dalle nuove scene. |
-| `bougainvillea-mound.png`, `bougainvillea-hanging.png` | Generazioni originali imagegen | Massa bassa compatta e chioma pendente, tre profondità desktop e due touch; ricomposizione tra giardino e capitoli. |
-| `cloud-shore-edge.png` | Generazione originale imagegen | Bordo chiaro e trasparente, tre fasce desktop e due touch; deriva indipendente e nessuna rotazione. |
-| `bougainvillea-rise.png`, `cloud-volume.png`, `cloud-ribbon.png` | Generazioni precedenti, archiviate | Conservate nei file; non più inserite nella homepage. |
-| `courtyard-night.png` | Elaborazione già presente della hero | Conservata come atmosfera notturna, non spacciata per un nuovo scatto documentario. |
+## Undici immagini aggiornate
 
-Le varianti WebP hanno larghezze 640, 1280 e, ove disponibile, larghezza originale. Quando il JPEG originale è più leggero del WebP massimo, il manifest usa il JPEG: questa selezione risparmia 546.550 byte sui relativi file massimi senza ulteriore compressione. Le immagini trasparenti pubblicate usano WebP alpha; i PNG master non vengono richiesti dalle scene.
+| Asset | Prima | Originale integrato | Scelta |
+| --- | --- | --- | --- |
+| [restaurant-table.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/ee19cf66-082d-4e81-accd-e0d162d3ea97.jpeg) | 1152×768 | 1600×1200 | Stesso scatto, campo più ampio; sala e homepage. |
+| [room-garden.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/a9f9ea5f-53db-4285-ade7-179f6d35401b.jpg) | 1920×1000 | 2000×1333 | Stesso scatto, originale più ampio; hero ospitalità e prima camera. |
+| [veranda.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/cda8128d-b744-45ef-9bbe-b2e6b19bcc9d.jpg) | 1366×911 | 2000×1333 | Stesso scatto, originale 2000 px; storia e servizi. |
+| [garden-evening.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/fbf1bf8e-f119-4b88-b841-c739c45fcc67.jpeg) | 1152×768 | 1440×1080 | Alternativa autentica del giardino serale; ingresso e proposte. |
+| [room-2.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/4ee310ce-35e2-47f3-b7a3-25065ac682fc.jpeg) | 800×600 | 1600×1200 | Alternativa autentica della camera con soffitto in legno. |
+| [room-1.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/50d5addd-bf41-4e36-b94c-0cff5767e70a.jpeg) | 800×600 | 1600×1200 | Seconda vista autentica della camera; alt e didascalia aggiornati. |
+| [room-3.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/bf9430eb-acec-43a1-8761-80804c9b131c.jpeg) | 800×600 | 1600×1200 | Altro punto di vista autentico del bagno, senza ampliare lo spazio. |
+| [seedlings.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/12ef1332-2ef8-49bd-859f-d6a5a553f53a.jpeg) | 1152×768 | 1866×1400 | Attività reale nell’orto; didascalia aggiornata alla nuova fotografia. |
+| [horses.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/faf92b21-862f-44b3-bd42-c178d5eceaab.jpeg) | 1152×768 | 1600×1200 | Scatto autentico più ampio della passeggiata in campagna. |
+| [preserves.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/c1865a4e-14ed-4319-b2b7-709f2f355c72.jpg) | 1366×911 | 1920×1000 | Stesso allestimento di confetture, campo più ampio. |
+| [garden-table.jpg](https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/0a3cb20f-bcf3-4ffc-9475-fccaa9af4b91.jpg) | 1152×768 | 1440×1080 | Alternativa autentica: torta e frutta sul tavolo in giardino. |
 
-I precaricamenti corrispondono al `sizes` dell’immagine effettiva. La hero e il mare tengono conto del crop alto su telefono; le immagini secondarie sono lazy. Dimensioni intrinseche dichiarate, `object-fit` senza deformazioni, nessuna catena di immagini 4K.
+I link puntano ai file della proprietà pubblicati dal [motore ufficiale](https://hospitality-guest.teamsystem.cloud/booking-engine/azienda-agrituristica-il-pago). URL, dimensioni e pesi verificabili in [PHOTO_SOURCES.json](PHOTO_SOURCES.json). Gli originali precedenti sono recuperabili dalla cronologia Git; le vecchie varianti ormai inutilizzate sono state rimosse.
 
-I due nuovi asset della revisione corrente hanno varianti 640/1024/1536 px. Alpha controllato numericamente e visivamente. Prompt, percorsi e note in [CONTINUITY_REVIEW.md](CONTINUITY_REVIEW.md); generazioni precedenti in [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md).
+## Consegna delle immagini
 
-Non selezionati per le nuove scene: `garden.jpg` (vecchia porta), `pasta.jpg` (preparazione non gradita), `bees.jpg` e `restaurant-room.jpg` (alternative meno adatte alla composizione). Rimangono disponibili come archivio locale, senza caricamenti inutili nella pagina.
+- Varianti 640, 960, 1280 e larghezza originale; nessuna variante supera il master.
+- WebP qualità 90 per le dimensioni intermedie. Alla massima dimensione viene servito il JPEG originale se pesa meno del WebP: nessuna seconda compressione inutile.
+- Il build usa un solo manifest anche per tutte e tre le immagini del carosello camere. I pulsanti non richiamano più i vecchi file da 800 px.
+- `sizes` considera l’altezza del ritaglio nelle hero interne, nella veranda e nella sala. Le figure editoriali occupano al massimo 1600 px e non superano la larghezza del rispettivo originale.
+- Un solo preload fotografico per pagina, abbinato al `sizes` della sua hero. Fotografie successive lazy; larghezza e altezza dichiarate.
+- Le figure degli approfondimenti hanno didascalie esterne e nessun ingrandimento parallax nascosto. La famiglia mantiene l’inquadratura di gruppo; le immagini non vengono deformate.
 
-Interventi tecnici ancora possibili e relativi prompt: [IMAGE_AI_TODO.md](IMAGE_AI_TODO.md). I limiti degli originali non sono stati mascherati inventando camere o panorami.
+## Fotografie conservate e limiti reali
+
+Hero `courtyard`, bambino e asinelli `farm`, raccolta `products`, Matera e costa restano gli scatti autentici approvati da 1920×1000. Le fonti principali sono [homepage ufficiale](https://www.ilpago.eu/) e [azienda/agriturismo](https://www.ilpago.eu/agriturismo/). Non sono emersi master più grandi degli stessi scatti tra le fonti esaminate. Famiglia e frutteto restano nelle dimensioni originali, con presentazione editoriale contenuta.
+
+La selezione responsive evita miniature insufficienti quando esistono originali migliori; non crea dettaglio fotografico assente. Il fullscreen su monitor 4K o un crop alto a DPR 3 può ancora superare il dettaglio nativo disponibile. Non viene promessa nitidezza 4K a partire da questi file: richieste fotografiche residue e prompt conservativi sono in [IMAGE_AI_TODO.md](IMAGE_AI_TODO.md).
+
+## Elementi atmosferici
+
+Bougainvillea e nuvole sono asset decorativi originali già presenti, separati dalle fotografie documentarie. `canopy.js` deforma localmente una mesh leggera con tre gruppi di rami e radici ferme; il bitmap sorgente non viene riscritto. La variante notturna già approvata resta un’elaborazione atmosferica. Asset proprietari di ERA non sono distribuiti.

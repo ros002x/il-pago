@@ -1,5 +1,7 @@
 # Verifiche della consegna
 
+**Checkpoint attuale:** vedere [CHECKPOINT.md](CHECKPOINT.md). Le cinque suite principali contano ora 1480 controlli superati; restano da completare i nuovi requisiti del brief successivo e la verifica aggiuntiva del ritorno tra pagine su WebKit. Il report sottostante documenta la revisione precedente.
+
 Revisione del 14 settembre 2026: arbusti ricomposti e transizione continua bianco → nuvole → mare. Il progetto statico è stato avviato nel browser a http://127.0.0.1:4174/. I comandi riproducibili sono nel README; report e screenshot restano in `artifacts/`, esclusa dalla pubblicazione.
 
 ## Risultati

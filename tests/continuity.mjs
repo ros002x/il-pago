@@ -21,6 +21,7 @@ for(const [engine,width,height,touch] of [['chrome',1440,900,false],['chrome',25
   await page.waitForTimeout(700);
  };
  const state=()=>page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,seaOpacity:getComputedStyle(document.querySelector('.coast-sea')).opacity,seaVisible:getComputedStyle(document.querySelector('.coast-sea')).visibility,white:getComputedStyle(document.querySelector('.coast-white')).opacity,clouds:[...document.querySelectorAll('.coast-cloud')].filter(e=>getComputedStyle(e).display!=='none').map(e=>({opacity:getComputedStyle(e).opacity,visible:getComputedStyle(e).visibility})),progress:ScrollTrigger.getById('coast-scene').animation.progress(),pin:document.querySelector('.coast-stage').getBoundingClientRect().top}));
+ const cloudOpacity=(await state()).clouds.map(c=>c.opacity);
  for(const id of ['entrance-scene','experience-scene','coast-scene'])for(const p of [0,.25,.5,.75,1]){
   await move(id,p,id==='coast-scene'&&width===1440);
   const s=await state();check(!s.overflow,`${label} ${id} ${p} within viewport`);
@@ -29,7 +30,8 @@ for(const [engine,width,height,touch] of [['chrome',1440,900,false],['chrome',25
    check(photo.top<=1&&photo.bottom>=-1,label+' territory photograph fills its frame',photo);
   }
   if(id==='coast-scene'){
-   check(s.seaOpacity==='1'&&s.seaVisible==='visible'&&s.white==='1'&&s.clouds.every(c=>c.opacity==='1'&&c.visible==='visible'),`${label} ${p} sea, white and cloud layers coexist`,s);
+   // Atmospheric distance uses fixed translucency; scroll must never fade these layers out.
+   check(s.seaOpacity==='1'&&s.seaVisible==='visible'&&s.white==='1'&&s.clouds.every((c,i)=>Number(c.opacity)>0&&c.opacity===cloudOpacity[i]&&c.visible==='visible'),`${label} ${p} sea, white and cloud layers coexist without scroll fades`,s);
    if(p===0)check(await page.evaluate(()=>!document.body.classList.contains('chrome-dark')),label+' dark ink header on initial white');
   }
   const file=`${label}-${id}-${Math.round(p*100)}.png`;await page.screenshot({path:output+file});captures.push({file,id,p});

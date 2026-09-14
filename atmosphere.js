@@ -9,7 +9,7 @@
       element, cloud: element.dataset.atmosphere === 'cloud', depth: Number(element.dataset.depth),
       period: Number(element.dataset.period || 125), direction: Number(element.dataset.direction || 1),
       phase: index * 2.37 + (scene.matches('.garden-canopy') ? 1.7 : .4),
-      optional: !!element.closest('.atmosphere-optional')
+      optional: !!element.closest('.atmosphere-optional'), mesh: null, attempted: false
     }))
   }));
   let frame = 0, previous = 0, stopped = false;
@@ -24,7 +24,8 @@
       if (!scene.visible) continue;
       active = true;
       scene.time += dt;
-      for (const {element,cloud,depth,phase,optional,period,direction} of scene.layers) {
+      for (const layer of scene.layers) {
+        const {element,cloud,depth,phase,optional,period,direction} = layer;
         if (light.matches && optional) continue;
         const t = scene.time, d = depth * (light.matches ? .72 : 1);
         if (cloud) {
@@ -37,12 +38,13 @@
           element.style.opacity=.985+.015*Math.sin(t*.037+phase);
         } else {
           // The woody base stays at the edge; the free tips respond to a small, irregular breeze.
+          if (!layer.attempted) { layer.attempted = true; layer.mesh = window.createCanopy?.(element); }
+          layer.mesh?.render(t + phase * 5, light.matches);
           const wind = Math.sin(t * (.21 + depth * .043) + phase) + .26 * Math.sin(t * .57 + phase * 1.8);
           const x = d * 4.2 * Math.sin(t * .19 + phase);
           const y = d * 2.1 * Math.sin(t * .31 + phase * 1.3);
-          const scale = 1.012 + d * .008 * Math.sin(t * .17 + phase * .7);
-          const bend = d * .38 * Math.sin(t * .23 + phase * 1.4);
-          element.style.transform = `translate3d(${x}px,${y}px,0) rotate(${d * .9 * wind}deg) skewX(${bend}deg) scale(${scale})`;
+          const scale = 1.008 + d * .003 * Math.sin(t * .17 + phase * .7);
+          element.style.transform = `translate3d(${x}px,${y}px,0) rotate(${d * .45 * wind}deg) scale(${scale})`;
         }
       }
     }
@@ -52,10 +54,12 @@
   const update = () => {
     if (frame) cancelAnimationFrame(frame);
     frame = 0; previous = 0;
-    scenes.forEach(scene => scene.layers.forEach(({element,optional}) => {
+    scenes.forEach(scene => scene.layers.forEach(layer => {
+      const {element,optional} = layer;
       const running = allowed() && scene.visible && !(light.matches && optional);
       element.style.willChange = running ? 'transform' : 'auto';
       if (preference.matches) { element.style.removeProperty('transform'); element.style.removeProperty('opacity'); }
+      if (preference.matches || (light.matches && optional) || stopped) { layer.mesh?.dispose(); layer.mesh = null; layer.attempted = false; }
     }));
     if (allowed() && scenes.some(scene => scene.visible)) frame = requestAnimationFrame(paint);
   };

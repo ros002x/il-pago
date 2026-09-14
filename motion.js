@@ -16,6 +16,12 @@
   const progressText = document.querySelector('[data-scroll-percent]');
   const progressLine = document.querySelector('.journey-line i');
   const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  // Native restoration can run before the four pins exist and anchor to the wrong section.
+  // Store the chapter position in this history entry; restore after the measured layout exists.
+  const navigationType = performance.getEntriesByType('navigation')[0]?.type;
+  let restoration = ['reload','back_forward'].includes(navigationType) ? history.state?.ilPagoPosition : null;
+  const restoreFromHistory = !!restoration;
+  history.scrollRestoration = motionPreference.matches ? 'auto' : 'manual';
   let lenis = null;
   let heroScene = null;
   let passageScene = null;
@@ -25,6 +31,12 @@
   let scrollLimit = 1;
   let activeExperience = -1;
   let destroyed = false;
+  let positionTimer;
+  const savePosition = () => {
+    if (destroyed || restoration || !body.classList.contains('premium-ready')) return;
+    const active = [heroScene,passageScene,galleryScene,coastScene].find(s => s?.isActive);
+    try { history.replaceState({...history.state,ilPagoPosition:{y:scrollY,scene:active?.vars.id,progress:active?.progress}},''); } catch { /* Embedded previews may restrict history. */ }
+  };
 
   // Update small fixed navigation from cached ScrollTrigger ranges, not layout reads.
   let surfaces = [];
@@ -46,7 +58,10 @@
     if (coastScene && y >= coastScene.start - 70 && y <= coastScene.end) dark = coastScene.progress >= .57;
     body.classList.toggle('chrome-dark', dark);
   };
-  const scheduleChrome = () => { if (!chromeFrame) chromeFrame = requestAnimationFrame(updateChrome); };
+  const scheduleChrome = () => {
+    if (!chromeFrame) chromeFrame = requestAnimationFrame(updateChrome);
+    clearTimeout(positionTimer); positionTimer = setTimeout(savePosition,180);
+  };
   const refreshChrome = () => {
     scrollLimit = Math.max(1, document.documentElement.scrollHeight - innerHeight);
     surfaces = [...document.querySelectorAll('.table-section,.territory')].map(el => {
@@ -62,6 +77,14 @@
     const y = Math.max(0, Math.min(position, ScrollTrigger.maxScroll(window)));
     if (lenis) lenis.scrollTo(y, { immediate, duration: immediate ? 0 : 1.1, force: !document.querySelector('dialog[open]') });
     else window.scrollTo({ top: y, behavior: immediate || motionPreference.matches ? 'instant' : 'smooth' });
+  };
+  const restorePosition = () => {
+    if (!restoration || motionPreference.matches) return;
+    const scene = restoration.scene ? ScrollTrigger.getById(restoration.scene) : null;
+    lenis?.resize();
+    scrollTo(scene ? scene.start + (scene.end - scene.start) * restoration.progress : restoration.y, true);
+    ScrollTrigger.update();
+    if (document.readyState === 'complete') restoration = null;
   };
   const targetPosition = (target) => {
     if (target === hero || target.id === 'main') return 0;
@@ -265,7 +288,8 @@
             .to('.canopy-rise',{xPercent:-112,yPercent:15,scale:1.07,duration:chapterSpan*.4,ease:'sine.inOut'},chapters)
             .fromTo('.canopy-hanging',{xPercent:125,yPercent:0,scale:.92},{xPercent:125,yPercent:0,scale:.92,duration:chapters+chapterSpan*.57},0)
             .to('.canopy-hanging',{xPercent:0,yPercent:mobile?15:0,scale:1.03,duration:chapterSpan*.35,ease:'sine.inOut'},chapters+chapterSpan*.57)
-            .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:85,yPercent:20,scale:1.4,duration:gardenEnd},0)
+            .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:0,yPercent:8,scale:1.18,duration:chapters+chapterSpan*.65},0)
+            .to('.canopy-close',{xPercent:85,yPercent:20,scale:1.25,duration:chapterSpan*.35},chapters+chapterSpan*.65)
             .fromTo('.experiences-heading>p,.experiences>.section-top>.micro:last-child',{autoAlpha:1},{autoAlpha:0,duration:chapterSpan*.12},chapters+chapterSpan*.46)
             .to({hold:0},{hold:1,duration:.03},.97);
           canopy.progress(self.progress);
@@ -304,7 +328,7 @@
         detail.addEventListener('toggle', onDetails);
         events.push(() => detail.removeEventListener('toggle', onDetails));
       });
-      const finish = () => { ScrollTrigger.sort(); ScrollTrigger.refresh(); refreshChrome(); };
+      const finish = () => { ScrollTrigger.sort(); ScrollTrigger.refresh(); restorePosition(); refreshChrome(); };
       const initFrame = requestAnimationFrame(finish);
       return () => {
         cancelAnimationFrame(initFrame);
@@ -321,12 +345,13 @@
         requestAnimationFrame(refreshChrome);
       };
     });
-    const onLoad = () => { ScrollTrigger.refresh(); refreshChrome(); };
+    const onLoad = () => { ScrollTrigger.refresh(); restorePosition(); refreshChrome(); };
     if (document.readyState === 'complete') onLoad();
     else window.addEventListener('load', onLoad, { once: true });
     // Respect direct links after pinned ranges have been measured.
-    followHash();
+    if (!restoreFromHistory) followHash();
     window.addEventListener('pagehide', (event) => {
+      clearTimeout(positionTimer); savePosition();
       if (event.persisted) return;
       destroyed = true;
       media.revert();
@@ -335,7 +360,9 @@
       window.removeEventListener('hashchange', followHash);
       ScrollTrigger.removeEventListener('refresh', refreshChrome);
     });
-    window.addEventListener('pageshow', event => { if (event.persisted) onLoad(); });
+    window.addEventListener('pageshow', event => {
+      if (event.persisted) { restoration = history.state?.ilPagoPosition; onLoad(); }
+    });
   }).catch(error => {
     // Content remains accessible if animation initialization is unavailable.
     console.error('Il Pago motion:', error);

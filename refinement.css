@@ -239,3 +239,22 @@ body:not(.premium-ready) .coast-sky{display:none}
  .detail-hero{padding-top:110px}.detail-hero>figure{min-height:300px}
 }
 @media(prefers-reduced-motion:reduce){}
+/* Photographic captions have their own baseline; subjects and labels stay unobstructed. */
+.detail-content{max-width:2000px;margin-inline:auto}
+.detail-figure{height:auto;min-height:0;max-height:none;width:100%;max-width:min(1600px,var(--photo-native,1600px));justify-self:center;overflow:visible}
+.detail-figure>img{display:block;aspect-ratio:1.85;height:auto;object-fit:cover;transform:none!important}
+.detail-figure>figcaption{position:static;margin:14px 0 0;color:var(--muted);text-shadow:none;line-height:1.6;max-width:80ch}
+.detail-figure:after{display:none}
+.detail-figure.photo-exterior{max-width:1100px}
+.detail-figure.photo-exterior>img{aspect-ratio:1.5;object-position:center}
+.detail-room-gallery{max-width:1600px;margin-inline:auto}
+.premium-ready .family-photo img{aspect-ratio:1.5;object-position:center}
+.rooms-heading>.display{min-width:0}
+@media(min-width:1800px){.story{max-width:2000px;margin-inline:auto}.room-gallery{max-width:1800px;margin-inline:auto}}
+@media(max-width:760px){
+ .detail-figure>img{aspect-ratio:1.25}
+ .detail-figure.photo-exterior>img{aspect-ratio:1.5}
+ .detail-figure>figcaption{font-size:8px!important;margin-top:12px}
+ .premium-ready .family-photo{width:100%;margin-top:10px;align-self:start}
+ .premium-ready .family-photo img{aspect-ratio:1.35;object-position:center}
+}

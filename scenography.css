@@ -1,9 +1,14 @@
 /* A travelling foreground; each chapter leaves clear areas for text and faces. */
-.nature-journey{position:relative;isolation:isolate}
+.nature-journey{position:relative;isolation:isolate;overflow:clip}
 .garden-canopy{display:none;pointer-events:none}
 .premium-ready .garden-canopy{display:block;position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:8;overflow:clip;pointer-events:none}
 .garden-plant{position:absolute;pointer-events:none;max-width:none}
 .garden-plant img{filter:saturate(.88)}
+.garden-plant .atmosphere-skin{position:relative}
+.canopy-mesh{position:absolute;inset:0;width:100%;height:100%;filter:saturate(.88);pointer-events:none;opacity:0}
+.mesh-ready>.canopy-mesh{opacity:1}
+.mesh-ready>img{opacity:0}
+.canopy-close .canopy-mesh{transform:scaleX(-1);filter:blur(1px) saturate(.88)}
 .canopy-rise{width:52vw;left:-12vw;bottom:-4vw;z-index:2;transform-origin:10% 100%}
 .canopy-hanging{width:43vw;right:-16vw;top:-4vw;z-index:1;transform-origin:100% 0}
 .canopy-close{width:35vw;right:-29vw;bottom:-3vw;z-index:3;transform-origin:100% 100%}
@@ -16,6 +21,7 @@
 .premium-ready .garden-canopy .experience-navigation{display:none;z-index:9;pointer-events:auto;background:var(--paper);padding:4px 12px;margin-inline:-12px}
 .premium-ready.in-gallery .garden-canopy .experience-navigation{display:flex}
 .in-gallery .site-header::before{content:'';position:absolute;inset:0 0 -22px;z-index:-1;background:linear-gradient(var(--paper) 70%,transparent);pointer-events:none}
+.has-scrolled:not(.chrome-dark) .site-header::before{content:'';position:absolute;inset:0 0 -12px;z-index:-1;background:linear-gradient(var(--paper) 65%,transparent);pointer-events:none}
 .premium-ready .experience-card:nth-child(3) .experience-photo{height:100%;min-height:0;max-height:none}
 
 /* The white field and its cloud edge move over an already present photograph. */
@@ -41,6 +47,9 @@
 .coast-cloud .cloud-drift{position:relative;left:calc(var(--cloud-step)*-1);display:flex;width:max-content;transform-origin:50% 0}
 .cloud-drift>img{width:calc(var(--cloud-height)*1.5);height:var(--cloud-height);max-width:none;flex:none;margin-right:calc(var(--cloud-height)*-.3);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
 .cloud-middle img{transform:scaleX(-1)}
+.cloud-back{opacity:.55;filter:blur(4px) contrast(.65) brightness(1.13)}
+.cloud-middle{opacity:.78;filter:blur(1.5px) contrast(.78) brightness(1.08)}
+.cloud-one{filter:contrast(.86) brightness(1.06)}
 .coast-stage .territory-copy,.coast-stage .territory-distances{z-index:7}
 body:not(.premium-ready) .coast-cloud,body:not(.premium-ready) .coast-white{display:none}
 

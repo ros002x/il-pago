@@ -89,11 +89,7 @@
   if (location.hash === '#contatti') openDialog(document.querySelector('#contact-dialog'));
   if (document.querySelector('.hero') && location.hash === '#fattoria') location.replace('esperienze.html#fattoria');
 
-  const gallery = [
-    { src: 'assets/room-garden-1920.webp', srcset: 'assets/room-garden-640.webp 640w, assets/room-garden-1280.webp 1280w, assets/room-garden-1920.webp 1920w', alt: 'Camera di Il Pago con letto matrimoniale e finestra sul verde', caption: 'Il tuo rifugio in campagna' },
-    { src: 'assets/room-2-800.webp', srcset: 'assets/room-2-640.webp 640w, assets/room-2-800.webp 800w', alt: 'Camera matrimoniale con letto in ferro battuto e soffitto in legno', caption: 'La semplicità del riposo' },
-    { src: 'assets/room-1-800.webp', srcset: 'assets/room-1-640.webp 640w, assets/room-1-800.webp 800w', alt: 'Ingresso indipendente di una camera, con tavolino all’aperto', caption: 'Il giardino sulla soglia' }
-  ];
+  const gallery = JSON.parse(document.querySelector('[data-room-gallery]')?.dataset.roomGallery || '[]');
   let currentPhoto = 0;
   const galleryImage = document.querySelector('[data-room-image]');
   const showPhoto = (direction) => {
@@ -102,6 +98,8 @@
     galleryImage.srcset = photo.srcset;
     galleryImage.src = photo.src;
     galleryImage.alt = photo.alt;
+    galleryImage.width = photo.width;
+    galleryImage.height = photo.height;
     document.querySelector('[data-room-caption]').textContent = photo.caption;
     document.querySelector('[data-room-counter]').textContent = `${String(currentPhoto + 1).padStart(2, '0')} / 03`;
   };

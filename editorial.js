@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  history.scrollRestoration = 'auto';
   const body = document.body;
   const update = () => body.classList.toggle('has-scrolled', scrollY > 30);
   addEventListener('scroll', update, { passive: true }); update();
@@ -26,13 +27,7 @@
     revealHash();
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
-    media.add('(prefers-reduced-motion: no-preference)', () => {
-      document.querySelectorAll('.detail-figure img').forEach(img => {
-        gsap.fromTo(img, { yPercent: -4, scale: 1.08 }, { yPercent: 4, scale: 1.08, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: .5 } });
-      });
-    });
+    // Editorial photographs use their own uncropped caption row; no overscan or hidden enlargement.
     document.querySelectorAll('details').forEach(item => item.addEventListener('toggle', () => ScrollTrigger.refresh()));
-    addEventListener('pagehide', event => { if (!event.persisted) media.revert(); });
   });
 })();

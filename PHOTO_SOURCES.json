@@ -1,0 +1,387 @@
+[
+  {
+    "asset": "restaurant-table",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/ee19cf66-082d-4e81-accd-e0d162d3ea97.jpeg",
+    "previous": [
+      1152,
+      768
+    ],
+    "native": [
+      1600,
+      1200
+    ],
+    "masterBytes": 218169,
+    "variants": [
+      {
+        "src": "assets/restaurant-table-640.webp",
+        "width": 640,
+        "bytes": 62980
+      },
+      {
+        "src": "assets/restaurant-table-960.webp",
+        "width": 960,
+        "bytes": 121470
+      },
+      {
+        "src": "assets/restaurant-table-1280.webp",
+        "width": 1280,
+        "bytes": 181934
+      },
+      {
+        "src": "assets/restaurant-table.jpg",
+        "width": 1600,
+        "bytes": 218169
+      }
+    ]
+  },
+  {
+    "asset": "room-garden",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/a9f9ea5f-53db-4285-ade7-179f6d35401b.jpg",
+    "previous": [
+      1920,
+      1000
+    ],
+    "native": [
+      2000,
+      1333
+    ],
+    "masterBytes": 318756,
+    "variants": [
+      {
+        "src": "assets/room-garden-640.webp",
+        "width": 640,
+        "bytes": 44416
+      },
+      {
+        "src": "assets/room-garden-960.webp",
+        "width": 960,
+        "bytes": 73162
+      },
+      {
+        "src": "assets/room-garden-1280.webp",
+        "width": 1280,
+        "bytes": 122452
+      },
+      {
+        "src": "assets/room-garden-2000.webp",
+        "width": 2000,
+        "bytes": 255916
+      }
+    ]
+  },
+  {
+    "asset": "veranda",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/cda8128d-b744-45ef-9bbe-b2e6b19bcc9d.jpg",
+    "previous": [
+      1366,
+      911
+    ],
+    "native": [
+      2000,
+      1333
+    ],
+    "masterBytes": 506381,
+    "variants": [
+      {
+        "src": "assets/veranda-640.webp",
+        "width": 640,
+        "bytes": 72940
+      },
+      {
+        "src": "assets/veranda-960.webp",
+        "width": 960,
+        "bytes": 132284
+      },
+      {
+        "src": "assets/veranda-1280.webp",
+        "width": 1280,
+        "bytes": 234204
+      },
+      {
+        "src": "assets/veranda-2000.webp",
+        "width": 2000,
+        "bytes": 484080
+      }
+    ]
+  },
+  {
+    "asset": "garden-evening",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/fbf1bf8e-f119-4b88-b841-c739c45fcc67.jpeg",
+    "previous": [
+      1152,
+      768
+    ],
+    "native": [
+      1440,
+      1080
+    ],
+    "masterBytes": 256713,
+    "variants": [
+      {
+        "src": "assets/garden-evening-640.webp",
+        "width": 640,
+        "bytes": 99834
+      },
+      {
+        "src": "assets/garden-evening-960.webp",
+        "width": 960,
+        "bytes": 223150
+      },
+      {
+        "src": "assets/garden-evening-1280.webp",
+        "width": 1280,
+        "bytes": 337756
+      },
+      {
+        "src": "assets/garden-evening.jpg",
+        "width": 1440,
+        "bytes": 256713
+      }
+    ]
+  },
+  {
+    "asset": "room-2",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/4ee310ce-35e2-47f3-b7a3-25065ac682fc.jpeg",
+    "previous": [
+      800,
+      600
+    ],
+    "native": [
+      1600,
+      1200
+    ],
+    "masterBytes": 275388,
+    "variants": [
+      {
+        "src": "assets/room-2-640.webp",
+        "width": 640,
+        "bytes": 66788
+      },
+      {
+        "src": "assets/room-2-960.webp",
+        "width": 960,
+        "bytes": 153198
+      },
+      {
+        "src": "assets/room-2-1280.webp",
+        "width": 1280,
+        "bytes": 242668
+      },
+      {
+        "src": "assets/room-2.jpg",
+        "width": 1600,
+        "bytes": 275388
+      }
+    ]
+  },
+  {
+    "asset": "room-1",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/50d5addd-bf41-4e36-b94c-0cff5767e70a.jpeg",
+    "previous": [
+      800,
+      600
+    ],
+    "native": [
+      1600,
+      1200
+    ],
+    "masterBytes": 287662,
+    "variants": [
+      {
+        "src": "assets/room-1-640.webp",
+        "width": 640,
+        "bytes": 72904
+      },
+      {
+        "src": "assets/room-1-960.webp",
+        "width": 960,
+        "bytes": 170372
+      },
+      {
+        "src": "assets/room-1-1280.webp",
+        "width": 1280,
+        "bytes": 260128
+      },
+      {
+        "src": "assets/room-1.jpg",
+        "width": 1600,
+        "bytes": 287662
+      }
+    ]
+  },
+  {
+    "asset": "room-3",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/bf9430eb-acec-43a1-8761-80804c9b131c.jpeg",
+    "previous": [
+      800,
+      600
+    ],
+    "native": [
+      1600,
+      1200
+    ],
+    "masterBytes": 196751,
+    "variants": [
+      {
+        "src": "assets/room-3-640.webp",
+        "width": 640,
+        "bytes": 44310
+      },
+      {
+        "src": "assets/room-3-960.webp",
+        "width": 960,
+        "bytes": 105870
+      },
+      {
+        "src": "assets/room-3-1280.webp",
+        "width": 1280,
+        "bytes": 162540
+      },
+      {
+        "src": "assets/room-3.jpg",
+        "width": 1600,
+        "bytes": 196751
+      }
+    ]
+  },
+  {
+    "asset": "seedlings",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/12ef1332-2ef8-49bd-859f-d6a5a553f53a.jpeg",
+    "previous": [
+      1152,
+      768
+    ],
+    "native": [
+      1866,
+      1400
+    ],
+    "masterBytes": 906847,
+    "variants": [
+      {
+        "src": "assets/seedlings-640.webp",
+        "width": 640,
+        "bytes": 152630
+      },
+      {
+        "src": "assets/seedlings-960.webp",
+        "width": 960,
+        "bytes": 312474
+      },
+      {
+        "src": "assets/seedlings-1280.webp",
+        "width": 1280,
+        "bytes": 536894
+      },
+      {
+        "src": "assets/seedlings.jpg",
+        "width": 1866,
+        "bytes": 906847
+      }
+    ]
+  },
+  {
+    "asset": "horses",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/faf92b21-862f-44b3-bd42-c178d5eceaab.jpeg",
+    "previous": [
+      1152,
+      768
+    ],
+    "native": [
+      1600,
+      1200
+    ],
+    "masterBytes": 353153,
+    "variants": [
+      {
+        "src": "assets/horses-640.webp",
+        "width": 640,
+        "bytes": 77906
+      },
+      {
+        "src": "assets/horses-960.webp",
+        "width": 960,
+        "bytes": 175182
+      },
+      {
+        "src": "assets/horses-1280.webp",
+        "width": 1280,
+        "bytes": 283508
+      },
+      {
+        "src": "assets/horses.jpg",
+        "width": 1600,
+        "bytes": 353153
+      }
+    ]
+  },
+  {
+    "asset": "preserves",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/c1865a4e-14ed-4319-b2b7-709f2f355c72.jpg",
+    "previous": [
+      1366,
+      911
+    ],
+    "native": [
+      1920,
+      1000
+    ],
+    "masterBytes": 217334,
+    "variants": [
+      {
+        "src": "assets/preserves-640.webp",
+        "width": 640,
+        "bytes": 84616
+      },
+      {
+        "src": "assets/preserves-960.webp",
+        "width": 960,
+        "bytes": 159008
+      },
+      {
+        "src": "assets/preserves-1280.webp",
+        "width": 1280,
+        "bytes": 257928
+      },
+      {
+        "src": "assets/preserves.jpg",
+        "width": 1920,
+        "bytes": 217334
+      }
+    ]
+  },
+  {
+    "asset": "garden-table",
+    "source": "https://hospitality-storage.teamsystem.cloud/public/669a6cefbc4fbece7ffaa4de/0a3cb20f-bcf3-4ffc-9475-fccaa9af4b91.jpg",
+    "previous": [
+      1152,
+      768
+    ],
+    "native": [
+      1440,
+      1080
+    ],
+    "masterBytes": 303684,
+    "variants": [
+      {
+        "src": "assets/garden-table-640.webp",
+        "width": 640,
+        "bytes": 117020
+      },
+      {
+        "src": "assets/garden-table-960.webp",
+        "width": 960,
+        "bytes": 252598
+      },
+      {
+        "src": "assets/garden-table-1280.webp",
+        "width": 1280,
+        "bytes": 391286
+      },
+      {
+        "src": "assets/garden-table.jpg",
+        "width": 1440,
+        "bytes": 303684
+      }
+    ]
+  }
+]
