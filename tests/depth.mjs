@@ -20,7 +20,7 @@ for(const [engine,width,height,touch] of [['chrome',1440,900,false],['chrome',39
    const view=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,canopyY:document.querySelector('.garden-canopy').getBoundingClientRect().top,canopyCount:document.querySelectorAll('.garden-canopy').length,visibleClouds:[...document.querySelectorAll('.coast-cloud')].filter(e=>getComputedStyle(e).display!=='none').length}));
    check(!view.overflow,`${label} ${id} ${p} no overflow`);
    if(id!=='coast-scene')check(Math.abs(view.canopyY)<2&&view.canopyCount===1,`${label} ${id} ${p} continuous foreground`,view);
-   if(id==='coast-scene')check(view.visibleClouds===(touch?2:4),`${label} cloud depth planes`,view.visibleClouds);
+   if(id==='coast-scene')check(view.visibleClouds===(touch?2:3),`${label} cloud depth planes`,view.visibleClouds);
    const file=`${label}-${id}-${Math.round(p*100)}.png`;await page.screenshot({path:path.join(output,file)});captured.push({file,id,p});
   }
  }

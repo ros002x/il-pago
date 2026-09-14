@@ -7,6 +7,7 @@
     scene, visible: false, time: 0,
     layers: [...scene.querySelectorAll('[data-atmosphere]')].map((element, index) => ({
       element, cloud: element.dataset.atmosphere === 'cloud', depth: Number(element.dataset.depth),
+      period: Number(element.dataset.period || 125), direction: Number(element.dataset.direction || 1),
       phase: index * 2.37 + (scene.matches('.garden-canopy') ? 1.7 : .4),
       optional: !!element.closest('.atmosphere-optional')
     }))
@@ -23,16 +24,17 @@
       if (!scene.visible) continue;
       active = true;
       scene.time += dt;
-      for (const {element,cloud,depth,phase,optional} of scene.layers) {
+      for (const {element,cloud,depth,phase,optional,period,direction} of scene.layers) {
         if (light.matches && optional) continue;
         const t = scene.time, d = depth * (light.matches ? .72 : 1);
         if (cloud) {
-          // Several-minute drift with independent fine changes: no resets, rotation or visible seams.
-          const x = d * (5.8 * Math.sin(t * .019 + phase) + 1.1 * Math.sin(t * .037 + phase * .7));
-          const y = d * (.7 * Math.sin(t * .063 + phase) + .25 * Math.sin(t * .103));
-          const scale = 1.04 + d * .018 * Math.sin(t * .029 + phase);
-          element.style.transform = `translate3d(${x}%,${y}%,0) scale(${scale})`;
-          element.style.opacity = .98 + .02 * Math.sin(t * .041 + phase);
+          // Repeated overlapping tiles make a seamless, several-minute passage of vapor.
+          const travel=(t/(period*(light.matches?1.2:1))+phase/(Math.PI*2))%1;
+          const x=direction>0?travel:1-travel;
+          const y=d*3*Math.sin(t*.071+phase);
+          const scaleY=1+d*.006*Math.sin(t*.053+phase);
+          element.style.transform=`translate3d(calc(var(--cloud-step) * ${x}),${y}px,0) scaleY(${scaleY})`;
+          element.style.opacity=.985+.015*Math.sin(t*.037+phase);
         } else {
           // The woody base stays at the edge; the free tips respond to a small, irregular breeze.
           const wind = Math.sin(t * (.21 + depth * .043) + phase) + .26 * Math.sin(t * .57 + phase * 1.8);

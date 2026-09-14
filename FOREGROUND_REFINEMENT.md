@@ -1,5 +1,7 @@
 # Foreground e atmosfera — 14 settembre 2026
 
+Documento storico della prima revisione. La versione corrente è descritta in [CONTINUITY_REVIEW.md](CONTINUITY_REVIEW.md): nuovo arbusto compatto, chioma pendente riutilizzata, tre fasce atmosferiche desktop e due touch, bianco continuo sopra la fotografia già presente. Le descrizioni compositive seguenti riguardano la versione precedente.
+
 ## Asset originali
 
 Modalità: imagegen integrato, quattro generazioni originali. Nessun asset di ERA Residence è stato copiato nel sito. Riferimento percettivo: [ERA Residence](https://www.era-residence.com/), studiato insieme ai fotogrammi del video fornito.

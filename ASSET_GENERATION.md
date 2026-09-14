@@ -1,6 +1,6 @@
 # Asset atmosferici generati
 
-Aggiornamento 14 settembre 2026: gli asset di questa prima versione sono conservati come archivio. La homepage ora usa le bougainvillee e i cumuli descritti in [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md), con i relativi prompt completi.
+Aggiornamento 14 settembre 2026: gli asset di questa prima versione sono conservati come archivio. La homepage usa l'arbusto compatto e il bordo atmosferico descritti in [CONTINUITY_REVIEW.md](CONTINUITY_REVIEW.md), insieme alla chioma pendente documentata in [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md). I documenti contengono i prompt completi.
 
 Strumento usato: imagegen integrato. Nessuna fotografia di camere, giardino o geografia è stata generata per sostituire la documentazione reale.
 

@@ -515,5 +515,47 @@
         "bytes": 198460
       }
     ]
+  },
+  "bougainvillea-mound": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "assets/bougainvillea-mound-640.webp",
+        "width": 640,
+        "bytes": 88542
+      },
+      {
+        "src": "assets/bougainvillea-mound-1024.webp",
+        "width": 1024,
+        "bytes": 203072
+      },
+      {
+        "src": "assets/bougainvillea-mound-1536.webp",
+        "width": 1536,
+        "bytes": 411284
+      }
+    ]
+  },
+  "cloud-shore-edge": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "assets/cloud-shore-edge-640.webp",
+        "width": 640,
+        "bytes": 50108
+      },
+      {
+        "src": "assets/cloud-shore-edge-1024.webp",
+        "width": 1024,
+        "bytes": 118156
+      },
+      {
+        "src": "assets/cloud-shore-edge-1536.webp",
+        "width": 1536,
+        "bytes": 247744
+      }
+    ]
   }
 }

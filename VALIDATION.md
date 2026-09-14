@@ -1,74 +1,63 @@
 # Verifiche della consegna
 
-Aggiornamento del 14 settembre 2026: foreground e atmosfera ricostruiti e verificati. Progetto statico avviato sia nel workspace sia dal proprio server autonomo. I comandi riproducibili sono nel README; i report completi e gli screenshot locali sono in `artifacts/` e non vengono pubblicati su GitHub.
+Revisione del 14 settembre 2026: arbusti ricomposti e transizione continua bianco → nuvole → mare. Il progetto statico è stato avviato nel browser a http://127.0.0.1:4174/. I comandi riproducibili sono nel README; report e screenshot restano in `artifacts/`, esclusa dalla pubblicazione.
 
-## Funzioni e contenuti
+## Risultati
 
-`tests/verify.mjs`: **680 controlli superati**, zero errori JavaScript/HTTP locale rilevati. Viewport: 320×700, 360×800, 390×844, 768×1024, 1366×768, 1440×900, 1920×1080.
+| Suite | Controlli superati | Errori rilevati |
+| --- | ---: | ---: |
+| `tests/verify.mjs` — funzioni e contenuti | 684 | 0 |
+| `tests/apple.mjs` — WebKit e formati Apple | 338 | 0 |
+| `tests/depth.mjs` — foreground e atmosfera | 136 | 0 |
+| `tests/continuity.mjs` — nuova sequenza | 189 | 0 |
+| Totale | **1347** | **0** |
 
-- Undici documenti: un H1, ID univoci, destinazioni di tutti i link interni e relative ancore.
-- Homepage, tema giorno/notte, foto approvata, caricamento delle immagini e firma finale.
-- Dimensione del menu, blocco dello scroll, ciclo Tab/Shift+Tab, Escape, ripristino del focus.
-- Contatti → richiesta senza dialoghi sovrapposti; campi diversi per soggiorno e prodotti; partenza precedente all’arrivo rifiutata.
-- Filtro del catalogo e richiesta del prodotto selezionato; URL WhatsApp codificato correttamente. Apertura esterna intercettata nei test: nessun messaggio o prenotazione inviato.
-- Reversibilità di ingresso, racconto orizzontale e costa; contenuti leggibili su tutte le pagine; assenza di overflow.
-- Movimento ridotto e JavaScript disabilitato; cambio breakpoint senza duplicare pin o benvenuto.
+Build, sintassi JavaScript e riferimenti locali agli asset verificati. Le correzioni visive successive alla suite funzionale sono state ricontrollate con le suite di continuità e profondità. L'ultima regolazione del foreground basso è stata controllata separatamente su WebKit 375×667 e 320×700.
 
-`tools/check.mjs`: sintassi JavaScript e riferimenti locali agli asset verificati.
+## Funzioni e completezza
 
-## Nuova scenografia — 14 settembre 2026
+Sette viewport: 320×700, 360×800, 390×844, 768×1024, 1366×768, 1440×900, 1920×1080. Undici documenti verificati: H1, ID, link interni e ancore, immagini, assenza di overflow, menu, contatti, prenotazione, tema e firma finale.
 
-`tests/depth.mjs`: **136 controlli superati**, zero errori rilevati. Chrome 1440×900 e 390×844; WebKit 820×1180 e 844×390. Cinque momenti per ciascuna delle tre scene, con screenshot completi e tavole di confronto in `artifacts/depth/`.
+Controllati apertura/chiusura dei pannelli, Tab/Shift+Tab, Escape, ritorno del focus e blocco dello sfondo; passaggio menu → contatti → richiesta senza sovrapporre dialoghi. Validazione delle date e campi appropriati al servizio. Catalogo, filtro e prodotto preselezionato nella richiesta.
 
-- Un solo foreground persistente e allineato alla viewport dall'ingresso a tutti i capitoli.
-- Nessun overflow nelle fasi iniziali, intermedie o finali.
-- Quattro piani di nuvole desktop e due touch, movimento e opacità che cambiano a scroll fermo, nessuna rotazione.
-- Atmosfera sospesa nei dialoghi e cleanup del movimento ridotto.
+Le aperture WhatsApp sono state intercettate nei test: nessun messaggio o prenotazione inviato. La prenotazione reale resta affidata al motore ufficiale.
 
-La prima sequenza è stata seguita da un secondo passaggio: chioma superiore specchiata e spostata per lasciare leggibili i comandi, navigazione dei capitoli sopra le piante, uscita del primo piano vicino e apertura maggiore del cielo dietro il titolo finale. I master originali sono stati verificati per trasparenza e bordi su fondi chiaro e azzurro. Dettagli e prompt: [FOREGROUND_REFINEMENT.md](FOREGROUND_REFINEMENT.md).
+La riorganizzazione conserva gli approfondimenti, i recapiti, la fotografia della costa e le distanze. Le coltivazioni e “Lascia vagare lo sguardo” si trovano in `il-pago.html#azienda`. Fonti e copertura dei contenuti: [CONTENT_AUDIT.md](CONTENT_AUDIT.md).
 
-Totale delle suite funzionali, Apple e scenografiche: **1154 controlli superati**. Le prove di stabilità ripetute dopo queste modifiche mantengono gli stessi valori locali indicati sotto.
+## Composizione e continuità
 
-## Formati Apple e WebKit
+Fotogrammi allo 0%, 25%, 50%, 75% e 100% per ingresso, capitoli e costa. Chrome 1440×900 e 2560×1440; WebKit 375×667, 390×844, 430×932, 820×1180 e 1180×820. Verifica aggiuntiva del landscape basso 844×390 nella suite profondità.
 
-`tests/apple.mjs`: **338 controlli superati**, zero errori rilevati.
+- Un solo foreground persistente tra ingresso e capitoli.
+- Massa bassa compatta, uscita durante il raccolto, chioma destra nel capitolo Basilicata.
+- Bianco, nuvole e fotografia presenti contemporaneamente; nessuna dissolvenza d'ingresso del mare.
+- Tre fasce atmosferiche desktop, due touch; nessuna rotazione.
+- Deriva orizzontale e variazione minima di scala a scroll fermo.
+- Salti rapidi, percorso lento, ritorno ai medesimi punti e resize dentro l'atmosfera.
+- Nessuna duplicazione dei pin o del foreground al cambio orientamento.
+- Riempimento completo della fotografia della Basilicata, compreso WebKit sui telefoni alti.
+- Atmosfera sospesa nei dialoghi; cleanup quando si attiva il movimento ridotto.
 
-WebKit 26.0 / Playwright 1.58.2 su Windows: 375×667, 390×844, 430×932, 768×1024, 820×1180, 1024×768, 1180×820, 1024×1366, 1366×1024, 844×390 e 1440×900. Verifiche aggiuntive Chrome: 375×667, 430×932, 820×1180, 1180×820 e 844×390.
+Il secondo passaggio visivo ha corretto giunture delle nuvole, saturazione e posizione delle masse floreali, comandi superiori, contrasto al punto iniziale della scena chiara e ritaglio WebKit. Un controllo finale sui telefoni bassi ha abbassato gradualmente l'arbusto prima della fattoria: screenshot e campionamento dell'alpha sul riquadro delle righe del paragrafo a 0/8/25% non rilevano coperture significative né overflow. Quest'ultimo è un controllo mirato, non una verifica universale di ogni pixel lungo lo scroll.
 
-Controllati touch, assenza di Lenis sui dispositivi touch, pannelli nella viewport, target di tocco, sblocco dello sfondo, testo effettivamente renderizzato senza tagli, orientamento portrait/landscape e ricostruzione dei pin. `viewport-fit=cover`, safe area e altezza dinamica dei dialoghi sono implementati. Le scene usano altezze stabili per non inseguire continuamente le barre del browser.
+Il sito ERA è stato studiato direttamente prima delle modifiche e mantenuto aperto durante il lavoro. Il confronto è stato ripetuto dopo le rifiniture. Nessun asset ERA è incluso nel sito. Dettagli e prompt in [CONTINUITY_REVIEW.md](CONTINUITY_REVIEW.md).
 
-Verificato a scroll fermo che arbusti fucsia e nuvole cambino trasformazione mentre il progresso ScrollTrigger rimane identico. La preferenza di movimento ridotto attivata durante la visita rimuove le animazioni autonome e i pin; riattivarla ricostruisce ogni scena una sola volta.
+## Formati Apple e fallback
 
-Limite: questi sono test di motore e viewport, non test su dispositivi Apple fisici. Notch/Dynamic Island, elasticità dello scroll e barre della vera app Safari richiedono ancora una prova hardware. Il campionamento di requestAnimationFrame nel report non viene presentato come FPS di iPhone/iPad.
+WebKit 26.0 / Playwright 1.58.2 su Windows: 375×667, 390×844, 430×932, 768×1024, 820×1180, 1024×768, 1180×820, 1024×1366, 1366×1024, 844×390 e 1440×900. Verifiche Chrome aggiuntive: 375×667, 430×932, 820×1180, 1180×820 e 844×390.
 
-## Passaggi visivi e movimento
+Controllati touch, scroll nativo sui dispositivi touch, pannelli nella viewport, target di tocco, tipografia, inversione dello scroll e orientamento. Le scene usano `svh`; i dialoghi usano `dvh` e safe area. Riduzione del movimento e assenza di JavaScript mantengono i contenuti accessibili.
 
-Sono stati eseguiti passaggi distinti dopo l’implementazione: revisione della composizione, quindi osservazione delle sole animazioni avanti, indietro e a pagina ferma. Gli screenshot in `artifacts/review`, `artifacts/apple` e `artifacts/final` documentano i punti intermedi delle sequenze e le pagine interne.
+Queste sono prove di motore e viewport, **non prove su iPhone/iPad fisici**. Notch, barre della vera app Safari, elasticità dello scroll e prestazioni GPU richiedono ancora verifica hardware. I tempi rAF nel report non sono presentati come FPS di un dispositivo reale.
 
-Rifiniture conseguenti: testo Benvenuti separato dalla maschera, tempo della dissolvenza, bordi atmosferici sfumati, passaggio attraverso il cielo per evitare sovrapposizioni geografiche tra campagna e mare, contrasto del menu durante la fase chiara, rami allontanati dai link, dimensioni dei titoli a 320/360 px e contenimento della transizione della cucina a 768 px. Il formato landscape basso ha composizioni specifiche e mantiene raggiungibile la navigazione delle scene.
+## Stabilità e risorse
 
-Il percorso finale verifica anche salti rapidi tra le scene, ritorno a uno stato stabile e unicità dei quattro pin principali. Gli elementi atmosferici si sospendono fuori scena, nei dialoghi e quando la pagina è nascosta; i `will-change` vengono rilasciati. Il codice contiene cleanup di media query, observer e ticker.
+I quattro pin principali usano trasformazioni per conservare il flusso del documento. Nella prova locale Chrome con rotella, ripetuta dopo la ricostruzione: somma degli eventi di layout shift iniziali **0** a 1440 e 390 px; durante il percorso **0,0040** e **0,0044**, rispettivamente. Si tratta del percorso locale provato, non di metriche reali degli utenti o di un punteggio Lighthouse.
 
-Il controllo di stabilità ha individuato spostamenti segnalati ai confini dei pin con posizionamento fixed. I quattro pin ora usano trasformazioni, conservando gli spazi nel documento. Nella prova Chrome con rotella: somma degli eventi di layout shift iniziali 0 a 1440 e 390 px; durante il percorso 0,0040 e 0,0044, rispettivamente. Sono misure locali della sequenza provata, non metriche di utenti reali o un punteggio Lighthouse. Le verifiche responsive e WebKit sono state ripetute dopo la correzione.
-
-## Controllo del brief
-
-| Richiesta | Risultato e file |
-| --- | --- |
-| Preservare parti riuscite | Hero, tipografia, tema e footer dalla base esistente; `content/home-source.html` |
-| Side menu, contatti | Componenti condivisi generati, comportamento in `script.js` |
-| Ingresso nel giardino | Fotografia ufficiale, arco → fullscreen, `motion.js` e `refinement.css` |
-| Livelli fotografici e vegetazione | Alpha reali, foreground condiviso tra tre scene, `atmosphere.js` |
-| Storytelling orizzontale | Pin guidato dallo scroll verticale, indici e accesso da tastiera |
-| Transizione campagna/costa | Campagna → cielo/nuvole → mare locale, distanza esplicita |
-| Nuvole vive e arbusti fucsia asincroni | Movimento indipendente, fasi diverse, deriva lenta; nessuna rotazione delle nuvole |
-| Ristorante e camere | Tavola autentica e migliore camera come prima immagine; audit fotografico |
-| Completezza informativa | Otto approfondimenti, catalogo, proposte e fonti in `CONTENT_AUDIT.md` |
-| Mobile, iPhone e iPad | Layout e livelli adattati, test Chrome/WebKit, limite hardware esplicito |
-| Performance e fallback | Immagini responsive, preload coerente, lazy loading, SVG e librerie locali, reduced motion |
-| AI enhancement | `IMAGE_AI_TODO.md`, interventi conservativi facoltativi con prompt |
-| GitHub | Ignore di ricerca, cache, report e file sensibili; destinazione da configurare se manca il remote |
+Immagini responsive, dimensioni intrinseche, lazy loading e librerie locali. I master PNG originali non vengono caricati dalle pagine; le decorazioni usano WebP con alpha. Le fasce ripetute riutilizzano lo stesso file dalla cache. Il ciclo atmosferico rilascia `will-change` e si sospende quando non serve.
 
 ## Limiti residui
 
-Le foto autentiche meno definite sono elencate in `IMAGE_AI_TODO.md`. Non sono stati inventati dettagli per compensarne la risoluzione. Alcune schede remote hanno impedito la lettura integrale: il contenuto verificabile è coperto dalle pagine indice e il limite è registrato nell’audit. Disponibilità, prezzi futuri, aperture dei luoghi esterni e funzionamento dei servizi di terzi non vengono garantiti dai test locali.
+Le fotografie autentiche meno definite mantengono i limiti documentati in [IMAGE_AI_TODO.md](IMAGE_AI_TODO.md); non sono stati inventati dettagli di camere o panorami. Alcune fonti ufficiali non erano integralmente leggibili: i limiti della ricerca restano registrati nell'audit. Disponibilità, prezzi futuri e funzionamento dei servizi esterni non sono certificati dai test locali.
+
+Il repository originale non ha un remote GitHub configurato. La consegna locale può essere completata senza scegliere arbitrariamente un account o una destinazione di pubblicazione.

@@ -39,7 +39,7 @@ for(const engine of ['webkit','chrome']){
   }
   if(width===390||width===820){
    for(const [id,selector]of [['entrance-scene','.canopy-rise .atmosphere-skin'],['experience-scene','.canopy-rise .atmosphere-skin'],['coast-scene','.cloud-one .atmosphere-skin']]){
-    await move(id,.42);const before=await page.locator(selector).evaluate(e=>e.style.transform);const p0=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);await page.waitForTimeout(2400);const after=await page.locator(selector).evaluate(e=>e.style.transform);const p1=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);
+    await move(id,id==='experience-scene'?.08:.42);const before=await page.locator(selector).evaluate(e=>e.style.transform);const p0=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);await page.waitForTimeout(2400);const after=await page.locator(selector).evaluate(e=>e.style.transform);const p1=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);
     check(before!==after&&p0===p1,label+' autonomous '+id,{before,after});
    }
    const timings=await page.evaluate(()=>new Promise(resolve=>{let previous=performance.now();const intervals=[];const frame=now=>{intervals.push(now-previous);previous=now;if(intervals.length<90)requestAnimationFrame(frame);else resolve(intervals.slice(1));};requestAnimationFrame(frame)}));

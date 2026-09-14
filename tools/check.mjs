@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 let failures=0;
-for(const name of ['script.js','motion.js','atmosphere.js','editorial.js','tools/build.mjs','content/pages.mjs','content/discover.mjs']){
+for(const name of ['script.js','motion.js','atmosphere.js','editorial.js','tools/build.mjs','content/pages.mjs','content/discover.mjs','content/scenes.mjs']){
  const r=spawnSync(process.execPath,['--check',path.join(root,name)],{encoding:'utf8'});if(r.status){console.error(name,r.stderr);failures++;}
 }
 for(const file of (await fs.readdir(root)).filter(f=>f.endsWith('.html'))){

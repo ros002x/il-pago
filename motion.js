@@ -43,7 +43,7 @@
     for (const surface of surfaces) {
       if (y >= surface.start - 70 && y < surface.end - 70) dark = surface.dark;
     }
-    if (coastScene?.isActive && coastScene.progress > .28 && coastScene.progress < .68) dark = false;
+    if (coastScene && y >= coastScene.start - 70 && y <= coastScene.end) dark = coastScene.progress >= .57;
     body.classList.toggle('chrome-dark', dark);
   };
   const scheduleChrome = () => { if (!chromeFrame) chromeFrame = requestAnimationFrame(updateChrome); };
@@ -248,20 +248,29 @@
         onToggle: activeLayer(track)
       } });
       galleryScene = horizontal.scrollTrigger;
-      // One sticky canopy crosses the garden, the unpinned handover and all three chapters.
-      // Its outer transforms describe camera travel; the inner skins keep their own wind clock.
-      gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-        id: 'canopy-travel', trigger: '.nature-journey', start: () => passageScene.start, end: () => galleryScene.end,
-        scrub, invalidateOnRefresh: true, refreshPriority: -1
-      } })
-        .fromTo('.canopy-rise', { xPercent: 0, yPercent: 0, scale: 1 }, { xPercent: -9, yPercent: 4, scale: 1.13, duration: .3 }, 0)
-        .to('.canopy-rise', { xPercent: 2, yPercent: -3, scale: 1.03, duration: .23, ease: 'sine.inOut' }, .3)
-        .to('.canopy-rise', { xPercent: -39, yPercent: 9, scale: 1.27, duration: .47, ease: 'sine.in' }, .53)
-        .fromTo('.canopy-hanging', { xPercent: 0, yPercent: 0, scale: 1 }, { xPercent: 6, yPercent: -5, scale: 1.1, duration: .3 }, 0)
-        .to('.canopy-hanging', { xPercent: -2, yPercent: 2, scale: .96, duration: .25, ease: 'sine.inOut' }, .3)
-        .to('.canopy-hanging', { xPercent: 6, yPercent: -43, scale: 1.24, duration: .45, ease: 'sine.in' }, .55)
-        .fromTo('.canopy-close', { xPercent: 7, yPercent: 12, scale: 1.06 }, { xPercent: -4, yPercent: -5, scale: 1.3, duration: .34 }, 0)
-        .to('.canopy-close', { xPercent: 57, yPercent: 35, scale: 1.5, duration: .23 }, .3);
+      // Recompose by chapter: the low foreground exits before the copy moves into its space.
+      const canopy = gsap.timeline({defaults:{ease:'none'}});
+      ScrollTrigger.create({
+        id:'canopy-travel', trigger:'.nature-journey', start:()=>passageScene.start, end:()=>galleryScene.end,
+        animation:canopy, scrub, invalidateOnRefresh:true, refreshPriority:-1,
+        onRefresh:self=>{
+          const span=galleryScene.end-passageScene.start;
+          const gardenEnd=(passageScene.end-passageScene.start)/span;
+          const chapters=(galleryScene.start-passageScene.start)/span;
+          const chapterSpan=1-chapters;
+          const lowCanopy=mobile&&innerHeight<760?22:0;
+          canopy.clear()
+            .fromTo('.canopy-rise',{xPercent:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
+            .to('.canopy-rise',{xPercent:-10,yPercent:lowCanopy,scale:1,duration:chapters-gardenEnd},gardenEnd)
+            .to('.canopy-rise',{xPercent:-112,yPercent:15,scale:1.07,duration:chapterSpan*.4,ease:'sine.inOut'},chapters)
+            .fromTo('.canopy-hanging',{xPercent:125,yPercent:0,scale:.92},{xPercent:125,yPercent:0,scale:.92,duration:chapters+chapterSpan*.57},0)
+            .to('.canopy-hanging',{xPercent:0,yPercent:mobile?15:0,scale:1.03,duration:chapterSpan*.35,ease:'sine.inOut'},chapters+chapterSpan*.57)
+            .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:85,yPercent:20,scale:1.4,duration:gardenEnd},0)
+            .fromTo('.experiences-heading>p,.experiences>.section-top>.micro:last-child',{autoAlpha:1},{autoAlpha:0,duration:chapterSpan*.12},chapters+chapterSpan*.46)
+            .to({hold:0},{hold:1,duration:.03},.97);
+          canopy.progress(self.progress);
+        }
+      });
       cards.forEach(card => {
         gsap.fromTo(card.querySelector('.experience-photo img'), { xPercent: -9 }, { xPercent: 0, ease: 'none', scrollTrigger: {
           trigger: card, containerAnimation: horizontal, start: 'left right', end: 'right left', scrub: true
@@ -269,31 +278,20 @@
       });
       setActiveExperience(0);
 
-      // Move into the cloud bank, then past its front edge. The distant plane lingers in the sky.
-      const coast = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-        id: 'coast-scene', trigger: '.territory', pin: '.coast-stage', pinType: 'transform', start: 'top top', end: () => `+=${innerHeight * (mobile ? 1.5 : 1.9)}`, scrub, anticipatePin: 1, invalidateOnRefresh: true,
-        onUpdate: scheduleChrome
-      } });
-      coast.fromTo('.coast-land>img', { scale: 1.04, yPercent: 0 }, { scale: 1.22, yPercent: 16, duration: .56 }, 0)
-        .fromTo('.coast-bloom', { xPercent: 0, yPercent: 0, scale: 1, opacity: 1 }, { xPercent: 45, yPercent: 22, scale: 1.4, opacity: 0, duration: .4, ease: 'sine.in' }, 0)
-        .to('.coast-land-copy', { autoAlpha: 0, y: -55, duration: .19 }, .1)
-        .fromTo('.cloud-back', { yPercent: 12, scale: .94, opacity: 0 }, { yPercent: 5, scale: 1.03, opacity: .72, duration: .36 }, .12)
-        .fromTo('.cloud-middle', { yPercent: -14, xPercent: 9, scale: .83, opacity: 0 }, { yPercent: 20, xPercent: 3, scale: 1.1, opacity: .96, duration: .36, ease: 'sine.inOut' }, .1)
-        .fromTo('.cloud-one', { xPercent: 5, yPercent: 16, scale: .76, opacity: 0 }, { xPercent: 1, yPercent: -33, scale: 1.22, opacity: 1, duration: .37, ease: 'sine.inOut' }, .13)
-        .fromTo('.cloud-two', { xPercent: 8, yPercent: -16, scale: .8, opacity: 0 }, { xPercent: -8, yPercent: 20, scale: 1.1, opacity: .96, duration: .34 }, .17)
-        .to('.coast-land', { autoAlpha: 0, duration: .17 }, .34)
-        .fromTo('.coast-sea', { autoAlpha: 0 }, { autoAlpha: 1, duration: .2 }, .48)
-        .to('.coast-sky', { autoAlpha: 0, duration: .27 }, .52)
-        .fromTo('.coast-sea>img', { scale: 1.16, yPercent: -5 }, { scale: 1, yPercent: 0, duration: .63 }, .4)
-        .to('.cloud-one', { xPercent: -20, yPercent: mobile ? 24 : 28, scale: mobile ? 2 : 2.35, duration: .55, ease: 'sine.in' }, .5)
-        .to('.cloud-one', { opacity: 0, duration: .14 }, .91)
-        .to('.cloud-two', { xPercent: 20, yPercent: -40, scale: 1.75, duration: .5, ease: 'sine.in' }, .51)
-        .to('.cloud-two', { opacity: 0, duration: .12 }, .89)
-        .to('.cloud-middle', { xPercent: -7, yPercent: -13, scale: 1.16, opacity: .68, duration: .51 }, .46)
-        .to('.cloud-back', { yPercent: -5, xPercent: 2, opacity: .44, duration: .5 }, .48)
-        .fromTo('.territory-copy', { autoAlpha: 0, y: 55 }, { autoAlpha: 1, y: 0, duration: .23 }, .79)
-        .fromTo('.territory-distances', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: .2 }, .87)
-        .to({ hold: 0 }, { hold: 1, duration: .18 }, 1.1);
+      // White, mist and photograph coexist. Only the covering layers leave the viewport.
+      const coast=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
+        id:'coast-scene',trigger:'.territory',pin:'.coast-stage',pinType:'transform',start:'top top',
+        end:()=>'+='+innerHeight*(mobile?1.35:1.55),scrub:(mobile||touch)?.16:.35,anticipatePin:1,invalidateOnRefresh:true,onUpdate:scheduleChrome
+      }});
+      coast
+        .fromTo('.coast-white',{y:0},{y:()=>-innerHeight*1.55,duration:1},0)
+        .fromTo('.cloud-back',{y:0,scale:1},{y:()=>-innerHeight*1.52,scale:1.04,duration:1},0)
+        .fromTo('.cloud-middle',{y:0,scale:1},{y:()=>-innerHeight*1.66,scale:1.12,duration:1},0)
+        .fromTo('.cloud-one',{y:0,scale:1},{y:()=>-innerHeight*1.85,scale:1.23,duration:1},0)
+        .fromTo('.coast-sea>img',{scale:1.1,yPercent:-3},{scale:1,yPercent:0,duration:1},0)
+        .fromTo('.territory-copy',{autoAlpha:0,y:45},{autoAlpha:1,y:0,duration:.22},.7)
+        .fromTo('.territory-distances',{autoAlpha:0,y:25},{autoAlpha:1,y:0,duration:.2},.79)
+        .to({hold:0},{hold:1,duration:.12},1);
       coastScene = coast.scrollTrigger;
       gsap.fromTo('.footer-wordmark', { y: 55 }, { y: 0, ease: 'none', scrollTrigger: {
         id: 'final-scene', trigger: '.site-footer', start: 'top bottom', end: 'bottom bottom', scrub: .4

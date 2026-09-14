@@ -10,7 +10,8 @@
     "check": "node tools/check.mjs",
     "test": "node tests/verify.mjs",
     "test:apple": "node tests/apple.mjs",
-    "test:depth": "node tests/depth.mjs"
+    "test:depth": "node tests/depth.mjs",
+    "test:continuity": "node tests/continuity.mjs"
   },
   "devDependencies": {
     "playwright": "1.58.2"
