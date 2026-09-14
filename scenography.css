@@ -8,6 +8,8 @@
 .canopy-mesh{position:absolute;inset:0;width:100%;height:100%;filter:saturate(.88);pointer-events:none;opacity:0}
 .mesh-ready>.canopy-mesh{opacity:1}
 .mesh-ready>img{opacity:0}
+.canopy-distant{width:29vw;left:13vw;bottom:-8vw;z-index:0;opacity:.7;transform-origin:20% 100%}
+.canopy-distant img,.canopy-distant .canopy-mesh{filter:blur(.6px) saturate(.7)}
 .canopy-close .canopy-mesh{transform:scaleX(-1);filter:blur(1px) saturate(.88)}
 .canopy-rise{width:52vw;left:-12vw;bottom:-4vw;z-index:2;transform-origin:10% 100%}
 .canopy-hanging{width:43vw;right:-16vw;top:-4vw;z-index:1;transform-origin:100% 0}
@@ -16,6 +18,7 @@
 .atmosphere-skin{width:100%;pointer-events:none;transform-origin:inherit}
 .atmosphere-skin>img{display:block;width:100%;height:auto;max-width:none;pointer-events:none}
 .canopy-rise .atmosphere-skin{transform-origin:10% 100%}
+.canopy-distant .atmosphere-skin{transform-origin:20% 100%}
 .canopy-hanging .atmosphere-skin{transform-origin:100% 0}
 .canopy-close .atmosphere-skin{transform-origin:95% 100%}
 .premium-ready .garden-canopy .experience-navigation{display:none;z-index:9;pointer-events:auto;background:var(--paper);padding:4px 12px;margin-inline:-12px}

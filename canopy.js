@@ -1,5 +1,5 @@
-/* Decorative mesh: three softly weighted branch groups share the original photograph.
-   No duplicated edges, replacement scenery or competing scroll transforms. */
+/* Original foliage, articulated around five branch pivots. Broad rigid bends preserve
+   flower clusters; a smaller tip response trails the breeze. Scroll owns the outer layer. */
 (() => {
   'use strict';
   const vertex = `
@@ -9,19 +9,34 @@
     float lobe(vec2 p, vec2 center, vec2 spread) {
       vec2 d = (p-center)/spread; return exp(-dot(d,d));
     }
+    vec2 branch(vec2 p, vec2 pivot, float angle) {
+      vec2 d = (p-pivot)*vec2(1.0,.667);
+      float s=sin(angle), c=cos(angle);
+      return (vec2(c*d.x-s*d.y,s*d.x+c*d.y)-d)/vec2(1.0,.667);
+    }
     void main() {
       uv = position;
       vec2 p = position;
       vec2 q = mix(p, vec2(1.0-p.x,1.0-p.y), hanging);
-      float anchored = smoothstep(0.0,.65,1.0-q.y);
-      float a = lobe(q,vec2(.27,.40),vec2(.23,.34));
-      float b = lobe(q,vec2(.62,.62),vec2(.22,.25));
-      float c = lobe(q,vec2(.86,.79),vec2(.18,.22));
-      float breeze = sin(time*.43)+.22*sin(time*.97+1.3);
-      vec2 bend = vec2(
-        a*breeze + b*.8*sin(time*.57+2.1) + c*sin(time*.71+4.3),
-        a*.4*sin(time*.38+1.7) + b*.6*sin(time*.63+3.2) + c*.7*sin(time*.83));
-      p += bend * anchored * strength;
+      float anchored = smoothstep(0.0,.55,1.0-q.y);
+      float a = lobe(q,vec2(.13,.48),vec2(.16,.29));
+      float b = lobe(q,vec2(.31,.39),vec2(.17,.29));
+      float c = lobe(q,vec2(.51,.56),vec2(.16,.28));
+      float d = lobe(q,vec2(.70,.70),vec2(.15,.23));
+      float e = lobe(q,vec2(.86,.83),vec2(.13,.18));
+      float gust = .65+.35*sin(time*.19+.8);
+      float wind = sin(time*.63)+.28*sin(time*1.17+1.3);
+      vec2 bend = a*branch(q,vec2(.12,.96),strength*gust*wind)
+        + b*branch(q,vec2(.32,.94),strength*(.75*sin(time*.68-.7)+.2*sin(time*1.31)))
+        + c*branch(q,vec2(.46,.99),strength*(sin(time*.76-1.9)+.18*sin(time*1.43)))
+        + d*branch(q,vec2(.65,1.0),strength*(sin(time*.83-2.8)+.22*sin(time*1.27)))
+        + e*branch(q,vec2(.81,1.0),strength*1.2*sin(time*.94-3.9));
+      bend /= max(1.0,a+b+c+d+e);
+      // Small, delayed leaf-tip flutter; no global UV noise or liquid displacement.
+      float tips = a+b+c+d+e;
+      bend += vec2(sin(time*1.61+q.x*23.0),.5*sin(time*1.39+q.x*19.0))
+        * tips * strength * .065;
+      p += bend * anchored * mix(1.0,-1.0,hanging);
       gl_Position = vec4(p.x*2.0-1.0,1.0-p.y*2.0,0.0,1.0);
     }`;
   const fragment = `precision mediump float; varying vec2 uv; uniform sampler2D photo;
@@ -39,7 +54,7 @@
     gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));
     gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);
     if (!gl.getProgramParameter(program,gl.LINK_STATUS)) { gl.getExtension('WEBGL_lose_context')?.loseContext(); return null; }
-    const vertices=[], nx=28, ny=20;
+    const vertices=[], nx=48, ny=32;
     for(let y=0;y<ny;y++)for(let x=0;x<nx;x++)for(const [dx,dy] of [[0,0],[1,0],[0,1],[0,1],[1,0],[1,1]])vertices.push((x+dx)/nx,(y+dy)/ny);
     const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(vertices),gl.STATIC_DRAW);
     gl.useProgram(program);const position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
@@ -58,7 +73,7 @@
     return {
       render(time,light) {
         if(!ready||dead||time-last<(light?1/30:1/60))return;
-        last=time;gl.uniform1f(clock,time);gl.uniform1f(strength,light?.009:.008);
+        last=time;gl.uniform1f(clock,time);gl.uniform1f(strength,light?.045:.034);
         gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,0,vertices.length/2);
         element.classList.add('mesh-ready');
       },

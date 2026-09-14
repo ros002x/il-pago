@@ -1,5 +1,9 @@
 # Il Pago — La tua casa fuori casa
 
+Anteprima pubblica: **https://ros002x.github.io/il-pago/**. Repository: **https://github.com/ros002x/il-pago**, branch `main`.
+
+Stato dell’iterazione del 15 settembre 2026 e verifiche: [CHECKPOINT.md](CHECKPOINT.md). La notte interessa soltanto la hero; la vegetazione utilizza rami articolati in WebGL, indipendenti dallo scroll.
+
 Redesign del progetto esistente, completato a partire dai file della struttura. Homepage immersiva, otto pagine di approfondimento, pannello contatti e due pagine di servizio. Fotografie autentiche di Il Pago, Bodoni Moda / Pinyon Script / Manrope, atmosfera giorno/notte e firma finale conservate.
 
 ## Avvio
@@ -22,7 +26,7 @@ Aprire **http://127.0.0.1:4173/**. Per un’altra porta: `node tools/serve.mjs 4
 - `style.css` e `motion.css`: impianto del progetto precedente.
 - `refinement.css`: nuove composizioni, pagine interne e adattamenti responsive.
 - `scenography.css`: bougainvillea continua fra le scene e profondità atmosferica della homepage.
-- `script.js`: tema, menu, contatti, galleria camere e richieste WhatsApp.
+- `script.js`: variante della hero, menu, contatti, galleria camere e richieste WhatsApp.
 - `motion.js`: scene e scroll; `atmosphere.js`: brezza autonoma; `editorial.js`: pagine interne.
 - `assets/images.json`: fonti locali e varianti responsive delle immagini.
 
@@ -45,6 +49,8 @@ npm test
 npm run test:apple
 npm run test:depth
 npm run test:continuity
+node tests/hero-canopy.mjs
+node tests/navigation.mjs
 ~~~
 
 Tenere attivo il server locale. I test usano Chrome installato e WebKit Playwright; quest’ultimo si installa con `npx playwright install webkit`. Per testare un indirizzo diverso, impostare `PAGO_TEST_URL` con slash finale. I report e gli screenshot vengono scritti in `artifacts/`, esclusa da Git.

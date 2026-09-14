@@ -32,6 +32,7 @@
   let activeExperience = -1;
   let destroyed = false;
   let positionTimer;
+  let restoreFrame = 0;
   const savePosition = () => {
     if (destroyed || restoration || !body.classList.contains('premium-ready')) return;
     const active = [heroScene,passageScene,galleryScene,coastScene].find(s => s?.isActive);
@@ -74,17 +75,23 @@
   ScrollTrigger.addEventListener('refresh', refreshChrome);
 
   const scrollTo = (position, immediate = false) => {
+    if (immediate) lenis?.resize();
     const y = Math.max(0, Math.min(position, ScrollTrigger.maxScroll(window)));
     if (lenis) lenis.scrollTo(y, { immediate, duration: immediate ? 0 : 1.1, force: !document.querySelector('dialog[open]') });
     else window.scrollTo({ top: y, behavior: immediate || motionPreference.matches ? 'instant' : 'smooth' });
   };
   const restorePosition = () => {
     if (!restoration || motionPreference.matches) return;
-    const scene = restoration.scene ? ScrollTrigger.getById(restoration.scene) : null;
-    lenis?.resize();
-    scrollTo(scene ? scene.start + (scene.end - scene.start) * restoration.progress : restoration.y, true);
-    ScrollTrigger.update();
-    if (document.readyState === 'complete') restoration = null;
+    cancelAnimationFrame(restoreFrame);
+    // WebKit can finish load before the initial pin refresh has settled. Keep the
+    // saved entry until that refresh's next frame; otherwise the first scroll is clamped.
+    restoreFrame = requestAnimationFrame(() => {
+      if (!restoration || destroyed || motionPreference.matches) return;
+      const scene = restoration.scene ? ScrollTrigger.getById(restoration.scene) : null;
+      scrollTo(scene ? scene.start + (scene.end - scene.start) * restoration.progress : restoration.y, true);
+      ScrollTrigger.update();
+      if (document.readyState === 'complete') restoration = null;
+    });
   };
   const targetPosition = (target) => {
     if (target === hero || target.id === 'main') return 0;
@@ -95,11 +102,11 @@
   };
   const followHash = () => {
     if (!location.hash) return;
-    requestAnimationFrame(() => {
+    requestAnimationFrame(() => requestAnimationFrame(() => {
       let target;
       try { target = document.querySelector(location.hash); } catch { return; }
       if (target) scrollTo(targetPosition(target), true);
-    });
+    }));
   };
   window.addEventListener('hashchange', followHash);
   document.addEventListener('click', (event) => {
@@ -271,7 +278,7 @@
         onToggle: activeLayer(track)
       } });
       galleryScene = horizontal.scrollTrigger;
-      // Recompose by chapter: the low foreground exits before the copy moves into its space.
+      // The low foreground sinks below the copy through chapter two, then passes out of view.
       const canopy = gsap.timeline({defaults:{ease:'none'}});
       ScrollTrigger.create({
         id:'canopy-travel', trigger:'.nature-journey', start:()=>passageScene.start, end:()=>galleryScene.end,
@@ -285,11 +292,14 @@
           canopy.clear()
             .fromTo('.canopy-rise',{xPercent:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
             .to('.canopy-rise',{xPercent:-10,yPercent:lowCanopy,scale:1,duration:chapters-gardenEnd},gardenEnd)
-            .to('.canopy-rise',{xPercent:-112,yPercent:15,scale:1.07,duration:chapterSpan*.4,ease:'sine.inOut'},chapters)
+            .to('.canopy-rise',{xPercent:mobile?-18:-8,yPercent:mobile?lowCanopy+8:20,scale:mobile?.96:.97,duration:chapterSpan*.34,ease:'sine.inOut'},chapters)
+            .to('.canopy-rise',{xPercent:-112,yPercent:55,scale:1.07,duration:chapterSpan*.38,ease:'sine.inOut'},chapters+chapterSpan*.58)
+            .fromTo('.canopy-distant',{xPercent:10,yPercent:35,scale:.9},{xPercent:-12,yPercent:0,scale:1,duration:chapters},0)
+            .to('.canopy-distant',{xPercent:-100,yPercent:40,scale:1.04,duration:chapterSpan*.7},chapters)
             .fromTo('.canopy-hanging',{xPercent:125,yPercent:0,scale:.92},{xPercent:125,yPercent:0,scale:.92,duration:chapters+chapterSpan*.57},0)
             .to('.canopy-hanging',{xPercent:0,yPercent:mobile?15:0,scale:1.03,duration:chapterSpan*.35,ease:'sine.inOut'},chapters+chapterSpan*.57)
-            .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:0,yPercent:8,scale:1.18,duration:chapters+chapterSpan*.65},0)
-            .to('.canopy-close',{xPercent:85,yPercent:20,scale:1.25,duration:chapterSpan*.35},chapters+chapterSpan*.65)
+            .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:0,yPercent:8,scale:1.18,duration:chapters},0)
+            .to('.canopy-close',{xPercent:85,yPercent:20,scale:1.25,duration:chapterSpan*.22},chapters)
             .fromTo('.experiences-heading>p,.experiences>.section-top>.micro:last-child',{autoAlpha:1},{autoAlpha:0,duration:chapterSpan*.12},chapters+chapterSpan*.46)
             .to({hold:0},{hold:1,duration:.03},.97);
           canopy.progress(self.progress);
@@ -345,12 +355,15 @@
         requestAnimationFrame(refreshChrome);
       };
     });
-    const onLoad = () => { ScrollTrigger.refresh(); restorePosition(); refreshChrome(); };
+    const onLoad = () => {
+      ScrollTrigger.refresh(); restorePosition(); refreshChrome();
+      // Run after native fragment positioning and the final measured pin layout.
+      if (!restoreFromHistory && !restoration) followHash();
+    };
     if (document.readyState === 'complete') onLoad();
     else window.addEventListener('load', onLoad, { once: true });
-    // Respect direct links after pinned ranges have been measured.
-    if (!restoreFromHistory) followHash();
     window.addEventListener('pagehide', (event) => {
+      cancelAnimationFrame(restoreFrame);
       clearTimeout(positionTimer); savePosition();
       if (event.persisted) return;
       destroyed = true;

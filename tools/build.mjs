@@ -12,6 +12,8 @@ const manifest=JSON.parse(await read('assets/images.json'));
 const esc=s=>s.replaceAll('&','&amp;').replaceAll('"','&quot;');
 const arrow='<svg aria-hidden="true"><use href="#arrow"/></svg>';
 const heroSizes=name=>{const m=manifest[name],ratio=m.width/m.height;return `(max-width: 760px) max(90vw, ${Math.round(ratio*55)}svh), max(52vw, ${Math.round(ratio*64)}svh)`;};
+// Object-fit crops need enough source pixels for the image's height, especially on portrait iPads.
+const storySizes='(max-width: 760px) max(110vw, 68svh), max(60vw, 125svh)';
 const picture=(name,alt,cls='',eager=false,sizes='(max-width: 760px) 100vw, 60vw')=>{
  const m=manifest[name],v=m.variants;return `<img class="${cls}" src="${v.at(-1).src}" srcset="${v.map(x=>`${x.src} ${x.width}w`).join(', ')}" sizes="${sizes}" width="${m.width}" height="${m.height}" alt="${esc(alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async">`;
 };
@@ -56,15 +58,15 @@ main=main.replace(/<img src="assets\/exterior.jpg"[^>]+>/,picture('exterior','La
 main=main.replace('<figure class="family-photo">','<a class="text-link story-more" href="il-pago.html">La nostra storia '+arrow+'</a><figure class="family-photo">');
 const galleryData=[{"asset":"room-garden","alt":"Camera di Il Pago con letto matrimoniale e finestra sul verde","caption":"Il tuo rifugio in campagna"},{"asset":"room-2","alt":"Camera di Il Pago con letti in ferro battuto e soffitto in legno","caption":"La semplicità del riposo"},{"asset":"room-1","alt":"Un altro punto di vista della camera con soffitto in legno","caption":"Un posto tutto tuo"}].map(({asset,alt,caption})=>{const m=manifest[asset],v=m.variants;return {src:v.at(-1).src,srcset:v.map(x=>`${x.src} ${x.width}w`).join(', '),width:m.width,height:m.height,alt,caption};});
 main=main.replace('<div class="room-gallery reveal"','<div class="room-gallery reveal" data-room-gallery="'+esc(JSON.stringify(galleryData))+'"');
-main=main.replace(/<img data-room-image[^>]+>/,picture('room-garden','Camera di Il Pago con finestra sul verde').replace('<img ','<img data-room-image ')).replace('data-room-caption>Il giardino sulla soglia','data-room-caption>Il tuo rifugio in campagna');
+main=main.replace(/<img data-room-image[^>]+>/,picture('room-garden','Camera di Il Pago con finestra sul verde','','','(max-width: 760px) max(110vw, 70svh), max(65vw, 85svh)').replace('<img ','<img data-room-image ')).replace('data-room-caption>Il giardino sulla soglia','data-room-caption>Il tuo rifugio in campagna');
 main=main.replace('Richiedi disponibilità <svg>','Richiedi disponibilità <svg>');
 main=main.replace('<a class="micro booking-online"','<a class="text-link rooms-more" href="ospitalita.html">Camere, servizi e soggiorno '+arrow+'</a><a class="micro booking-online"');
 main=main.replace(/<img src="assets\/pasta.jpg"[^>]+>/,picture('restaurant-table','Tavola apparecchiata nella sala del ristorante Il Pago','','','(max-width: 760px) max(100vw, 98svh), max(50vw, 110svh)'));
 main=main.replace('<div class="table-specialty">','<a class="text-link" href="ristorante.html">La cucina, i prodotti, le ricette '+arrow+'</a><div class="table-specialty">');
-main=main.replace('href="#fattoria"','href="esperienze.html#fattoria"').replace(/<img src="assets\/farm.jpg"[^>]+>/,picture('farm','Un bambino incontra gli asinelli nella fattoria Il Pago'));
+main=main.replace('href="#fattoria"','href="esperienze.html#fattoria"').replace(/<img src="assets\/farm.jpg"[^>]+>/,picture('farm','Un bambino incontra gli asinelli nella fattoria Il Pago','','',storySizes));
 main=main.replace('<button class="card-button" data-booking="Prodotti tipici">','<a class="card-button" href="prodotti.html">').replace('</p></div></button></article>','</p></div></a></article>');
-main=main.replace(/<img src="assets\/products.jpg"[^>]+>/,picture('products','Raccolta delle arance nell’azienda agricola Il Pago'));
-main=main.replace('href="#territorio"','href="territorio.html"').replace(/<img src="assets\/coast.jpg"[^>]+>/,picture('matera','I Sassi di Matera, da visitare durante il soggiorno'));
+main=main.replace(/<img src="assets\/products.jpg"[^>]+>/,picture('products','Raccolta delle arance nell’azienda agricola Il Pago','','',storySizes));
+main=main.replace('href="#territorio"','href="territorio.html"').replace(/<img src="assets\/coast.jpg"[^>]+>/,picture('matera','I Sassi di Matera, da visitare durante il soggiorno','','','(max-width: 760px) max(100vw, 120svh), 100vw'));
 let horizontal=main.match(/<section class="experiences section-pad"[\s\S]*?<\/section>/)[0];
 main=main.replace(horizontal,'');
 // A single canopy stays with the visitor from the garden into the horizontal chapters.

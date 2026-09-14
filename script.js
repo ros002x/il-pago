@@ -2,17 +2,18 @@
   'use strict';
   const body = document.body;
   const mode = document.querySelector('#night-mode');
+  const hero = mode?.closest('.hero');
   const nightImage = document.querySelector('.hero-night');
   const themeStatus = document.querySelector('[data-theme-status]');
-  const applyTheme = (isNight) => {
-    body.classList.toggle('night', isNight);
+  const applyHeroTime = (isNight) => {
+    if (!hero) return;
+    hero.dataset.time = isNight ? 'night' : 'day';
     if (mode) mode.checked = isNight;
     if (themeStatus) themeStatus.textContent = isNight ? 'Atmosfera notturna.' : 'Atmosfera diurna.';
-    document.querySelector('meta[name="theme-color"]').content = isNight ? '#25131e' : '#223c2d';
   };
-  try { applyTheme(localStorage.getItem('ilpago-atmosfera') === 'night'); } catch { applyTheme(false); }
+  try { applyHeroTime(localStorage.getItem('ilpago-atmosfera') === 'night'); } catch { applyHeroTime(false); }
   mode?.addEventListener('change', () => {
-    applyTheme(mode.checked);
+    applyHeroTime(mode.checked);
     try { localStorage.setItem('ilpago-atmosfera', mode.checked ? 'night' : 'day'); } catch { /* La visita funziona anche senza storage. */ }
   });
   nightImage?.addEventListener('error', () => {

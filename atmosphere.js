@@ -41,10 +41,9 @@
           if (!layer.attempted) { layer.attempted = true; layer.mesh = window.createCanopy?.(element); }
           layer.mesh?.render(t + phase * 5, light.matches);
           const wind = Math.sin(t * (.21 + depth * .043) + phase) + .26 * Math.sin(t * .57 + phase * 1.8);
-          const x = d * 4.2 * Math.sin(t * .19 + phase);
-          const y = d * 2.1 * Math.sin(t * .31 + phase * 1.3);
-          const scale = 1.008 + d * .003 * Math.sin(t * .17 + phase * .7);
-          element.style.transform = `translate3d(${x}px,${y}px,0) rotate(${d * .45 * wind}deg) scale(${scale})`;
+          const x = d * 1.5 * Math.sin(t * .19 + phase);
+          const y = d * .7 * Math.sin(t * .31 + phase * 1.3);
+          element.style.transform = `translate3d(${x}px,${y}px,0) rotate(${d * .18 * wind}deg) scale(1.008)`;
         }
       }
     }

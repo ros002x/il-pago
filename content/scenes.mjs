@@ -1,5 +1,6 @@
 // Original scenery, separate from documentary photographs and editorial content.
 export const gardenCanopy = (layer, navigation) => `<div class="garden-canopy" data-atmosphere-scene>
+ ${layer('bougainvillea-mound','garden-plant canopy-distant atmosphere-optional','29vw','branch',.3)}
  ${layer('bougainvillea-mound','garden-plant canopy-rise','(max-width: 760px) 80vw, 52vw','branch',.8)}
  ${layer('bougainvillea-hanging','garden-plant canopy-hanging','(max-width: 760px) 50vw, 43vw','branch',.5)}
  ${layer('bougainvillea-mound','garden-plant canopy-close atmosphere-optional','35vw','branch',1.25)}
