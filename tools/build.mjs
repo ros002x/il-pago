@@ -1,12 +1,17 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {pages} from '../content/pages.mjs';
 import {discoverPages} from '../content/discover.mjs';
 import {gardenCanopy, coastalScene} from '../content/scenes.mjs';
+import {showcaseScene} from '../content/showcase.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>fs.readFile(path.join(root,p),'utf8');
-const write=(p,s)=>fs.writeFile(path.join(root,p),s);
+const runtimeFiles=['style.css','motion.css','refinement.css','scenography.css','showcase.css','script.js','motion.js','editorial.js','atmosphere.js','showcase.js'];
+const versions=new Map(await Promise.all(runtimeFiles.map(async file=>[file,createHash('sha256').update(await read(file)).digest('hex').slice(0,10)])));
+// Revalidate changed code/styles for returning visitors after a Pages deployment.
+const write=(p,s)=>fs.writeFile(path.join(root,p),s.replace(/(href|src)="([^"?]+\.(?:css|js))"/g,(match,attribute,file)=>versions.has(file)?`${attribute}="${file}?v=${versions.get(file)}"`:match));
 const original=await read('content/home-source.html');
 const manifest=JSON.parse(await read('assets/images.json'));
 const esc=s=>s.replaceAll('&','&amp;').replaceAll('"','&quot;');
@@ -17,7 +22,6 @@ const storySizes='(max-width: 760px) max(110vw, 68svh), max(60vw, 125svh)';
 const picture=(name,alt,cls='',eager=false,sizes='(max-width: 760px) 100vw, 60vw')=>{
  const m=manifest[name],v=m.variants;return `<img class="${cls}" src="${v.at(-1).src}" srcset="${v.map(x=>`${x.src} ${x.width}w`).join(', ')}" sizes="${sizes}" width="${m.width}" height="${m.height}" alt="${esc(alt)}" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async">`;
 };
-const layer=(name,cls,sizes,kind,depth)=>`<div class="${cls}" aria-hidden="true"><div class="atmosphere-skin" data-atmosphere="${kind}" data-depth="${depth}">${picture(name,'','',false,sizes)}</div></div>`;
 const preload=(name,sizes="100vw")=>{const v=manifest[name].variants;return `<link rel="preload" as="image" href="${v.at(-1).src}" imagesrcset="${v.map(x=>`${x.src} ${x.width}w`).join(', ')}" imagesizes="${sizes}" fetchpriority="high">`};
 const groups=[
  ['Il Pago','il-pago.html',[['Storia e famiglia','il-pago.html#storia'],['Azienda agricola','il-pago.html#azienda']]],
@@ -39,7 +43,7 @@ const footer=original.match(/<footer class="site-footer[\s\S]*?<\/footer>/)[0].r
 const noScript='<noscript><nav class="no-script-nav" aria-label="Navigazione senza JavaScript">'+groups.map(([label,href])=>`<a href="${href}">${label}</a>`).join('')+'<a href="contatti.html">Contatti</a></nav></noscript>';
 const common=(inner=false)=>header.replaceAll('href="#home"',inner?'href="index.html"':'href="#home"');
 const pageFooter=(inner=false)=>footer.replaceAll('href="#home"',inner?'href="#main"':'href="#home"');
-const head=(title,desc,photo,home=false)=>`<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#223c2d"><title>${title} · Il Pago, Rotondella</title><meta name="description" content="${esc(desc)}"><meta property="og:title" content="${esc(title)} · Il Pago"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><link rel="icon" href="assets/flower.svg" type="image/svg+xml"><link rel="preload" href="assets/bodoni.ttf" as="font" type="font/ttf" crossorigin><link rel="preload" href="assets/pinyon.ttf" as="font" type="font/ttf" crossorigin>${photo?preload(photo,home?'(max-width: 760px) 180vw, 100vw':heroSizes(photo)):''}<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="refinement.css">${home?'<link rel="stylesheet" href="scenography.css">':''}<script src="assets/vendor/gsap.min.js" defer></script><script src="assets/vendor/ScrollTrigger.min.js" defer></script>${home?'<script src="assets/vendor/lenis.min.js" defer></script>':''}<script src="script.js" defer></script><script src="${home?'motion':'editorial'}.js" defer></script>${home?'<script src="canopy.js" defer></script><script src="atmosphere.js" defer></script>':''}</head>`;
+const head=(title,desc,photo,home=false)=>`<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#223c2d"><title>${title} · Il Pago, Rotondella</title><meta name="description" content="${esc(desc)}"><meta property="og:title" content="${esc(title)} · Il Pago"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><link rel="icon" href="assets/flower.svg" type="image/svg+xml"><link rel="preload" href="assets/bodoni.ttf" as="font" type="font/ttf" crossorigin><link rel="preload" href="assets/pinyon.ttf" as="font" type="font/ttf" crossorigin>${photo?preload(photo,home?'(max-width: 760px) 180vw, 100vw':heroSizes(photo)):''}<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="refinement.css">${home?'<link rel="stylesheet" href="scenography.css"><link rel="stylesheet" href="showcase.css">':''}<script src="assets/vendor/gsap.min.js" defer></script><script src="assets/vendor/ScrollTrigger.min.js" defer></script>${home?'<script src="assets/vendor/lenis.min.js" defer></script>':''}<script src="script.js" defer></script><script src="${home?'motion':'editorial'}.js" defer></script>${home?'<script src="atmosphere.js" defer></script><script src="showcase.js" defer></script>':''}</head>`;
 const roomGallery=`<div class="detail-room-gallery"><figure>${picture('room-2','Camera con letto in ferro battuto e soffitto in legno')}<figcaption>Una delle camere di Il Pago.</figcaption></figure><figure>${picture('room-3','Bagno di una delle camere di Il Pago, con lavabo e doccia')}<figcaption>Il bagno delle camere di nuova realizzazione.</figcaption></figure></div>`;
 const renderSection=s=>`<section class="detail-section ${s.extra?.image?'with-photo':''}" id="${s.id}" aria-labelledby="heading-${s.id}"><div class="detail-section-heading"><span class="micro">${s.kicker}</span><h2 id="heading-${s.id}">${s.title}</h2></div><div class="detail-section-body">${s.body}</div>${s.extra?.image?`<figure class="detail-figure photo-${s.extra.image}" style="--photo-native:${manifest[s.extra.image].width}px">${picture(s.extra.image,s.extra.alt,'',false,'(max-width: 760px) 110vw, (min-width: 2000px) 1600px, 90vw')}<figcaption>${s.extra.caption||s.extra.alt}</figcaption></figure>`:s.extra?.gallery?roomGallery:''}</section>`;
 for(const p of [...pages,...discoverPages]){
@@ -60,10 +64,10 @@ const galleryData=[{"asset":"room-garden","alt":"Camera di Il Pago con letto mat
 main=main.replace('<div class="room-gallery reveal"','<div class="room-gallery reveal" data-room-gallery="'+esc(JSON.stringify(galleryData))+'"');
 main=main.replace(/<img data-room-image[^>]+>/,picture('room-garden','Camera di Il Pago con finestra sul verde','','','(max-width: 760px) max(110vw, 70svh), max(65vw, 85svh)').replace('<img ','<img data-room-image ')).replace('data-room-caption>Il giardino sulla soglia','data-room-caption>Il tuo rifugio in campagna');
 main=main.replace('Richiedi disponibilità <svg>','Richiedi disponibilità <svg>');
-main=main.replace('<a class="micro booking-online"','<a class="text-link rooms-more" href="ospitalita.html">Camere, servizi e soggiorno '+arrow+'</a><a class="micro booking-online"');
+main=main.replace('<a class="micro booking-online"','<a class="text-link rooms-more" href="#scopri-il-pago" data-showcase="ospitalita">Camere, servizi e soggiorno '+arrow+'</a><a class="micro booking-online"');
 main=main.replace(/<img src="assets\/pasta.jpg"[^>]+>/,picture('restaurant-table','Tavola apparecchiata nella sala del ristorante Il Pago','','','(max-width: 760px) max(100vw, 98svh), max(50vw, 110svh)'));
 main=main.replace('<div class="table-specialty">','<a class="text-link" href="ristorante.html">La cucina, i prodotti, le ricette '+arrow+'</a><div class="table-specialty">');
-main=main.replace('href="#fattoria"','href="esperienze.html#fattoria"').replace(/<img src="assets\/farm.jpg"[^>]+>/,picture('farm','Un bambino incontra gli asinelli nella fattoria Il Pago','','',storySizes));
+main=main.replace('href="#fattoria"','href="#scopri-il-pago" data-showcase="fattoria"').replace(/<img src="assets\/farm.jpg"[^>]+>/,picture('farm','Un bambino incontra gli asinelli nella fattoria Il Pago','','',storySizes));
 main=main.replace('<button class="card-button" data-booking="Prodotti tipici">','<a class="card-button" href="prodotti.html">').replace('</p></div></button></article>','</p></div></a></article>');
 main=main.replace(/<img src="assets\/products.jpg"[^>]+>/,picture('products','Raccolta delle arance nell’azienda agricola Il Pago','','',storySizes));
 main=main.replace('href="#territorio"','href="territorio.html"').replace(/<img src="assets\/coast.jpg"[^>]+>/,picture('matera','I Sassi di Matera, da visitare durante il soggiorno','','','(max-width: 760px) max(100vw, 120svh), 100vw'));
@@ -72,7 +76,7 @@ main=main.replace(horizontal,'');
 // A single canopy stays with the visitor from the garden into the horizontal chapters.
 const experienceNavigation=horizontal.match(/<div class="experience-navigation">[\s\S]*?<span class="experience-scroll-hint[\s\S]*?<\/span><\/div>/)[0];
 horizontal=horizontal.replace(experienceNavigation,'').replace(/^[\t ]+$/gm,'');
-const canopy=gardenCanopy(layer, experienceNavigation);
+const canopy=gardenCanopy(experienceNavigation);
 main=main.replace(passage,`<div class="nature-journey">${canopy}${passage}
 ${horizontal}</div>`);
 // After the family story, white and clouds reveal the coast; table and rooms follow.
@@ -82,6 +86,7 @@ const coast=coastalScene(picture, arrow);
 main=main.replace(/<section class="territory"[\s\S]*?<\/section>/,'');
 const storySection=main.match(/<section class="story section-pad"[\s\S]*?<\/section>/)[0];
 main=main.replace(storySection,storySection+'\n'+coast);
+main=main.replace('</main>',showcaseScene(picture,arrow)+'</main>');
 main=main.replace(/^[\t ]+$/gm,'');
 await write('index.html',`${head('La tua casa fuori casa','Il Pago, agriturismo a Rotondella. Camere nel verde, cucina lucana, fattoria e esperienze, a 4,5 km dal mare Jonio.','courtyard',true)}<body class="chrome-dark"><a class="skip-link" href="#main">Vai al contenuto</a>${svg}${common()}${noScript}<div class="journey-progress" aria-hidden="true"><span data-scroll-percent>00</span><span class="journey-line"><i></i></span><span class="journey-label">Il tuo tempo</span></div>${main}${pageFooter()}${dialogs}</body></html>`);
 const simple=(title,body)=>`${head(title,title+' · Agriturismo Il Pago a Rotondella')}<body class="editorial-page simple-page"><a class="skip-link" href="#main">Vai al contenuto</a>${svg}${common(true)}${noScript}<main id="main" tabindex="-1" class="section-pad simple-content">${body}</main>${pageFooter(true)}${title==='Contatti'?menu+booking:dialogs}</body></html>`;

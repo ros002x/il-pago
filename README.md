@@ -2,7 +2,7 @@
 
 Anteprima pubblica: **https://ros002x.github.io/il-pago/**. Repository: **https://github.com/ros002x/il-pago**, branch `main`.
 
-Stato dell’iterazione del 15 settembre 2026 e verifiche: [CHECKPOINT.md](CHECKPOINT.md). La notte interessa soltanto la hero; la vegetazione utilizza rami articolati in WebGL, indipendenti dallo scroll.
+La notte interessa soltanto la hero. Vegetazione e nuvole utilizzano riprese reali con alpha: i fotogrammi continuano a muoversi mentre la camera si ferma. La scena finale permette di esplorare cinque categorie nella stessa immagine a schermo intero. Dettagli in [FOOTAGE_REVIEW.md](FOOTAGE_REVIEW.md); il precedente stato è conservato in [CHECKPOINT.md](CHECKPOINT.md).
 
 Redesign del progetto esistente, completato a partire dai file della struttura. Homepage immersiva, otto pagine di approfondimento, pannello contatti e due pagine di servizio. Fotografie autentiche di Il Pago, Bodoni Moda / Pinyon Script / Manrope, atmosfera giorno/notte e firma finale conservate.
 
@@ -22,19 +22,21 @@ Aprire **http://127.0.0.1:4173/**. Per un’altra porta: `node tools/serve.mjs 4
 - `content/pages.mjs`: Il Pago, ospitalità, ristorante ed esperienze.
 - `content/discover.mjs`: prodotti, territorio, ricette e proposte.
 - `content/scenes.mjs`: composizioni floreali e passaggio continuo dal bianco al mare.
+- `content/showcase.mjs`, `showcase.js`, `showcase.css`: categorie, fotografie e transizioni della scena finale.
 - `tools/build.mjs`: genera gli undici documenti HTML, menu, footer e dialoghi condivisi.
 - `style.css` e `motion.css`: impianto del progetto precedente.
 - `refinement.css`: nuove composizioni, pagine interne e adattamenti responsive.
 - `scenography.css`: bougainvillea continua fra le scene e profondità atmosferica della homepage.
 - `script.js`: variante della hero, menu, contatti, galleria camere e richieste WhatsApp.
-- `motion.js`: scene e scroll; `atmosphere.js`: brezza autonoma; `editorial.js`: pagine interne.
+- `motion.js`: camera e scroll; `atmosphere.js`: caricamento e riproduzione dei filmati; `editorial.js`: pagine interne.
+- `assets/motion/`: VP9 con alpha, fallback animated WebP, poster, manifest e fonti/licenze.
 - `assets/images.json`: fonti locali e varianti responsive delle immagini.
 
 Dopo aver modificato i contenuti eseguire `npm run build` oppure `node tools/build.mjs`. I file HTML generati sono versionati e pronti per un hosting statico. L’aggiornamento di tariffe, programmi e disponibilità richiede una modifica dei contenuti: non esiste una sincronizzazione automatica con il sito ufficiale.
 
 ## Esperienza
 
-La hero introduce il benvenuto; il giardino illuminato passa dall’arco al pieno schermo. Masse floreali fucsia accompagnano fattoria, raccolto e Basilicata con composizioni successive, brezza autonoma e parallasse. Dopo “L’ospitalità si coltiva” si apre uno spazio chiaro: il bordo diventa atmosfera e scopre il mare già presente sotto le nuvole. Seguono cucina e camere. Il mare compare una sola volta nella homepage, con distanza dalla struttura; la terra coltivata si approfondisce nella pagina Il Pago.
+La hero introduce il benvenuto; il giardino illuminato passa dall’arco al pieno schermo. Rami di bougainvillea accompagnano fattoria, raccolto e Basilicata, con movimento del footage e parallasse della camera. Dopo “L’ospitalità si coltiva” il bianco si fonde nella nebbia e scopre il mare già presente sotto le nuvole. Seguono cucina, camere e la scena finale: Ospitalità, Cucina, Fattoria, Esperienze, Territorio. Le categorie cambiano fotografia e racconto senza ricaricare la pagina; i link di approfondimento conservano l’accesso ai contenuti completi.
 
 Il menu entra da destra; Contatti apre un pannello. Tastiera, Escape, click esterno, focus e blocco dello sfondo sono gestiti. Il modulo prepara il testo per WhatsApp: l’invio avviene nell’app con un’azione dell’utente. Le prenotazioni effettive si effettuano tramite il motore ufficiale TeamSystem. Nessun database, analytics o tracker; il solo tema si conserva in localStorage.
 
@@ -45,6 +47,13 @@ Su touch lo scroll resta nativo, si riducono i livelli e la parallasse. Le scene
 ~~~sh
 npm ci
 npm run check
+npm run test:footage
+node tests/showcase.mjs
+~~~
+
+Le suite più ampie restano disponibili per modifiche future alle rispettive aree; non occorre ripeterle per una rifinitura degli asset:
+
+~~~sh
 npm test
 npm run test:apple
 npm run test:depth
@@ -59,7 +68,7 @@ I controlli comprendono collegamenti, asset, console, contenuti, overflow, dialo
 
 ## Consegna e fonti
 
-Per pubblicare copiare gli undici `*.html`, i quattro CSS, i quattro JS applicativi e `assets/` nella radice dell’hosting. Non pubblicare cache, ricerca, backup o `node_modules`. Nessun asset ERA fa parte di questo progetto. Il riferimento [ERA Residence](https://www.era-residence.com/) è stato usato per composizione e movimento; le informazioni e le fotografie provengono da [Il Pago](https://www.ilpago.eu/).
+GitHub Pages serve il branch `main`, directory `/`, con `.nojekyll`. Per un altro hosting statico pubblicare gli undici `*.html`, i CSS e JS applicativi nella radice e `assets/`, conservando i percorsi relativi. Non pubblicare cache, ricerca, backup o `node_modules`. Nessun asset ERA fa parte di questo progetto. Il riferimento [ERA Residence](https://www.era-residence.com/) è usato per composizione e movimento; le fotografie documentarie provengono da [Il Pago](https://www.ilpago.eu/). I filmati decorativi Pexels, con licenze e autori, sono elencati in [assets/motion/sources.json](assets/motion/sources.json).
 
 - [CONTENT_AUDIT.md](CONTENT_AUDIT.md): confronto, architettura, fonti e limiti della ricerca.
 - [IMAGE_AUDIT.md](IMAGE_AUDIT.md): fotografie, provenienza e selezione.
@@ -71,4 +80,4 @@ Per pubblicare copiare gli undici `*.html`, i quattro CSS, i quattro JS applicat
 
 I recapiti, il motore di prenotazione e i link social sono quelli pubblicati dalla struttura. Le foto delle camere restano documentarie; la variante notturna preesistente e i ritagli scenografici sono elaborazioni visive, senza inventare servizi o geografia.
 
-La revisione finale di vegetazione, fotografie, didascalie e ripristino del punto di lettura è descritta in [FINAL_REVIEW.md](FINAL_REVIEW.md). `npm run test:refinement` verifica anche movimento interno, refresh a metà scena, galleria aggiornata e recupero in caso di perdita del contesto GPU. Per rigenerare le varianti delle undici nuove fotografie: `node tools/prepare-photos.mjs`, poi `npm run build`.
+Le revisioni precedenti sono archiviate in [FINAL_REVIEW.md](FINAL_REVIEW.md). Le verifiche del vecchio renderer WebGL sono state sostituite dai controlli mirati di footage, alpha e pausa in `tests/footage.mjs`; le altre suite conservano i controlli di layout, navigazione e galleria. Per rigenerare le fotografie: `node tools/prepare-photos.mjs`, poi `npm run build`. Per i filmati: `python tools/prepare-footage.py`, dopo aver scaricato i due originali indicati nelle fonti in `.research/` e installato Pillow, NumPy e imageio-ffmpeg. I master rimangono esclusi da Git.

@@ -37,9 +37,7 @@ for(const [engine,width,height,touch] of [['chrome',1440,900,false],['chrome',25
   const file=`${label}-${id}-${Math.round(p*100)}.png`;await page.screenshot({path:output+file});captures.push({file,id,p});
  }
  await move('coast-scene',.5);const before=await state();
- const readCloud=()=>page.locator('.cloud-one .cloud-drift').evaluate(e=>({transform:getComputedStyle(e).transform,top:e.getBoundingClientRect().top,width:e.getBoundingClientRect().width}));
- const cloudA=await readCloud();await page.waitForTimeout(2400);const cloudB=await readCloud();
- check(cloudA.transform!==cloudB.transform&&(await state()).progress===before.progress,label+' cloud horizontal drift and scale continue at rest',{cloudA,cloudB});
+ // Internal cloud motion is now real footage, checked in tests/footage.mjs.
  await page.screenshot({path:output+`${label}-coast-idle.png`});
  await move('coast-scene',1);await move('entrance-scene',0);await move('coast-scene',.5,true);const reversed=await state();
  check(Math.abs(before.progress-reversed.progress)<.002&&Math.abs(reversed.pin)<2,label+' fast jump then slow return restores coast',reversed);

@@ -1,0 +1,23 @@
+{
+  "license": "https://www.pexels.com/license/",
+  "verified": "2026-09-15",
+  "purpose": "Decorative moving scenery; these are not documentary recordings of Il Pago. No ERA footage is used.",
+  "clips": [
+    {
+      "assets": ["bougainvillea-garden", "bougainvillea-branch"],
+      "author": "Engin Akyurt",
+      "source": "https://www.pexels.com/video/low-angle-shot-of-a-flowering-plant-10357745/",
+      "download": "https://www.pexels.com/download/video/10357745/",
+      "original": {"width": 4096, "height": 2160, "duration": 59.96},
+      "edit": "Two takes, 7.5–11.5 s and 1–4 s, selected for visible leaf movement. Neutral sky colour key and fixed matte over the bare upper twig. The first take is mirrored. Real frames are played forward and backward for a continuous loop, with no synthetic plant deformation. Audio and source metadata are removed."
+    },
+    {
+      "assets": ["coastal-cloud"],
+      "author": "cottonbro studio",
+      "source": "https://www.pexels.com/video/white-smoke-against-black-background-9694227/",
+      "download": "https://www.pexels.com/download/video/9694227/",
+      "original": {"width": 1920, "height": 1080},
+      "edit": "3–7 s. Luminance alpha, light neutral colour, vertical flip to join the white covering field. Forward/reverse loop of real billowing vapour. Browser composition uses soft edges, fixed depth and camera travel; no rotating clouds or procedural wind. Audio and source metadata are removed."
+    }
+  ]
+}

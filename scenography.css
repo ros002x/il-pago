@@ -3,24 +3,20 @@
 .garden-canopy{display:none;pointer-events:none}
 .premium-ready .garden-canopy{display:block;position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:8;overflow:clip;pointer-events:none}
 .garden-plant{position:absolute;pointer-events:none;max-width:none}
-.garden-plant img{filter:saturate(.88)}
-.garden-plant .atmosphere-skin{position:relative}
-.canopy-mesh{position:absolute;inset:0;width:100%;height:100%;filter:saturate(.88);pointer-events:none;opacity:0}
-.mesh-ready>.canopy-mesh{opacity:1}
-.mesh-ready>img{opacity:0}
-.canopy-distant{width:29vw;left:13vw;bottom:-8vw;z-index:0;opacity:.7;transform-origin:20% 100%}
-.canopy-distant img,.canopy-distant .canopy-mesh{filter:blur(.6px) saturate(.7)}
-.canopy-close .canopy-mesh{transform:scaleX(-1);filter:blur(1px) saturate(.88)}
-.canopy-rise{width:52vw;left:-12vw;bottom:-4vw;z-index:2;transform-origin:10% 100%}
-.canopy-hanging{width:43vw;right:-16vw;top:-4vw;z-index:1;transform-origin:100% 0}
-.canopy-close{width:35vw;right:-29vw;bottom:-3vw;z-index:3;transform-origin:100% 100%}
-.canopy-close img{transform:scaleX(-1);filter:blur(1px) saturate(.88)}
-.atmosphere-skin{width:100%;pointer-events:none;transform-origin:inherit}
-.atmosphere-skin>img{display:block;width:100%;height:auto;max-width:none;pointer-events:none}
-.canopy-rise .atmosphere-skin{transform-origin:10% 100%}
-.canopy-distant .atmosphere-skin{transform-origin:20% 100%}
-.canopy-hanging .atmosphere-skin{transform-origin:100% 0}
-.canopy-close .atmosphere-skin{transform-origin:95% 100%}
+.ambient-film{position:relative;width:100%;pointer-events:none;isolation:isolate}
+.ambient-film>img,.ambient-film>video{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;object-fit:contain;pointer-events:none}
+.ambient-film>video,.ambient-film>.ambient-fallback{opacity:0}
+.ambient-film.has-video>video,.ambient-film.has-fallback>.ambient-fallback{opacity:1}
+.ambient-film.has-video>.ambient-poster,.ambient-film.has-fallback>.ambient-poster{opacity:0}
+.garden-plant .ambient-film{filter:saturate(.78) brightness(.92)}
+.canopy-distant{width:30vw;left:14vw;bottom:-8vw;z-index:0;opacity:.55;transform-origin:20% 100%}
+.canopy-distant .ambient-film{transform:scaleX(-1);filter:blur(.8px) saturate(.6)}
+.canopy-rise{width:52vw;left:-12vw;bottom:1svh;z-index:2;transform-origin:10% 100%}
+.canopy-rise .ambient-film{mask-image:linear-gradient(90deg,#000 65%,transparent 80%);-webkit-mask-image:linear-gradient(90deg,#000 65%,transparent 80%)}
+.canopy-hanging{width:48vw;right:-15vw;top:-10vw;z-index:1;transform-origin:100% 0}
+.canopy-hanging .ambient-film{transform:rotate(-30deg);transform-origin:100% 0}
+.canopy-close{width:72vw;right:-33vw;bottom:-12vw;z-index:3;transform-origin:100% 100%}
+.canopy-close .ambient-film{filter:blur(2px) saturate(.7);transform:rotate(-18deg);transform-origin:100% 0;mask-image:linear-gradient(90deg,transparent,#000 18%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%)}
 .premium-ready .garden-canopy .experience-navigation{display:none;z-index:9;pointer-events:auto;background:var(--paper);padding:4px 12px;margin-inline:-12px}
 .premium-ready.in-gallery .garden-canopy .experience-navigation{display:flex}
 .in-gallery .site-header::before{content:'';position:absolute;inset:0 0 -22px;z-index:-1;background:linear-gradient(var(--paper) 70%,transparent);pointer-events:none}
@@ -44,38 +40,38 @@
 .coast-itinerary small{font-size:11px;line-height:1.6}
 .itinerary-dot{height:5px;width:5px;margin:3px 0 13px;border-radius:50%;background:currentColor}
 .itinerary-line{position:absolute;left:0;top:82px;width:100%;height:65px;fill:none;stroke:var(--ink);stroke-width:1.5}
-.coast-cloud{position:absolute;z-index:3;left:0;right:0;top:80svh;pointer-events:none;transform-origin:50% 0;--cloud-height:max(52svh,39vw);--cloud-step:calc(var(--cloud-height)*1.2)}
-.cloud-middle{z-index:4;top:82svh;--cloud-height:max(62svh,43vw)}
-.cloud-one{z-index:5;top:80svh;--cloud-height:max(72svh,48vw)}
-.coast-cloud .cloud-drift{position:relative;left:calc(var(--cloud-step)*-1);display:flex;width:max-content;transform-origin:50% 0}
-.cloud-drift>img{width:calc(var(--cloud-height)*1.5);height:var(--cloud-height);max-width:none;flex:none;margin-right:calc(var(--cloud-height)*-.3);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
-.cloud-middle img{transform:scaleX(-1)}
-.cloud-back{opacity:.55;filter:blur(4px) contrast(.65) brightness(1.13)}
-.cloud-middle{opacity:.78;filter:blur(1.5px) contrast(.78) brightness(1.08)}
-.cloud-one{filter:contrast(.86) brightness(1.06)}
+.coast-cloud{position:absolute;z-index:3;left:-12vw;width:124vw;top:65svh;pointer-events:none;transform-origin:50% 0;--cloud-height:45svh}
+.coast-cloud .ambient-film{height:var(--cloud-height);aspect-ratio:auto!important;mask-image:linear-gradient(#000 80%,transparent);-webkit-mask-image:linear-gradient(#000 80%,transparent)}
+.coast-cloud img,.coast-cloud video{object-fit:fill}
+.cloud-middle{z-index:4;top:67svh;left:-21vw;width:142vw;--cloud-height:65svh}
+.cloud-one{z-index:5;top:70svh;left:-30vw;width:160vw;--cloud-height:70svh}
+.cloud-middle .ambient-film{transform:scaleX(-1)}
+.cloud-back{opacity:.5;filter:blur(20px)}
+.cloud-middle{opacity:.65;filter:blur(12px)}
+.cloud-one{opacity:.92;filter:blur(8px)}
 .coast-stage .territory-copy,.coast-stage .territory-distances{z-index:7}
 body:not(.premium-ready) .coast-cloud,body:not(.premium-ready) .coast-white{display:none}
 
-@media(pointer:coarse),(max-width:760px){.atmosphere-optional{display:none!important}.canopy-close img{filter:none}}
+@media(pointer:coarse),(max-width:760px){.atmosphere-optional{display:none!important}}
 @media(min-width:761px) and (max-width:1100px) and (orientation:portrait){
- .canopy-rise{width:59vw;left:-16vw;bottom:1svh}.canopy-hanging{width:44vw;right:-27vw;top:-6vw}
+ .canopy-rise{width:66vw;left:-20vw;bottom:0}.canopy-hanging{width:55vw;right:-18vw;top:-6vw}
  .coast-intro{padding-top:25svh}.coast-intro-title{font-size:8.5vw;max-width:90%}.coast-itinerary{left:8%;right:8%;top:65%}
 }
-@media(min-width:761px) and (max-width:1400px) and (orientation:landscape){.canopy-rise{width:47vw;left:-15vw;bottom:-5vw}.canopy-hanging{width:39vw;right:-21vw;top:-4vw}}
+@media(min-width:761px) and (max-width:1400px) and (orientation:landscape){.canopy-rise{width:54vw;left:-14vw;bottom:0}.canopy-hanging{width:48vw;right:-15vw;top:-10vw}}
 @media(max-width:760px){
  .in-gallery .site-header::before{bottom:auto;height:108px}
- .canopy-rise{width:80vw;left:-28vw;bottom:5svh}
- .canopy-hanging{width:63vw;right:-35vw;top:16svh;bottom:auto;transform-origin:100% 0}
- .canopy-hanging .atmosphere-skin{transform-origin:100% 0}
+ .canopy-rise{width:110vw;left:-25vw;bottom:-14vw}
+ .canopy-hanging{width:100vw;right:-40vw;top:7svh;bottom:auto;transform-origin:100% 0}
  .coast-intro{padding-top:22svh}.coast-intro>.micro{font-size:8px}.coast-intro-title{font-size:13vw;max-width:94%;line-height:1.08;margin-top:25px}
  .coast-itinerary{top:60%;left:7%;right:7%;grid-template-columns:repeat(2,1fr);row-gap:28px;height:auto}
  .coast-itinerary>a{gap:5px}.coast-itinerary .micro{font-size:8px}.coast-itinerary small{font-size:9px}.coast-itinerary .small-flower{height:25px;width:25px;margin:0}.itinerary-dot{margin:10px 0}
- .itinerary-line{top:37px;height:120px;opacity:.25}.cloud-middle{--cloud-height:50svh;top:84svh}.cloud-one{--cloud-height:60svh;top:82svh}
+ .itinerary-line{top:37px;height:120px;opacity:.25}
+ .coast-cloud{width:145svh;left:calc(50% - 72svh);top:65svh}.cloud-middle{width:160svh;left:calc(50% - 83svh);top:67svh}.cloud-one{width:180svh;left:calc(50% - 84svh);top:70svh}
 }
-@media(max-width:380px){.canopy-rise{width:83vw;left:-32vw;bottom:6svh}.canopy-hanging{right:-40vw;width:68vw}.coast-intro-title{font-size:12.5vw}.coast-itinerary{top:57%}}
+@media(max-width:380px){.coast-intro-title{font-size:12.5vw}.coast-itinerary{top:57%}}
 @media(max-height:560px) and (min-width:600px){
- .canopy-rise{width:40vw;left:-18vw;bottom:-7vw}.canopy-hanging{width:33vw;right:-26vw;top:-12vw}
+ .canopy-rise{width:40vw;left:-22vw;bottom:-9vw}.canopy-hanging{width:33vw;right:-23vw;top:-18vw}
  .coast-intro{padding-top:22svh}.coast-intro-title{font-size:6vw;margin-top:12px}.coast-itinerary{top:70%;left:16%;right:16%}.coast-itinerary small{font-size:8px}.coast-itinerary .micro{font-size:7px}.coast-itinerary>a{gap:4px}
  .itinerary-line{top:52px;height:25px}.coast-itinerary .small-flower{height:23px;width:23px;margin-top:-9px}.itinerary-dot{margin-bottom:6px}
 }
-@media(prefers-reduced-motion:reduce){.garden-canopy,.coast-cloud,.coast-white{display:none!important}.atmosphere-skin{transform:none!important}}
+@media(prefers-reduced-motion:reduce){.garden-canopy,.coast-cloud,.coast-white{display:none!important}}

@@ -1,0 +1,43 @@
+/* A final photographic scene, with the chapter choices inside the image. */
+.showcase{position:relative;isolation:isolate;height:100svh;min-height:650px;overflow:hidden;background:#253e32;color:#fffaf0;scroll-margin-top:0}
+.showcase-stage,.showcase-panel,.showcase-shade{position:absolute;inset:0}
+.showcase-panel{visibility:hidden;opacity:0;transition:opacity 1s ease,visibility 0s 1s;overflow:hidden}
+.showcase-panel.is-active{visibility:visible;opacity:1;transition:opacity 1s ease,visibility 0s;z-index:1}
+.showcase-photo{width:100%;height:100%;max-width:none;object-fit:cover;object-position:var(--photo-position);transform:scale(1.055);transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.is-active>.showcase-photo{transform:scale(1)}
+.showcase-shade{background:linear-gradient(0deg,#071e17b3,transparent 75%),linear-gradient(90deg,#071e1745,transparent 55%,#071e1799)}
+.showcase-eyebrow{position:absolute;z-index:3;top:155px;left:var(--pad);font-size:8px}
+.showcase-tabs{position:absolute;z-index:4;top:145px;right:var(--pad);display:flex;flex-direction:column;width:260px}
+.showcase-tabs button{display:flex;align-items:center;gap:18px;min-height:53px;text-align:left;font:28px/1.2 var(--serif);letter-spacing:-.025em;color:inherit;border-bottom:1px solid #ffffff38;transition:opacity .25s;padding:8px 0;opacity:.7}
+.showcase-tabs button[aria-selected="true"],.showcase-tabs button:hover,.showcase-tabs button:focus-visible{opacity:1}
+.showcase-tabs .micro{font:8px var(--sans);letter-spacing:0;opacity:.8}
+.showcase-tab-mark{margin-left:auto;font:18px var(--sans);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+[aria-selected="true"]>.showcase-tab-mark{opacity:1;transform:none}
+.showcase-copy{position:absolute;left:var(--pad);bottom:9svh;width:min(560px,49vw);opacity:0;transform:translateY(17px);transition:opacity .3s,transform .6s}
+.is-active .showcase-copy{opacity:1;transform:none;transition:opacity .65s .15s,transform .85s .15s}
+.showcase-copy>.micro{font-size:8px}
+.showcase-copy h3{font:clamp(60px,4.9vw,94px)/.98 var(--serif);letter-spacing:-.045em;margin:23px 0 27px}
+.showcase-copy h3 .script{font-size:1.15em}
+.showcase-copy p{font-size:12px;line-height:1.9;max-width:38ch;text-wrap:pretty}
+.showcase-copy .text-link{font-size:9px;margin-top:25px;min-height:44px}
+.showcase button:focus-visible,.showcase a:focus-visible{outline:1px solid currentColor;outline-offset:5px}
+@media(min-width:761px) and (orientation:portrait){.showcase-copy{width:70vw}.showcase-copy h3{font-size:9vw}.showcase-tabs{width:230px}.showcase-copy p{font-size:14px}}
+@media(max-width:760px){
+ .showcase{min-height:620px}
+ .showcase-eyebrow{top:118px;left:26px;font-size:7px}
+ .showcase-tabs{top:153px;left:0;right:0;width:auto;flex-direction:row;gap:25px;padding:0 26px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;scroll-padding-inline:26px}
+ .showcase-tabs::-webkit-scrollbar{display:none}
+ .showcase-tabs button{flex:none;font-size:24px;gap:8px;min-height:50px;white-space:nowrap;border-color:transparent;opacity:.78}
+ .showcase-tabs button[aria-selected="true"]{border-color:#fffaf0}
+ .showcase-tab-mark{display:none}.showcase-tabs .micro{font-size:7px}
+ .showcase-copy{left:26px;bottom:6svh;width:calc(100% - 52px)}
+ .showcase-copy h3{font-size:clamp(54px,13vw,72px);margin:20px 0 22px}
+ .showcase-copy p{font-size:11px;max-width:32ch;line-height:1.8}
+ .showcase-copy .text-link{margin-top:15px}
+ .showcase-shade{background:linear-gradient(0deg,#071e17c9,transparent 82%),linear-gradient(#071e1785,transparent 60%)}
+ #showcase-fattoria .showcase-photo{object-position:34% 50%}
+}
+@media(max-height:560px) and (min-width:600px){
+ .showcase{min-height:100svh}.showcase-eyebrow{top:110px}.showcase-tabs{top:110px;width:180px}.showcase-tabs button{min-height:38px;font-size:22px}.showcase-copy{bottom:5svh}.showcase-copy h3{font-size:50px;margin:12px 0}.showcase-copy p{font-size:10px;max-width:37ch}.showcase-copy .text-link{margin-top:8px}.showcase-copy>.micro{display:none}
+}
+@media(prefers-reduced-motion:reduce){.showcase-panel,.showcase-photo,.showcase-copy{transition:none!important;transform:none!important}}

@@ -35,24 +35,8 @@ for(const [engine,width,height,dpr] of views.filter(v=>!process.env.PAGO_VIEW||v
    await fs.writeFile(output+`${label}-${id}-${p}-day.png`,day);await fs.writeFile(output+`${label}-${id}-${p}-night.png`,night);
   }
  }
- await time(false);await move('entrance-scene',.5);
- await page.waitForFunction(()=>document.querySelector('.canopy-rise .mesh-ready'));
- // Hold the complete outer image stationary: any remaining changes are internal mesh motion.
- const held=await page.addStyleTag({content:'.garden-plant .atmosphere-skin{transform:none!important}'});
- await page.evaluate(()=>gsap.globalTimeline.pause());await page.waitForTimeout(150);
- const bbox=await page.locator('.canopy-rise canvas').boundingBox();
- const clip={x:Math.max(0,bbox.x),y:Math.max(0,bbox.y),width:Math.min(width,bbox.x+bbox.width)-Math.max(0,bbox.x),height:Math.min(height,bbox.y+bbox.height)-Math.max(0,bbox.y)};
- const y=await page.evaluate(()=>scrollY),frames=[];
- for(const [seconds,delay] of [[0,0],[2,2000],[5,3000],[10,5000]]){
-  if(delay)await page.waitForTimeout(delay);
-  const data=await page.screenshot({clip,scale:'css'});frames.push(data);await fs.writeFile(output+`${label}-internal-${seconds}s.png`,data);
-  check(await page.evaluate(()=>scrollY)===y,label+' stationary scroll '+seconds+'s');
- }
- check(frames.slice(1).every(f=>!frames[0].equals(f)),label+' internal foliage alive throughout ten seconds');
- await held.evaluate(e=>e.remove());await move('experience-scene',.5);
- const middleFoliage=await page.locator('.canopy-rise canvas').boundingBox();
- check(middleFoliage.x+middleFoliage.width>60&&middleFoliage.y+middleFoliage.height*.5<height-30,label+' middle chapter retains visible foliage',middleFoliage);
- await page.screenshot({path:output+label+'-middle.png',scale:'css'});
+ // Footage idle and alpha coverage lives in tests/footage.mjs.
+ await time(false);await move('experience-scene',.5);
  // Touch layouts retain native scrolling; Playwright's mobile WebKit has no wheel API.
  const middle=await page.evaluate(()=>ScrollTrigger.getById('experience-scene').progress);
  check(!touch||await page.evaluate(()=>!document.documentElement.classList.contains('lenis')),label+' native scrolling on touch layouts');
@@ -82,7 +66,7 @@ for(const [engine,width,height,dpr] of views.filter(v=>!process.env.PAGO_VIEW||v
  }
  await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:false});document.dispatchEvent(new Event('visibilitychange'));gsap.globalTimeline.resume();});
  await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(350);
- check(await page.locator('.canopy-mesh').count()===0,label+' reduced motion releases renderers');
+ check(await page.locator('.ambient-film video').evaluateAll(v=>v.every(e=>e.paused)),label+' reduced motion pauses footage');
  report.views.push({label,width,height,dpr});await browser.close();
  await fs.writeFile(output+'results.json',JSON.stringify(report,null,2));console.log('Hero/canopy verified',label);
 }

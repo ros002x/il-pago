@@ -38,13 +38,10 @@ for(const engine of ['webkit','chrome']){
    if(engine==='webkit'&&[375,820,1180,844].includes(width))await page.screenshot({path:`${output}/${engine}-${width}-${id}.png`});
   }
   if(width===390||width===820){
-   for(const [id,selector]of [['entrance-scene','.canopy-rise .atmosphere-skin'],['experience-scene','.canopy-rise .atmosphere-skin'],['coast-scene','.cloud-one .atmosphere-skin']]){
-    await move(id,id==='experience-scene'?.08:.42);const before=await page.locator(selector).evaluate(e=>e.style.transform);const p0=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);await page.waitForTimeout(2400);const after=await page.locator(selector).evaluate(e=>e.style.transform);const p1=await page.evaluate(id=>ScrollTrigger.getById(id).progress,id);
-    check(before!==after&&p0===p1,label+' autonomous '+id,{before,after});
-   }
+   // Film idle and transparency have their focused suite: tests/footage.mjs.
    const timings=await page.evaluate(()=>new Promise(resolve=>{let previous=performance.now();const intervals=[];const frame=now=>{intervals.push(now-previous);previous=now;if(intervals.length<90)requestAnimationFrame(frame);else resolve(intervals.slice(1));};requestAnimationFrame(frame)}));
    report.fps.push({label,meanIntervalMs:timings.reduce((a,b)=>a+b)/timings.length,maxIntervalMs:Math.max(...timings),note:'Headless rAF timing, not physical-device GPU FPS'});
-   await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(600);check(await page.evaluate(()=>!document.body.classList.contains('premium-ready')&&[...document.querySelectorAll('[data-atmosphere]')].every(e=>!e.style.transform)),label+' live reduced motion cleanup');
+   await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(600);check(await page.evaluate(()=>!document.body.classList.contains('premium-ready')&&[...document.querySelectorAll('.ambient-film video')].every(e=>e.paused)),label+' live reduced motion cleanup');
    await page.emulateMedia({reducedMotion:'no-preference'});await page.waitForTimeout(600);check(await page.evaluate(()=>ScrollTrigger.getAll().filter(s=>s.vars.id==='experience-scene').length===1),label+' live motion restart once');
   }
   for(const file of ['il-pago.html','ospitalita.html','prodotti.html','ristorante.html','territorio.html']){

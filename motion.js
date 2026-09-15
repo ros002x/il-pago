@@ -65,7 +65,7 @@
   };
   const refreshChrome = () => {
     scrollLimit = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-    surfaces = [...document.querySelectorAll('.table-section,.territory')].map(el => {
+    surfaces = [...document.querySelectorAll('.table-section,.territory,.showcase')].map(el => {
       const box = el.getBoundingClientRect();
       return { start: box.top + scrollY, end: box.bottom + scrollY, dark: true };
     });
@@ -98,7 +98,7 @@
     if (target === welcome && heroScene) return heroScene.start + (heroScene.end - heroScene.start) * .98;
     if (target === experienceSection && galleryScene) return galleryScene.start;
     if (target === passage && passageScene) return passageScene.start;
-    return target.getBoundingClientRect().top + scrollY - 85;
+    return target.getBoundingClientRect().top + scrollY - (target.matches('.showcase') ? 0 : 85);
   };
   const followHash = () => {
     if (!location.hash) return;
@@ -288,7 +288,7 @@
           const gardenEnd=(passageScene.end-passageScene.start)/span;
           const chapters=(galleryScene.start-passageScene.start)/span;
           const chapterSpan=1-chapters;
-          const lowCanopy=mobile&&innerHeight<760?22:0;
+          const lowCanopy=0;
           canopy.clear()
             .fromTo('.canopy-rise',{xPercent:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
             .to('.canopy-rise',{xPercent:-10,yPercent:lowCanopy,scale:1,duration:chapters-gardenEnd},gardenEnd)
@@ -318,10 +318,11 @@
         end:()=>'+='+innerHeight*(mobile?1.35:1.55),scrub:(mobile||touch)?.16:.35,anticipatePin:1,invalidateOnRefresh:true,onUpdate:scheduleChrome
       }});
       coast
+        .to('.coast-intro',{autoAlpha:0,y:-35,duration:.16},.1)
         .fromTo('.coast-white',{y:0},{y:()=>-innerHeight*1.55,duration:1},0)
-        .fromTo('.cloud-back',{y:0,scale:1},{y:()=>-innerHeight*1.52,scale:1.04,duration:1},0)
-        .fromTo('.cloud-middle',{y:0,scale:1},{y:()=>-innerHeight*1.66,scale:1.12,duration:1},0)
-        .fromTo('.cloud-one',{y:0,scale:1},{y:()=>-innerHeight*1.85,scale:1.23,duration:1},0)
+        .fromTo('.cloud-back',{y:0,scale:1},{y:()=>-(innerHeight*.72+document.querySelector('.cloud-back').offsetHeight),scale:1.04,duration:1},0)
+        .fromTo('.cloud-middle',{y:0,scale:1},{y:()=>-(innerHeight*.75+document.querySelector('.cloud-middle').offsetHeight),scale:1.08,duration:1},0)
+        .fromTo('.cloud-one',{y:0,scale:1},{y:()=>-(innerHeight*.8+document.querySelector('.cloud-one').offsetHeight),scale:1.13,duration:1},0)
         .fromTo('.coast-sea>img',{scale:1.1,yPercent:-3},{scale:1,yPercent:0,duration:1},0)
         .fromTo('.territory-copy',{autoAlpha:0,y:45},{autoAlpha:1,y:0,duration:.22},.7)
         .fromTo('.territory-distances',{autoAlpha:0,y:25},{autoAlpha:1,y:0,duration:.2},.79)

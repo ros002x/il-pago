@@ -7,6 +7,10 @@ dialog::backdrop{background:#14251e61;backdrop-filter:blur(2px);-webkit-backdrop
 .side-dialog{position:fixed;inset:0 0 0 auto;margin:0;width:38vw;min-width:450px;height:100%;height:100dvh;max-width:100%;max-height:100%;padding:30px 38px 24px;overflow-y:auto;box-shadow:-25px 0 90px #11251b20;background:var(--paper);color:var(--ink)}
 .side-dialog[open]{animation:drawer-enter .7s cubic-bezier(.2,.75,.2,1) both}
 .side-dialog.is-closing[open]{animation:drawer-exit .32s ease-in both}
+/* The main navigation lets the current scene remain visible through a quiet dark veil. */
+.menu-dialog.side-dialog{background:linear-gradient(145deg,#173329cc,#102b23db);color:#fffaf0;border-left:1px solid #fffaf022;box-shadow:-30px 0 100px #071b1438;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);--line:#fffaf02d}
+.menu-dialog::backdrop{background:#071b1438;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px)}
+.menu-dialog a:focus-visible,.menu-dialog button:focus-visible{outline:1px solid currentColor;outline-offset:5px}
 dialog.is-closing:not(.side-dialog){opacity:0;transition:opacity .3s}
 .dialog-top{position:relative;z-index:2;min-height:44px}
 .close-button{min-height:44px;align-items:center}

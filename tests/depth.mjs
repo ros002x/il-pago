@@ -16,7 +16,7 @@ for(const [engine,width,height,touch] of [['chrome',1440,900,false],['chrome',39
  const captured=[];
  for(const id of ['entrance-scene','experience-scene','coast-scene']){
   for(const p of [0,.25,.5,.75,1]){
-   await move(id,p);await page.locator('[data-atmosphere] img').evaluateAll(es=>Promise.all(es.map(e=>{e.loading='eager';return e.decode()})));
+   await move(id,p);await page.locator('.ambient-poster').evaluateAll(es=>Promise.all(es.map(e=>{e.loading='eager';return e.decode()})));
    const view=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,canopyY:document.querySelector('.garden-canopy').getBoundingClientRect().top,canopyCount:document.querySelectorAll('.garden-canopy').length,visibleClouds:[...document.querySelectorAll('.coast-cloud')].filter(e=>getComputedStyle(e).display!=='none').length}));
    check(!view.overflow,`${label} ${id} ${p} no overflow`);
    if(id!=='coast-scene')check(Math.abs(view.canopyY)<2&&view.canopyCount===1,`${label} ${id} ${p} continuous foreground`,view);
@@ -25,14 +25,9 @@ for(const [engine,width,height,touch] of [['chrome',1440,900,false],['chrome',39
   }
  }
  await move('coast-scene',.45);
- const read=()=>page.locator('.cloud-one .atmosphere-skin').evaluate(e=>({transform:e.style.transform,opacity:e.style.opacity}));
- const before=await read();await page.waitForTimeout(2200);const after=await read();
- check(before.transform!==after.transform&&before.opacity!==after.opacity,`${label} clouds drift and breathe without scroll`,{before,after});
- check(!before.transform.includes('rotate'),`${label} cloud motion has no rotation`);
- await page.locator('.menu-trigger')[touch?'tap':'click']();await page.waitForTimeout(600);const paused=await read();await page.waitForTimeout(400);check(JSON.stringify(paused)===JSON.stringify(await read()),`${label} atmosphere pauses for dialogs`);
- await page.keyboard.press('Escape');await page.waitForTimeout(600);
+ // Natural film motion and dialog suspension are covered in tests/footage.mjs.
  await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(600);
- check(await page.evaluate(()=>getComputedStyle(document.querySelector('.garden-canopy')).display==='none'&&[...document.querySelectorAll('[data-atmosphere]')].every(e=>!e.style.transform&&!e.style.opacity)),`${label} reduced motion clears layers`);
+ check(await page.evaluate(()=>getComputedStyle(document.querySelector('.garden-canopy')).display==='none'&&[...document.querySelectorAll('.ambient-film video')].every(e=>e.paused)),`${label} reduced motion clears layers`);
  report.views.push({label,captured});await browser.close();console.log('Captured',label);
 }
 report.failures=report.checks.filter(x=>!x.ok);await fs.writeFile(path.join(output,'results.json'),JSON.stringify(report,null,2));

@@ -33,13 +33,14 @@
     document.querySelector('.menu-trigger')?.setAttribute('aria-expanded', String(!!document.querySelector('#menu-dialog[open]')));
     document.dispatchEvent(new CustomEvent('ilpago:dialog', { detail: { open } }));
   };
-  const openDialog = (dialog) => {
+  const openDialog = (dialog, opener = document.activeElement) => {
     if (!dialog) return;
     clearTimeout(closeTimers.get(dialog));
     dialog.classList.remove('is-closing');
     if (dialog.open) return;
     const previous = dialogs.find(item => item.open);
-    const origin = previous ? returnFocus.get(previous) : document.activeElement;
+    // Safari does not focus a button on pointer activation; retain the actual opener.
+    const origin = previous ? returnFocus.get(previous) : opener;
     returnFocus.set(dialog, origin);
     if (previous) { clearTimeout(closeTimers.get(previous)); previous.close(); previous.classList.remove('is-closing'); }
     dialog.showModal();
@@ -77,14 +78,14 @@
     button.addEventListener('click', () => closeDialog(document.getElementById(button.dataset.close)));
   });
   const menu = document.querySelector('#menu-dialog');
-  document.querySelector('.menu-trigger')?.addEventListener('click', () => openDialog(menu));
+  document.querySelector('.menu-trigger')?.addEventListener('click', event => openDialog(menu, event.currentTarget));
   menu?.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', () => { menu.close(); syncDialogState(); });
   });
   document.querySelectorAll('[data-contact]').forEach(link => link.addEventListener('click', event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const panel = document.querySelector('#contact-dialog');
-    if (panel) { event.preventDefault(); openDialog(panel); }
+    if (panel) { event.preventDefault(); openDialog(panel, event.currentTarget); }
   }));
   // Preserve old inbound links after moving the long contact/farm sections off the homepage.
   if (location.hash === '#contatti') openDialog(document.querySelector('#contact-dialog'));

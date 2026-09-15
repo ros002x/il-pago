@@ -12,6 +12,7 @@
     "test:apple": "node tests/apple.mjs",
     "test:depth": "node tests/depth.mjs",
     "test:continuity": "node tests/continuity.mjs",
+    "test:footage": "node tests/footage.mjs",
     "test:refinement": "node tests/refinement.mjs"
   },
   "devDependencies": {
