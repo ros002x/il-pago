@@ -1,5 +1,7 @@
 # Riprese animate e scena finale
 
+> Archivio della revisione `7e8f324`. Il footage è stato successivamente rimosso su richiesta e sostituito dai precedenti ritagli con parallasse. Stato corrente: [COMPLETION_REVIEW.md](COMPLETION_REVIEW.md).
+
 Ripresa dal commit pubblico `3eff4cd06a1e624fd7e3b37b09e8a900d52fad70`, senza reset. Conservati fotografie autentiche, varianti responsive, pagine interne, storia, pin orizzontali e night mode locale alla hero.
 
 ## Vegetazione

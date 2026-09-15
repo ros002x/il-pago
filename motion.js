@@ -288,7 +288,7 @@
           const gardenEnd=(passageScene.end-passageScene.start)/span;
           const chapters=(galleryScene.start-passageScene.start)/span;
           const chapterSpan=1-chapters;
-          const lowCanopy=0;
+          const lowCanopy=mobile && innerHeight<740?22:0;
           canopy.clear()
             .fromTo('.canopy-rise',{xPercent:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
             .to('.canopy-rise',{xPercent:-10,yPercent:lowCanopy,scale:1,duration:chapters-gardenEnd},gardenEnd)
@@ -319,6 +319,7 @@
       }});
       coast
         .to('.coast-intro',{autoAlpha:0,y:-35,duration:.16},.1)
+        .fromTo('.coast-intro-title',{color:'#273c30',textShadow:'0 2px 30px #07181100'},{color:'#fff9e8',textShadow:'0 2px 30px #07181166',duration:.26},.43)
         .fromTo('.coast-white',{y:0},{y:()=>-innerHeight*1.55,duration:1},0)
         .fromTo('.cloud-back',{y:0,scale:1},{y:()=>-(innerHeight*.72+document.querySelector('.cloud-back').offsetHeight),scale:1.04,duration:1},0)
         .fromTo('.cloud-middle',{y:0,scale:1},{y:()=>-(innerHeight*.75+document.querySelector('.cloud-middle').offsetHeight),scale:1.08,duration:1},0)

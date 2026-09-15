@@ -652,5 +652,460 @@
         "bytes": 247744
       }
     ]
+  },
+  "table-glasses": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/table-glasses-480.webp",
+        "width": 480,
+        "bytes": 29940
+      },
+      {
+        "src": "assets/table-glasses-800.webp",
+        "width": 800,
+        "bytes": 64818
+      },
+      {
+        "src": "assets/table-glasses-1200.webp",
+        "width": 1200,
+        "bytes": 119974
+      },
+      {
+        "src": "assets/table-glasses-1600.webp",
+        "width": 1600,
+        "bytes": 177160
+      },
+      {
+        "src": "assets/table-glasses-1920.webp",
+        "width": 1920,
+        "bytes": 217938
+      }
+    ]
+  },
+  "grill": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/grill-480.webp",
+        "width": 480,
+        "bytes": 32360
+      },
+      {
+        "src": "assets/grill-800.webp",
+        "width": 800,
+        "bytes": 67060
+      },
+      {
+        "src": "assets/grill-1200.webp",
+        "width": 1200,
+        "bytes": 115620
+      },
+      {
+        "src": "assets/grill-1600.webp",
+        "width": 1600,
+        "bytes": 167702
+      },
+      {
+        "src": "assets/grill-1920.webp",
+        "width": 1920,
+        "bytes": 198064
+      }
+    ]
+  },
+  "recipe-pastizz": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/recipe-pastizz-480.webp",
+        "width": 480,
+        "bytes": 29738
+      },
+      {
+        "src": "assets/recipe-pastizz-800.webp",
+        "width": 800,
+        "bytes": 76490
+      },
+      {
+        "src": "assets/recipe-pastizz-1200.webp",
+        "width": 1200,
+        "bytes": 151910
+      },
+      {
+        "src": "assets/recipe-pastizz-1600.webp",
+        "width": 1600,
+        "bytes": 220850
+      },
+      {
+        "src": "assets/recipe-pastizz-1920.webp",
+        "width": 1920,
+        "bytes": 255404
+      }
+    ]
+  },
+  "recipe-brioche": {
+    "width": 1200,
+    "height": 689,
+    "variants": [
+      {
+        "src": "assets/recipe-brioche-480.webp",
+        "width": 480,
+        "bytes": 27992
+      },
+      {
+        "src": "assets/recipe-brioche-800.webp",
+        "width": 800,
+        "bytes": 54148
+      },
+      {
+        "src": "assets/recipe-brioche-1200.webp",
+        "width": 1200,
+        "bytes": 81400
+      }
+    ]
+  },
+  "recipe-torta-2": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/recipe-torta-2-480.webp",
+        "width": 480,
+        "bytes": 43492
+      },
+      {
+        "src": "assets/recipe-torta-2-800.webp",
+        "width": 800,
+        "bytes": 98904
+      },
+      {
+        "src": "assets/recipe-torta-2-1200.webp",
+        "width": 1200,
+        "bytes": 182944
+      },
+      {
+        "src": "assets/recipe-torta-2-1600.webp",
+        "width": 1600,
+        "bytes": 256674
+      },
+      {
+        "src": "assets/recipe-torta-2-1920.webp",
+        "width": 1920,
+        "bytes": 300028
+      }
+    ]
+  },
+  "recipe-frizzul": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/recipe-frizzul-480.webp",
+        "width": 480,
+        "bytes": 30596
+      },
+      {
+        "src": "assets/recipe-frizzul-800.webp",
+        "width": 800,
+        "bytes": 73846
+      },
+      {
+        "src": "assets/recipe-frizzul-1200.webp",
+        "width": 1200,
+        "bytes": 151536
+      },
+      {
+        "src": "assets/recipe-frizzul-1600.webp",
+        "width": 1600,
+        "bytes": 221766
+      },
+      {
+        "src": "assets/recipe-frizzul-1920.webp",
+        "width": 1920,
+        "bytes": 258256
+      }
+    ]
+  },
+  "rotondella": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/rotondella-480.webp",
+        "width": 480,
+        "bytes": 51328
+      },
+      {
+        "src": "assets/rotondella-800.webp",
+        "width": 800,
+        "bytes": 128570
+      },
+      {
+        "src": "assets/rotondella-1200.webp",
+        "width": 1200,
+        "bytes": 245770
+      },
+      {
+        "src": "assets/rotondella-1600.webp",
+        "width": 1600,
+        "bytes": 342016
+      },
+      {
+        "src": "assets/rotondella-1920.webp",
+        "width": 1920,
+        "bytes": 384244
+      }
+    ]
+  },
+  "craco": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/craco-480.webp",
+        "width": 480,
+        "bytes": 31776
+      },
+      {
+        "src": "assets/craco-800.webp",
+        "width": 800,
+        "bytes": 76924
+      },
+      {
+        "src": "assets/craco-1200.webp",
+        "width": 1200,
+        "bytes": 147686
+      },
+      {
+        "src": "assets/craco-1600.webp",
+        "width": 1600,
+        "bytes": 213634
+      },
+      {
+        "src": "assets/craco-1920.webp",
+        "width": 1920,
+        "bytes": 239288
+      }
+    ]
+  },
+  "metaponto": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/metaponto-480.webp",
+        "width": 480,
+        "bytes": 42882
+      },
+      {
+        "src": "assets/metaponto-800.webp",
+        "width": 800,
+        "bytes": 106586
+      },
+      {
+        "src": "assets/metaponto-1200.webp",
+        "width": 1200,
+        "bytes": 225168
+      },
+      {
+        "src": "assets/metaponto-1600.webp",
+        "width": 1600,
+        "bytes": 356642
+      },
+      {
+        "src": "assets/metaponto-1920.webp",
+        "width": 1920,
+        "bytes": 441008
+      }
+    ]
+  },
+  "policoro": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/policoro-480.webp",
+        "width": 480,
+        "bytes": 22088
+      },
+      {
+        "src": "assets/policoro-800.webp",
+        "width": 800,
+        "bytes": 45926
+      },
+      {
+        "src": "assets/policoro-1200.webp",
+        "width": 1200,
+        "bytes": 78682
+      },
+      {
+        "src": "assets/policoro-1600.webp",
+        "width": 1600,
+        "bytes": 112064
+      },
+      {
+        "src": "assets/policoro-1920.webp",
+        "width": 1920,
+        "bytes": 127092
+      }
+    ]
+  },
+  "wwf": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/wwf-480.webp",
+        "width": 480,
+        "bytes": 41476
+      },
+      {
+        "src": "assets/wwf-800.webp",
+        "width": 800,
+        "bytes": 100022
+      },
+      {
+        "src": "assets/wwf-1200.webp",
+        "width": 1200,
+        "bytes": 191738
+      },
+      {
+        "src": "assets/wwf-1600.webp",
+        "width": 1600,
+        "bytes": 282770
+      },
+      {
+        "src": "assets/wwf-1920.webp",
+        "width": 1920,
+        "bytes": 331228
+      }
+    ]
+  },
+  "volo-angelo": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/volo-angelo-480.webp",
+        "width": 480,
+        "bytes": 36978
+      },
+      {
+        "src": "assets/volo-angelo-800.webp",
+        "width": 800,
+        "bytes": 94526
+      },
+      {
+        "src": "assets/volo-angelo-1200.webp",
+        "width": 1200,
+        "bytes": 191496
+      },
+      {
+        "src": "assets/volo-angelo-1600.webp",
+        "width": 1600,
+        "bytes": 288752
+      },
+      {
+        "src": "assets/volo-angelo-1920.webp",
+        "width": 1920,
+        "bytes": 332416
+      }
+    ]
+  },
+  "ionio": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/ionio-480.webp",
+        "width": 480,
+        "bytes": 38196
+      },
+      {
+        "src": "assets/ionio-800.webp",
+        "width": 800,
+        "bytes": 100738
+      },
+      {
+        "src": "assets/ionio-1200.webp",
+        "width": 1200,
+        "bytes": 192658
+      },
+      {
+        "src": "assets/ionio-1600.webp",
+        "width": 1600,
+        "bytes": 279596
+      },
+      {
+        "src": "assets/ionio-1920.webp",
+        "width": 1920,
+        "bytes": 314508
+      }
+    ]
+  },
+  "matera-wide": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/matera-wide-480.webp",
+        "width": 480,
+        "bytes": 44090
+      },
+      {
+        "src": "assets/matera-wide-800.webp",
+        "width": 800,
+        "bytes": 105690
+      },
+      {
+        "src": "assets/matera-wide-1200.webp",
+        "width": 1200,
+        "bytes": 203710
+      },
+      {
+        "src": "assets/matera-wide-1600.webp",
+        "width": 1600,
+        "bytes": 300108
+      },
+      {
+        "src": "assets/matera-wide-1920.webp",
+        "width": 1920,
+        "bytes": 346046
+      }
+    ]
+  },
+  "beach-lido": {
+    "width": 1920,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "assets/beach-lido-480.webp",
+        "width": 480,
+        "bytes": 27676
+      },
+      {
+        "src": "assets/beach-lido-800.webp",
+        "width": 800,
+        "bytes": 68470
+      },
+      {
+        "src": "assets/beach-lido-1200.webp",
+        "width": 1200,
+        "bytes": 146996
+      },
+      {
+        "src": "assets/beach-lido-1600.webp",
+        "width": 1600,
+        "bytes": 239632
+      },
+      {
+        "src": "assets/beach-lido-1920.webp",
+        "width": 1920,
+        "bytes": 305854
+      }
+    ]
   }
 }

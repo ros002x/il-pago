@@ -1,0 +1,123 @@
+[
+  {
+    "asset": "table-glasses",
+    "source": "https://www.ilpago.eu/images/ristorante/slide2.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "grill",
+    "source": "https://www.ilpago.eu/images/ristorante/slide3.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "recipe-pastizz",
+    "source": "https://www.ilpago.eu/images/ricette/pastizz1.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "recipe-brioche",
+    "source": "https://www.ilpago.eu/images/ricette/panbrioche1.jpg",
+    "native": [
+      1200,
+      689
+    ]
+  },
+  {
+    "asset": "recipe-torta-2",
+    "source": "https://www.ilpago.eu/images/ricette/torta2.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "recipe-frizzul",
+    "source": "https://www.ilpago.eu/images/ricette/sugo4.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "rotondella",
+    "source": "https://www.ilpago.eu/images/territorio/rotondella-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "craco",
+    "source": "https://www.ilpago.eu/images/territorio/craco-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "metaponto",
+    "source": "https://www.ilpago.eu/images/territorio/metaponto-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "policoro",
+    "source": "https://www.ilpago.eu/images/territorio/policoro-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "wwf",
+    "source": "https://www.ilpago.eu/images/territorio/wwf-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "volo-angelo",
+    "source": "https://www.ilpago.eu/images/territorio/volo-angelo-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "ionio",
+    "source": "https://www.ilpago.eu/images/territorio/jonio-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "matera-wide",
+    "source": "https://www.ilpago.eu/images/territorio/matera-top.jpg",
+    "native": [
+      1920,
+      1000
+    ]
+  },
+  {
+    "asset": "beach-lido",
+    "source": "https://www.ilpago.eu/images/offerte/estate-top.jpg",
+    "page": "https://www.ilpago.eu/offerte/estate/",
+    "native": [
+      1920,
+      1000
+    ]
+  }
+]
