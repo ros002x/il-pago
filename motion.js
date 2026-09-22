@@ -305,8 +305,8 @@
         onToggle: activeLayer(track)
       } });
       galleryScene = horizontal.scrollTrigger;
-      // Both corners frame the last photograph. The sticky foreground releases
-      // with its own chapter, rather than vanishing underneath the next image.
+      // The foreground leaves the frame before the horizontal pin releases.
+      // Measure clearance from each responsive layout, keeping it above the photos.
       const canopy = gsap.timeline({defaults:{ease:'none'}});
       ScrollTrigger.create({
         id:'canopy-travel', trigger:'.nature-journey', start:()=>passageScene.start, end:()=>galleryScene.end,
@@ -317,15 +317,21 @@
           const chapters=(galleryScene.start-passageScene.start)/span;
           const chapterSpan=1-chapters;
           const lowCanopy=mobile && innerHeight<740?16:0;
+          const rise=document.querySelector('.canopy-rise');
+          const hanging=document.querySelector('.canopy-hanging');
+          const distant=document.querySelector('.canopy-distant');
+          const belowFrame=plant=>plant.parentElement.clientHeight-plant.offsetTop+Math.max(48,plant.offsetHeight*.15);
+          const aboveFrame=plant=>-plant.offsetTop-plant.offsetHeight-Math.max(48,plant.offsetHeight*.15);
           canopy.clear()
-            .fromTo('.canopy-rise',{xPercent:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
+            .fromTo('.canopy-rise',{xPercent:0,y:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
             .to('.canopy-rise',{xPercent:-10,yPercent:lowCanopy,scale:1,duration:chapters-gardenEnd},gardenEnd)
             .to('.canopy-rise',{xPercent:-5,yPercent:lowCanopy+8,scale:1.02,duration:chapterSpan*.34,ease:'sine.inOut'},chapters)
-            .to('.canopy-rise',{xPercent:mobile?-10:-8,yPercent:mobile?lowCanopy+28:18,scale:1.04,duration:chapterSpan*.38,ease:'sine.inOut'},chapters+chapterSpan*.58)
-            .fromTo('.canopy-distant',{xPercent:10,yPercent:35,scale:.9},{xPercent:-12,yPercent:0,scale:1,duration:chapters},0)
-            .to('.canopy-distant',{xPercent:-100,yPercent:40,scale:1.04,duration:chapterSpan*.7},chapters)
-            .fromTo('.canopy-hanging',{xPercent:110,yPercent:0,scale:.96},{xPercent:110,yPercent:0,scale:.96,duration:chapters+chapterSpan*.43},0)
-            .to('.canopy-hanging',{xPercent:0,yPercent:mobile?7:0,scale:1.04,duration:chapterSpan*.37,ease:'sine.inOut'},chapters+chapterSpan*.43)
+            .to('.canopy-rise',{xPercent:mobile?-28:-22,y:belowFrame(rise),yPercent:0,scale:.97,duration:chapterSpan*.30,ease:'sine.inOut'},chapters+chapterSpan*.65)
+            .fromTo('.canopy-distant',{xPercent:10,y:0,yPercent:35,scale:.9},{xPercent:-12,yPercent:0,scale:1,duration:chapters},0)
+            .to('.canopy-distant',{xPercent:-100,y:belowFrame(distant),yPercent:0,scale:.97,duration:chapterSpan*.70,ease:'sine.inOut'},chapters)
+            .fromTo('.canopy-hanging',{xPercent:110,y:0,yPercent:0,scale:.96},{xPercent:110,yPercent:0,scale:.96,duration:chapters+chapterSpan*.32},0)
+            .to('.canopy-hanging',{xPercent:0,yPercent:mobile?7:0,scale:1.04,duration:chapterSpan*.24,ease:'sine.inOut'},chapters+chapterSpan*.32)
+            .to('.canopy-hanging',{xPercent:22,y:aboveFrame(hanging),yPercent:0,scale:.98,duration:chapterSpan*.24,ease:'sine.inOut'},chapters+chapterSpan*.68)
             .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:0,yPercent:8,scale:1.18,duration:chapters},0)
             .to('.canopy-close',{xPercent:85,yPercent:20,scale:1.25,duration:chapterSpan*.22},chapters)
             .fromTo('.experiences-heading>p,.experiences>.section-top>.micro:last-child',{autoAlpha:1},{autoAlpha:0,duration:chapterSpan*.12},chapters+chapterSpan*.46)

@@ -61,13 +61,17 @@ for(const [engine,width,height,bars] of profiles){
    const canopy=document.querySelector('.garden-canopy').getBoundingClientRect();
    const pin=document.querySelector('#esperienze').getBoundingClientRect();
    const rise=document.querySelector('.canopy-rise').getBoundingClientRect();
-   return {canopyTop:canopy.top,pinTop:pin.top,visibleRiseWidth:Math.max(0,Math.min(innerWidth,rise.right)-Math.max(0,rise.left)),riseBottom:rise.bottom};
+   const visiblePlants=[...document.querySelectorAll('.garden-plant')].filter(el=>{
+    const r=el.getBoundingClientRect();
+    return getComputedStyle(el).display!=='none'&&Math.min(innerWidth,canopy.right,r.right)>Math.max(0,canopy.left,r.left)&&Math.min(innerHeight,canopy.bottom,r.bottom)>Math.max(0,canopy.top,r.top);
+   }).length;
+   return {canopyTop:canopy.top,pinTop:pin.top,visibleRiseWidth:Math.max(0,Math.min(innerWidth,rise.right)-Math.max(0,rise.left)),riseBottom:rise.bottom,visiblePlants};
   });
-  horizontalOK&&=s.overflow<2&&(ratio>1?Math.abs(layers.canopyTop-layers.pinTop)<2:Math.abs(s.top)<2)&&layers.visibleRiseWidth>width*.2;
+  horizontalOK&&=s.overflow<2&&(ratio>1?Math.abs(layers.canopyTop-layers.pinTop)<2:Math.abs(s.top)<2)&&(ratio>=.98?layers.visiblePlants===0:layers.visibleRiseWidth>width*.2);
   report.frames.push({label,ratio,...s,...layers});
   if(engine==='webkit'&&width!==1180&&[.5,.98,1.15].includes(ratio))await shot('horizontal-'+ratio);
  }
- check(horizontalOK,label+' foreground stays with final photo and releases together / reverse');
+ check(horizontalOK,label+' foreground exits before the final release / reverse');
  await jump('experience-scene',.9);
  for(const [i,delta] of [12,24,48,48,24,12,-12,-24,-48,-48,-24,-12].entries()){
   if(!mobile){await page.mouse.wheel(0,delta);}else await page.evaluate(d=>scrollBy({top:d,behavior:'instant'}),delta);
