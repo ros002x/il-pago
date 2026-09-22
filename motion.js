@@ -34,7 +34,9 @@
   let restoreFrame = 0;
   let layoutTimer;
   let layoutWidth = innerWidth;
-  let layoutHeight = hero.offsetHeight;
+  // min-height remains responsive even while GSAP gives the fixed pin a pixel height.
+  const sceneHeight = () => parseFloat(getComputedStyle(hero).minHeight) || hero.offsetHeight;
+  let layoutHeight = sceneHeight();
   let resizePosition = null;
   let lastPosition = null;
   let chapterBounds = [];
@@ -106,11 +108,11 @@
   // settled structural resize; Safari toolbar changes do not change 100svh.
   const resizeLayout = () => {
     if (destroyed || motionPreference.matches || !body.classList.contains('premium-ready')) return;
-    if (innerWidth === layoutWidth && hero.offsetHeight === layoutHeight) return;
+    if (innerWidth === layoutWidth && sceneHeight() === layoutHeight) return;
     resizePosition ||= lastPosition || readPosition();
     clearTimeout(layoutTimer);
     layoutTimer = setTimeout(() => {
-      layoutWidth = innerWidth; layoutHeight = hero.offsetHeight;
+      layoutWidth = innerWidth; layoutHeight = sceneHeight();
       ScrollTrigger.refresh();
       if (resizePosition) applyPosition(resizePosition);
       resizePosition = null; lastPosition = readPosition(); refreshChrome(); savePosition();
@@ -303,7 +305,8 @@
         onToggle: activeLayer(track)
       } });
       galleryScene = horizontal.scrollTrigger;
-      // The low foreground sinks below the copy through chapter two, then passes out of view.
+      // Both corners frame the last photograph. The sticky foreground releases
+      // with its own chapter, rather than vanishing underneath the next image.
       const canopy = gsap.timeline({defaults:{ease:'none'}});
       ScrollTrigger.create({
         id:'canopy-travel', trigger:'.nature-journey', start:()=>passageScene.start, end:()=>galleryScene.end,
@@ -313,16 +316,16 @@
           const gardenEnd=(passageScene.end-passageScene.start)/span;
           const chapters=(galleryScene.start-passageScene.start)/span;
           const chapterSpan=1-chapters;
-          const lowCanopy=mobile && innerHeight<740?22:0;
+          const lowCanopy=mobile && innerHeight<740?16:0;
           canopy.clear()
             .fromTo('.canopy-rise',{xPercent:0,yPercent:0,scale:1},{xPercent:-6,yPercent:5,scale:1.08,duration:gardenEnd},0)
             .to('.canopy-rise',{xPercent:-10,yPercent:lowCanopy,scale:1,duration:chapters-gardenEnd},gardenEnd)
-            .to('.canopy-rise',{xPercent:mobile?-18:-8,yPercent:mobile?lowCanopy+8:20,scale:mobile?.96:.97,duration:chapterSpan*.34,ease:'sine.inOut'},chapters)
-            .to('.canopy-rise',{xPercent:-112,yPercent:55,scale:1.07,duration:chapterSpan*.38,ease:'sine.inOut'},chapters+chapterSpan*.58)
+            .to('.canopy-rise',{xPercent:-5,yPercent:lowCanopy+8,scale:1.02,duration:chapterSpan*.34,ease:'sine.inOut'},chapters)
+            .to('.canopy-rise',{xPercent:mobile?-10:-8,yPercent:mobile?lowCanopy+28:18,scale:1.04,duration:chapterSpan*.38,ease:'sine.inOut'},chapters+chapterSpan*.58)
             .fromTo('.canopy-distant',{xPercent:10,yPercent:35,scale:.9},{xPercent:-12,yPercent:0,scale:1,duration:chapters},0)
             .to('.canopy-distant',{xPercent:-100,yPercent:40,scale:1.04,duration:chapterSpan*.7},chapters)
-            .fromTo('.canopy-hanging',{xPercent:125,yPercent:0,scale:.92},{xPercent:125,yPercent:0,scale:.92,duration:chapters+chapterSpan*.57},0)
-            .to('.canopy-hanging',{xPercent:0,yPercent:mobile?15:0,scale:1.03,duration:chapterSpan*.35,ease:'sine.inOut'},chapters+chapterSpan*.57)
+            .fromTo('.canopy-hanging',{xPercent:110,yPercent:0,scale:.96},{xPercent:110,yPercent:0,scale:.96,duration:chapters+chapterSpan*.43},0)
+            .to('.canopy-hanging',{xPercent:0,yPercent:mobile?7:0,scale:1.04,duration:chapterSpan*.37,ease:'sine.inOut'},chapters+chapterSpan*.43)
             .fromTo('.canopy-close',{xPercent:0,yPercent:0,scale:1.13},{xPercent:0,yPercent:8,scale:1.18,duration:chapters},0)
             .to('.canopy-close',{xPercent:85,yPercent:20,scale:1.25,duration:chapterSpan*.22},chapters)
             .fromTo('.experiences-heading>p,.experiences>.section-top>.micro:last-child',{autoAlpha:1},{autoAlpha:0,duration:chapterSpan*.12},chapters+chapterSpan*.46)
@@ -365,7 +368,11 @@
         detail.addEventListener('toggle', onDetails);
         events.push(() => detail.removeEventListener('toggle', onDetails));
       });
-      const finish = () => { ScrollTrigger.sort(); ScrollTrigger.refresh(); restorePosition(); refreshChrome(); };
+      const finish = () => {
+        ScrollTrigger.sort(); ScrollTrigger.refresh();
+        if (!resizePosition) { layoutWidth = innerWidth; layoutHeight = sceneHeight(); }
+        restorePosition(); refreshChrome();
+      };
       const initFrame = requestAnimationFrame(finish);
       return () => {
         cancelAnimationFrame(initFrame);

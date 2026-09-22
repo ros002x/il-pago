@@ -45,3 +45,11 @@ Esito locale finale: 88/88 controlli ricette/Back/Retina e 42/42 controlli scrol
 Le prove mirate coprono Chrome desktop, WebKit desktop, 375/390/430 px, iPad portrait/landscape, ritorno alle ricette e dalla home, pin/release/reverse, apertura/chiusura pannelli e immagini modificate. I gesti touch con inerzia sono sintetizzati tramite il protocollo Chromium; WebKit mobile copre geometria, navigazione e orientamento. Le prove wheel desktop usano piccoli delta, impulsi veloci e inversione.
 
 L'host è Windows: non è disponibile una verifica su Safari/macOS, Chrome/macOS, barre Safari o trackpad/dispositivi Apple fisici. Nessun PASS hardware viene dichiarato. Screenshot, report JSON, cache e master di ricerca restano in cartelle ignorate da Git.
+
+## Copertura dei pannelli e finale del foreground
+
+La successiva verifica mirata ha riprodotto una fascia scoperta di 84 px risolvendo separatamente viewport piccolo e grande: le superfici pinned basate soltanto su `svh` non coprivano lo spazio liberato dalla toolbar. Le superfici ora usano `100lvh`, stabile durante il gesto; la composizione interna mantiene `svh`. Il valore iniziale viene memorizzato dopo la creazione dei pin, evitando refresh alla prima variazione della toolbar. Il significato delle unità è documentato da [WebKit](https://webkit.org/blog/12445/new-webkit-features-in-safari-15-4/).
+
+I medesimi ritagli floreali hanno scala e presenza maggiori. Il gruppo basso rimane in scena, il ramo alto entra prima e il foreground ha un livello di compositing separato davanti alle fotografie. Il margine negativo di compensazione è stato trasferito dal livello sticky alla sezione successiva: prima tratteneva i fiori per un viewport extra; ora il rilascio segue la fotografia. Misura su 390 px dopo il pin: foto e fiori entrambi a −10 px e poi a −153 px, invece dei fiori fermi a 0.
+
+`node tests/canopy-band.mjs`: 17/17 controlli mirati passati, senza errori JS/HTTP, su WebKit 390/820/1440 e Chrome 1440. Screenshot in movimento e del rilascio ispezionati. Nel caso riprodotto la fascia misurata passa da 84 a 0 px. Il test simula separatamente le due unità di viewport; non sostituisce una prova sulla toolbar Safari fisica. `--public` limita la verifica a mobile, fascia e finale, includendo anche il CSS pubblico senza intercettazione.

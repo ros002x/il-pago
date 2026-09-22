@@ -2,8 +2,8 @@
 const layer = (picture, name, cls, sizes) => `<div class="${cls}" aria-hidden="true"><div class="atmosphere-skin">${picture(name,'','',false,sizes)}</div></div>`;
 export const gardenCanopy = (picture, navigation) => `<div class="garden-canopy" data-atmosphere-scene>
  ${layer(picture, 'bougainvillea-mound','garden-plant canopy-distant atmosphere-optional','29vw')}
- ${layer(picture, 'bougainvillea-mound','garden-plant canopy-rise','(max-width: 760px) 80vw, 52vw')}
- ${layer(picture, 'bougainvillea-hanging','garden-plant canopy-hanging','(max-width: 760px) 50vw, 43vw')}
+ ${layer(picture, 'bougainvillea-mound','garden-plant canopy-rise','(max-width: 760px) 102vw, 72vw')}
+ ${layer(picture, 'bougainvillea-hanging','garden-plant canopy-hanging','(max-width: 760px) 78vw, 55vw')}
  ${layer(picture, 'bougainvillea-mound','garden-plant canopy-close atmosphere-optional','35vw')}
  ${navigation}
 </div>`;
