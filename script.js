@@ -74,6 +74,17 @@
       if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeDialog(dialog);
     });
   });
+  // A page restored from Safari's back/forward cache must not retain the menu's
+  // background scroll lock after following one of its links to another page.
+  addEventListener('pagehide', () => {
+    dialogs.forEach(dialog => {
+      clearTimeout(closeTimers.get(dialog));
+      if (dialog.open) dialog.close();
+      dialog.classList.remove('is-closing');
+    });
+    syncDialogState();
+  });
+  addEventListener('pageshow', syncDialogState);
   document.querySelectorAll('[data-close]').forEach((button) => {
     button.addEventListener('click', () => closeDialog(document.getElementById(button.dataset.close)));
   });

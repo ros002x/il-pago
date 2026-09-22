@@ -1,6 +1,7 @@
 /* Il Pago: shared editorial pages and refinements to the existing art direction. */
 html.dialog-open,html.dialog-open body{overflow:hidden;overscroll-behavior:none}
-body{overflow-x:hidden}
+/* Clip horizontal scenery without making body a second scrolling container. */
+body{overflow-x:clip}
 main:focus{outline:none}
 dialog{overscroll-behavior:contain}
 dialog::backdrop{background:#14251e61;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}

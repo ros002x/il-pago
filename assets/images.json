@@ -744,6 +744,33 @@
         "width": 1920,
         "bytes": 255404
       }
+    ],
+    "avif": [
+      {
+        "src": "assets/recipe-pastizz-480.avif",
+        "width": 480,
+        "bytes": 40662
+      },
+      {
+        "src": "assets/recipe-pastizz-800.avif",
+        "width": 800,
+        "bytes": 101630
+      },
+      {
+        "src": "assets/recipe-pastizz-1200.avif",
+        "width": 1200,
+        "bytes": 200106
+      },
+      {
+        "src": "assets/recipe-pastizz-1600.avif",
+        "width": 1600,
+        "bytes": 293103
+      },
+      {
+        "src": "assets/recipe-pastizz-1920.avif",
+        "width": 1920,
+        "bytes": 189983
+      }
     ]
   },
   "recipe-brioche": {
@@ -764,6 +791,23 @@
         "src": "assets/recipe-brioche-1200.webp",
         "width": 1200,
         "bytes": 81400
+      }
+    ],
+    "avif": [
+      {
+        "src": "assets/recipe-brioche-480.avif",
+        "width": 480,
+        "bytes": 35598
+      },
+      {
+        "src": "assets/recipe-brioche-800.avif",
+        "width": 800,
+        "bytes": 66942
+      },
+      {
+        "src": "assets/recipe-brioche-1200.avif",
+        "width": 1200,
+        "bytes": 73560
       }
     ]
   },
@@ -796,6 +840,33 @@
         "width": 1920,
         "bytes": 300028
       }
+    ],
+    "avif": [
+      {
+        "src": "assets/recipe-torta-2-480.avif",
+        "width": 480,
+        "bytes": 50500
+      },
+      {
+        "src": "assets/recipe-torta-2-800.avif",
+        "width": 800,
+        "bytes": 115221
+      },
+      {
+        "src": "assets/recipe-torta-2-1200.avif",
+        "width": 1200,
+        "bytes": 216983
+      },
+      {
+        "src": "assets/recipe-torta-2-1600.avif",
+        "width": 1600,
+        "bytes": 312455
+      },
+      {
+        "src": "assets/recipe-torta-2-1920.avif",
+        "width": 1920,
+        "bytes": 248760
+      }
     ]
   },
   "recipe-frizzul": {
@@ -826,6 +897,33 @@
         "src": "assets/recipe-frizzul-1920.webp",
         "width": 1920,
         "bytes": 258256
+      }
+    ],
+    "avif": [
+      {
+        "src": "assets/recipe-frizzul-480.avif",
+        "width": 480,
+        "bytes": 40617
+      },
+      {
+        "src": "assets/recipe-frizzul-800.avif",
+        "width": 800,
+        "bytes": 99972
+      },
+      {
+        "src": "assets/recipe-frizzul-1200.avif",
+        "width": 1200,
+        "bytes": 197970
+      },
+      {
+        "src": "assets/recipe-frizzul-1600.avif",
+        "width": 1600,
+        "bytes": 290772
+      },
+      {
+        "src": "assets/recipe-frizzul-1920.avif",
+        "width": 1920,
+        "bytes": 230758
       }
     ]
   },

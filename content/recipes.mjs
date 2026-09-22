@@ -1,4 +1,6 @@
 // Names and photographs follow the restaurant's official recipe archive.
+export const recipeUrl = id => `ricetta-${id}.html`;
+export const recipeIndex = 'ristorante.html#ricette';
 export const recipes = [
  {id:'pastizz',title:"U' Pastizz R'tunnar",image:'recipe-pastizz',alt:"U' Pastizz R'tunnar, i rustici a mezzaluna preparati al Pago",description:'Il rustico di Rotondella: una sfoglia di grano duro racchiude carne di maiale, uova, formaggio e prezzemolo.',path:'pastizz/',method:'Lascia riposare l’impasto per mezz’ora, poi stendilo in dischi sottili. Distribuisci il ripieno su metà di ciascun disco, richiudi a mezzaluna e sigilla i bordi. Fora la superficie e spennella con tuorlo: la ricetta indica circa venti minuti in forno a 200 °C.'},
  {id:'pan-brioche',title:'Pan Brioche',image:'recipe-brioche',alt:'Una fetta di Pan Brioche farcito, dalla ricetta ufficiale Il Pago',description:'Una treccia salata da condividere. Nella ricetta di casa, l’impasto al latte accoglie mozzarella e speck.',path:'panbrioche/',method:'Prepara l’impasto con farina, latte, olio, sale, zucchero, lievito e uovo. Stendilo in strisce, aggiungi mozzarella e speck, richiudi e intreccia i filoni. Dopo circa un’ora di lievitazione, cuoci in forno a 200 °C per circa trenta minuti. Lascia intiepidire prima di servire.'},

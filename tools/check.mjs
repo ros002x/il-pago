@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 let failures=0;
-for(const name of ['script.js','motion.js','showcase.js','editorial.js','tools/build.mjs','content/pages.mjs','content/discover.mjs','content/scenes.mjs','content/showcase.mjs','content/recipes.mjs','content/territory.mjs']){
+for(const name of ['script.js','motion.js','showcase.js','editorial.js','tools/build.mjs','content/pages.mjs','content/discover.mjs','content/scenes.mjs','content/showcase.mjs','content/recipes.mjs','content/recipe-page.mjs','content/territory.mjs']){
  const r=spawnSync(process.execPath,['--check',path.join(root,name)],{encoding:'utf8'});if(r.status){console.error(name,r.stderr);failures++;}
 }
 for(const file of (await fs.readdir(root)).filter(f=>f.endsWith('.html'))){
@@ -15,7 +15,7 @@ for(const file of (await fs.readdir(root)).filter(f=>f.endsWith('.html'))){
  }
 }
 const images=JSON.parse(await fs.readFile(path.join(root,'assets/images.json'),'utf8'));
-for(const image of Object.values(images))for(const variant of image.variants){
+for(const image of Object.values(images))for(const variant of [...image.variants,...(image.avif||[])]){
  try{const stat=await fs.stat(path.join(root,variant.src));if(stat.size!==variant.bytes||variant.width>image.width){console.error('Invalid image manifest entry',variant.src);failures++;}}catch{console.error('Missing responsive variant',variant.src);failures++;}
 }
 console.log(failures?'Check failed':'Syntax, local references, image manifests OK');process.exitCode=failures?1:0;

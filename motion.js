@@ -1,9 +1,9 @@
 (() => {
   'use strict';
-  const { gsap, ScrollTrigger, Lenis } = window;
+  const { gsap, ScrollTrigger } = window;
   if (!gsap || !ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.config({ ignoreMobileResize: true });
+  ScrollTrigger.config({ ignoreMobileResize: true, autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load' });
   const body = document.body;
   const hero = document.querySelector('.hero');
   if (!hero) return;
@@ -22,7 +22,6 @@
   let restoration = ['reload','back_forward'].includes(navigationType) ? history.state?.ilPagoPosition : null;
   const restoreFromHistory = !!restoration;
   history.scrollRestoration = motionPreference.matches ? 'auto' : 'manual';
-  let lenis = null;
   let heroScene = null;
   let passageScene = null;
   let galleryScene = null;
@@ -33,10 +32,23 @@
   let destroyed = false;
   let positionTimer;
   let restoreFrame = 0;
-  const savePosition = () => {
-    if (destroyed || restoration || !body.classList.contains('premium-ready')) return;
+  let layoutTimer;
+  let layoutWidth = innerWidth;
+  let layoutHeight = hero.offsetHeight;
+  let resizePosition = null;
+  let lastPosition = null;
+  let chapterBounds = [];
+  const chapterSelectors = ['.hero','.passage','#esperienze','.story','.territory','.table-section','.rooms','.showcase','.site-footer'];
+  const readPosition = () => {
     const active = [heroScene,passageScene,galleryScene,coastScene].find(s => s?.isActive);
-    try { history.replaceState({...history.state,ilPagoPosition:{y:scrollY,scene:active?.vars.id,progress:active?.progress}},''); } catch { /* Embedded previews may restrict history. */ }
+    if (active) return { y: scrollY, scene: active.vars.id, progress: active.progress };
+    const chapter = chapterBounds.filter(item => item.top <= scrollY + 1).at(-1);
+    return {y:scrollY,section:chapter?.selector,offset:chapter ? (scrollY - chapter.top) / chapter.height : 0};
+  };
+  const savePosition = () => {
+    if (destroyed || restoration || resizePosition || innerWidth !== layoutWidth || !body.classList.contains('premium-ready')) return;
+    lastPosition = readPosition();
+    try { history.replaceState({...history.state,ilPagoPosition:lastPosition},''); } catch { /* Embedded previews may restrict history. */ }
   };
 
   // Update small fixed navigation from cached ScrollTrigger ranges, not layout reads.
@@ -61,10 +73,15 @@
   };
   const scheduleChrome = () => {
     if (!chromeFrame) chromeFrame = requestAnimationFrame(updateChrome);
+    if (!resizePosition && innerWidth === layoutWidth && !ScrollTrigger.isRefreshing) lastPosition = readPosition();
     clearTimeout(positionTimer); positionTimer = setTimeout(savePosition,180);
   };
   const refreshChrome = () => {
     scrollLimit = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    chapterBounds = chapterSelectors.map(selector => {
+      const element = document.querySelector(selector);
+      return {selector,top:element.getBoundingClientRect().top + scrollY,height:element.offsetHeight};
+    }).sort((a,b) => a.top - b.top);
     surfaces = [...document.querySelectorAll('.table-section,.territory,.showcase')].map(el => {
       const box = el.getBoundingClientRect();
       return { start: box.top + scrollY, end: box.bottom + scrollY, dark: true };
@@ -75,11 +92,32 @@
   ScrollTrigger.addEventListener('refresh', refreshChrome);
 
   const scrollTo = (position, immediate = false) => {
-    if (immediate) lenis?.resize();
     const y = Math.max(0, Math.min(position, ScrollTrigger.maxScroll(window)));
-    if (lenis) lenis.scrollTo(y, { immediate, duration: immediate ? 0 : 1.1, force: !document.querySelector('dialog[open]') });
-    else window.scrollTo({ top: y, behavior: immediate || motionPreference.matches ? 'instant' : 'smooth' });
+    window.scrollTo({ top: y, behavior: immediate || motionPreference.matches ? 'instant' : 'smooth' });
   };
+  const applyPosition = position => {
+    const scene = position.scene ? ScrollTrigger.getById(position.scene) : null;
+    const chapter = position.section ? document.querySelector(position.section) : null;
+    scrollTo(scene ? scene.start + (scene.end - scene.start) * position.progress : chapter ? chapter.getBoundingClientRect().top + scrollY + chapter.offsetHeight * position.offset : position.y, true);
+    ScrollTrigger.update();
+    for (const trigger of ScrollTrigger.getAll()) trigger.getTween()?.progress?.(1);
+  };
+  // Save the chapter before matchMedia removes old pins. Restore it after one
+  // settled structural resize; Safari toolbar changes do not change 100svh.
+  const resizeLayout = () => {
+    if (destroyed || motionPreference.matches || !body.classList.contains('premium-ready')) return;
+    if (innerWidth === layoutWidth && hero.offsetHeight === layoutHeight) return;
+    resizePosition ||= lastPosition || readPosition();
+    clearTimeout(layoutTimer);
+    layoutTimer = setTimeout(() => {
+      layoutWidth = innerWidth; layoutHeight = hero.offsetHeight;
+      ScrollTrigger.refresh();
+      if (resizePosition) applyPosition(resizePosition);
+      resizePosition = null; lastPosition = readPosition(); refreshChrome(); savePosition();
+    }, 180);
+  };
+  window.addEventListener('resize', resizeLayout, {passive:true});
+  gsap.addEventListener('matchMediaInit', resizeLayout);
   const restorePosition = () => {
     if (!restoration || motionPreference.matches) return;
     cancelAnimationFrame(restoreFrame);
@@ -87,9 +125,7 @@
     // saved entry until that refresh's next frame; otherwise the first scroll is clamped.
     restoreFrame = requestAnimationFrame(() => {
       if (!restoration || destroyed || motionPreference.matches) return;
-      const scene = restoration.scene ? ScrollTrigger.getById(restoration.scene) : null;
-      scrollTo(scene ? scene.start + (scene.end - scene.start) * restoration.progress : restoration.y, true);
-      ScrollTrigger.update();
+      applyPosition(restoration);
       if (document.readyState === 'complete') restoration = null;
     });
   };
@@ -120,17 +156,14 @@
     event.preventDefault();
     requestAnimationFrame(() => {
       scrollTo(targetPosition(target), motionPreference.matches);
-      try { history.replaceState(null, '', hash); } catch { /* Also supports file://. */ }
+      try { history.replaceState(history.state, '', hash); } catch { /* Also supports file://. */ }
       if (link.classList.contains('skip-link')) {
         target.setAttribute('tabindex', '-1');
         target.focus({ preventScroll: true });
       }
     });
   });
-  document.addEventListener('ilpago:dialog', ({ detail }) => {
-    if (detail.open) lenis?.stop();
-    else { lenis?.start(); scheduleChrome(); }
-  });
+  document.addEventListener('ilpago:dialog', scheduleChrome);
 
   const setActiveExperience = (index) => {
     if (index === activeExperience) return;
@@ -186,17 +219,9 @@
       hero.append(welcome);
       const titles = [];
       const events = [];
-      let ticker;
-      if (!mobile && !touch && Lenis) {
-        lenis = new Lenis({ duration: 1.05, smoothWheel: true, syncTouch: false, wheelMultiplier: .9, anchors: false });
-        lenis.on('scroll', ScrollTrigger.update);
-        ticker = time => lenis?.raf(time * 1000);
-        gsap.ticker.add(ticker);
-        gsap.ticker.lagSmoothing(0);
-        if (document.querySelector('dialog[open]')) lenis.stop();
-      }
-      const scrub = mobile || touch ? .22 : .6;
-      // Transform pins keep the same containing block across boundaries and avoid fixed-pin layout shifts.
+      // Wheel, trackpad and touch retain the browser's native momentum. Fixed
+      // viewport pins do not need a JS transform to counter every scroll frame.
+      const scrub = mobile || touch ? true : .2;
       const activeLayer = (element, property = 'transform') => self => {
         element.style.willChange = self.isActive ? property : 'auto';
       };
@@ -205,14 +230,14 @@
       gsap.set(welcome, { autoAlpha: 1, clipPath: mobile ? 'inset(0% 0% 100% 0%)' : 'inset(0% 0% 0% 100%)' });
       gsap.set('.hero-visual', { clipPath: 'inset(0% 0% 0% 0%)' });
       const heroTimeline = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-        id: 'hero-scene', trigger: hero, start: 'top top', end: () => `+=${innerHeight * (mobile ? 1.35 : 1.75)}`,
-        pin: true, pinType: 'transform', scrub, anticipatePin: 1, invalidateOnRefresh: true,
+        id: 'hero-scene', trigger: hero, start: 'top top', end: () => `+=${hero.offsetHeight * (mobile ? 1.35 : 1.75)}`,
+        pin: true, pinType: 'fixed', scrub, anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate: self => { welcome.classList.toggle('is-present', self.progress > .64); scheduleChrome(); },
         onToggle: activeLayer(document.querySelector('.hero-images'))
       } });
       heroTimeline
         .to('.hero-title', { yPercent: -135, scaleX: .58, duration: .48 }, .15)
-        .to('.hero-script', { y: () => -innerHeight * .55, rotation: -15, duration: .46 }, .2)
+        .to('.hero-script', { y: () => -hero.offsetHeight * .55, rotation: -15, duration: .46 }, .2)
         .to('.hero-motto', { y: -150, autoAlpha: 0, duration: .2 }, .18)
         .to('.day-night,.hero-bottom', { autoAlpha: 0, duration: .14 }, .14)
         .to('.hero-center', { autoAlpha: 0, duration: .12 }, .46)
@@ -230,8 +255,8 @@
       const passageTitle = document.querySelector('.passage-title');
       gsap.set(passageTitle, { xPercent: -50, yPercent: -50, x: 0, y: 35, autoAlpha: 0 });
       const entrance = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-        id: 'entrance-scene', trigger: passage, pin: '.passage-stage', pinType: 'transform', start: 'top top',
-        end: () => `+=${innerHeight * (mobile ? 1.25 : 1.6)}`, scrub, anticipatePin: 1, invalidateOnRefresh: true,
+        id: 'entrance-scene', trigger: passage, pin: '.passage-stage', pinType: 'fixed', start: 'top top',
+        end: () => `+=${document.querySelector('.passage-stage').offsetHeight * (mobile ? 1.25 : 1.6)}`, scrub, anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate: scheduleChrome, onToggle: activeLayer(frame, 'clip-path')
       } });
       entrance
@@ -273,7 +298,7 @@
       const distance = () => Math.max(0, track.scrollWidth - cards[0].getBoundingClientRect().width);
       const horizontal = gsap.to(track, { x: () => -distance(), ease: 'none', scrollTrigger: {
         id: 'experience-scene', trigger: experienceSection, start: 'top top', end: () => `+=${distance() * (mobile ? 1.4 : 1)}`,
-        pin: true, pinType: 'transform', scrub: mobile ? .2 : .5, anticipatePin: 1, invalidateOnRefresh: true,
+        pin: true, pinType: 'fixed', scrub, anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate: self => setActiveExperience(Math.round(self.progress * (cards.length - 1))),
         onToggle: activeLayer(track)
       } });
@@ -314,16 +339,16 @@
 
       // White, mist and photograph coexist. Only the covering layers leave the viewport.
       const coast=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
-        id:'coast-scene',trigger:'.territory',pin:'.coast-stage',pinType:'transform',start:'top top',
-        end:()=>'+='+innerHeight*(mobile?1.35:1.55),scrub:(mobile||touch)?.16:.35,anticipatePin:1,invalidateOnRefresh:true,onUpdate:scheduleChrome
+        id:'coast-scene',trigger:'.territory',pin:'.coast-stage',pinType:'fixed',start:'top top',
+        end:()=>'+='+document.querySelector('.coast-stage').offsetHeight*(mobile?1.35:1.55),scrub,anticipatePin:1,invalidateOnRefresh:true,onUpdate:scheduleChrome
       }});
       coast
         .to('.coast-intro',{autoAlpha:0,y:-35,duration:.16},.1)
         .fromTo('.coast-intro-title',{color:'#273c30',textShadow:'0 2px 30px #07181100'},{color:'#fff9e8',textShadow:'0 2px 30px #07181166',duration:.26},.43)
-        .fromTo('.coast-white',{y:0},{y:()=>-innerHeight*1.55,duration:1},0)
-        .fromTo('.cloud-back',{y:0,scale:1},{y:()=>-(innerHeight*.72+document.querySelector('.cloud-back').offsetHeight),scale:1.04,duration:1},0)
-        .fromTo('.cloud-middle',{y:0,scale:1},{y:()=>-(innerHeight*.75+document.querySelector('.cloud-middle').offsetHeight),scale:1.08,duration:1},0)
-        .fromTo('.cloud-one',{y:0,scale:1},{y:()=>-(innerHeight*.8+document.querySelector('.cloud-one').offsetHeight),scale:1.13,duration:1},0)
+        .fromTo('.coast-white',{y:0},{y:()=>-document.querySelector('.coast-stage').offsetHeight*1.55,duration:1},0)
+        .fromTo('.cloud-back',{y:0,scale:1},{y:()=>-(document.querySelector('.coast-stage').offsetHeight*.72+document.querySelector('.cloud-back').offsetHeight),scale:1.04,duration:1},0)
+        .fromTo('.cloud-middle',{y:0,scale:1},{y:()=>-(document.querySelector('.coast-stage').offsetHeight*.75+document.querySelector('.cloud-middle').offsetHeight),scale:1.08,duration:1},0)
+        .fromTo('.cloud-one',{y:0,scale:1},{y:()=>-(document.querySelector('.coast-stage').offsetHeight*.8+document.querySelector('.cloud-one').offsetHeight),scale:1.13,duration:1},0)
         .fromTo('.coast-sea>img',{scale:1.1,yPercent:-3},{scale:1,yPercent:0,duration:1},0)
         .fromTo('.territory-copy',{autoAlpha:0,y:45},{autoAlpha:1,y:0,duration:.22},.7)
         .fromTo('.territory-distances',{autoAlpha:0,y:25},{autoAlpha:1,y:0,duration:.2},.79)
@@ -346,8 +371,6 @@
         cancelAnimationFrame(initFrame);
         clearTimeout(refreshTimer);
         events.forEach(remove => remove());
-        if (ticker) gsap.ticker.remove(ticker);
-        lenis?.destroy(); lenis = null;
         heroScene = passageScene = galleryScene = coastScene = null;
         hero.after(welcome);
         welcome.classList.remove('is-present');
@@ -367,12 +390,15 @@
     window.addEventListener('pagehide', (event) => {
       cancelAnimationFrame(restoreFrame);
       clearTimeout(positionTimer); savePosition();
+      clearTimeout(layoutTimer);
       if (event.persisted) return;
       destroyed = true;
       media.revert();
       if (chromeFrame) cancelAnimationFrame(chromeFrame);
       window.removeEventListener('scroll', scheduleChrome);
       window.removeEventListener('hashchange', followHash);
+      window.removeEventListener('resize', resizeLayout);
+      gsap.removeEventListener('matchMediaInit', resizeLayout);
       ScrollTrigger.removeEventListener('refresh', refreshChrome);
     });
     window.addEventListener('pageshow', event => {
@@ -383,7 +409,6 @@
     console.error('Il Pago motion:', error);
     ScrollTrigger.getAll().forEach(trigger => trigger.kill(true));
     gsap.globalTimeline.clear();
-    lenis?.destroy();
     body.classList.remove('premium-ready','motion-ready');
     if (welcome.parentElement === hero) hero.after(welcome);
     gsap.set('.reveal,.hero-center,.hero-bottom,.welcome', { clearProps: 'all' });
